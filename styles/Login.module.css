@@ -1,0 +1,119 @@
+.container {
+    background: linear-gradient(217.09deg, #A1D8D2 62.38%, #C7E8E4 100%);
+    min-height: 149vh;
+    width: 100%;
+}
+
+/* Col kiri */
+.title {
+    margin: auto;
+    width: 80%;
+    font-size: 56px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 20px;
+    font-weight: 700;
+    line-height: 75px;
+    color: #202B2A;
+}
+
+.imageBox {
+    width: 56%;
+    position: absolute !important;
+    margin-top: -4rem;
+    margin-left: 1rem;
+}
+
+/* Col kanan */
+.containerForm {
+    background-color: white;
+    border-top-left-radius: 36px;
+    border-bottom-left-radius: 36px;
+}
+
+.loginTitle {
+    font-weight: bolder;
+    margin-bottom: 4rem;
+}
+
+.formBox {
+    margin: 8rem auto;
+    text-align: center;
+    width: 50%;
+}
+
+.formControl:focus {
+    border-color: #A1D8D2;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(161, 216, 210, 0.6);
+}
+
+.loginButton {
+    width: 100%;
+    margin-top: 3rem;
+    background-color: #A1D8D2;
+    font-size: 20px;
+    border: 0.5px solid #A1D8D2;
+    transition: 0.5s;
+    pointer-events: all;
+}
+
+.loginButton:hover {
+    background-color: #405654 !important;
+    color: white !important;
+    border: 0.5px solid #405654 !important;
+    box-shadow: inset;
+}
+
+.validateText {
+    margin-top: 1rem;
+    text-align: left;
+    color: #474949;
+    font-size: 20px;
+}
+
+.span {
+    margin-left: 5px;
+    color: #81ADA8;
+    cursor: pointer;
+}
+
+.span:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* Phone xs */
+@media (max-width : 575.98px) {
+    .imageBox {
+        margin-left: 12rem;
+        margin-top: 20rem;
+        width: 40%;
+    }
+}
+
+/* Phone sm */
+@media (min-width : 575.98px) and (max-width : 767.98px) {
+    .imageBox {
+        margin-left: 12rem;
+        margin-top: 10rem;
+        width: 50%;
+    }
+}
+
+/* Tablet md */
+@media (min-width : 767.98px) and (max-width : 991.98px) {
+    .imageBox {
+        margin-left: 18rem;
+        margin-top: 6rem;
+        width: 40%;
+    }
+}
+
+/* Laptop lg*/
+@media (min-width : 991.98px) and (max-width : 1199.98px) {
+    .imageBox {
+        margin-left: 22rem;
+        margin-top: 3rem;
+        width: 35%;
+    }
+}
