@@ -1,7 +1,10 @@
+import {Navbars} from "../components/Navbars"
+
 export const Layout = ({ children }) => {
     return (
         <>
-            <main>{children}</main>
+            <Navbars />
+            {children}
         </>
     )
 }
