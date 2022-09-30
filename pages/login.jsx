@@ -1,15 +1,22 @@
 import Image from "next/image"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Col, FloatingLabel, Form, InputGroup, Row } from "react-bootstrap"
 import { MDBBtn } from 'mdb-react-ui-kit';
 import { BsFillEyeSlashFill, BsFillEyeFill } from "react-icons/bs"
 // Import Components
 import styles from "../styles/Login.module.css"
+import { useGlobalContext } from "../context/contextGlobal";
 
-export const Login = () => {
+const Login = () => {
 
+    const { setIsLogin } = useGlobalContext()
     const [test, setTest] = useState(false)
     const [password, setPassword] = useState(true)
+
+    useEffect(() => {
+        setIsLogin(false)
+    })
+
     const handleTest = () => {
         setTest(prev => !prev)
     }
@@ -28,18 +35,19 @@ export const Login = () => {
             <Row className={styles.container}>
                 <Row className={styles.imageBox}>
                     <Image
+                    priority="true"
                         src="/heroLogin.png"
                         width={751}
                         height={1032}
                     />
                 </Row>
-                <Col xl={5}>
+                <Col lg={6} xl={5}>
                     <Row>
                         <p className={styles.title}>Booking Now Enjoy Playing Later</p>
                     </Row>
                 </Col>
 
-                <Col className={styles.containerForm} xl={7}>
+                <Col className={styles.containerForm} lg={6} xl={7}>
                     <Row className={styles.logoBox}>
                         <Image
                             src="/segoro.png"
@@ -128,3 +136,5 @@ export const Login = () => {
         </>
     )
 }
+
+export default Login
