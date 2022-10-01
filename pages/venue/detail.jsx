@@ -1,7 +1,8 @@
 import Image from "next/image";
-import React from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import React, { useCallback, useRef, useState } from "react";
+import { Button, Carousel, Col, Row } from "react-bootstrap";
 import styles from "../../styles/Detail.module.css";
+import RSC from "react-scrollbars-custom";
 
 const DetailPage = () => {
   return (
@@ -21,36 +22,36 @@ const DetailPage = () => {
             </Row>
             <Row>
               <div className={styles.scrollImage}>
-                <div>
-                  <Image
-                    src="/tennis.jpg"
-                    width={500}
-                    height={500}
-                    className={styles.imageItem}
-                  />
-                </div>
-                <div>
+                <div className={styles.imageItem}>
                   <Image
                     src="/futsal.jpg"
-                    width={500}
-                    height={500}
-                    className={styles.imageItem}
+                    width={165}
+                    height={110}
+                    className="rounded"
                   />
                 </div>
-                <div>
+                <div className={styles.imageItem}>
                   <Image
                     src="/volley.jpg"
-                    width={500}
-                    height={500}
-                    className={styles.imageItem}
+                    width={165}
+                    height={110}
+                    className="rounded"
                   />
                 </div>
-                <div>
+                <div className={styles.imageItem}>
                   <Image
                     src="/basket.jpg"
-                    width={500}
-                    height={500}
-                    className={styles.imageItem}
+                    width={165}
+                    height={110}
+                    className="rounded"
+                  />
+                </div>
+                <div className={styles.imageItem}>
+                  <Image
+                    src="/basket.jpg"
+                    width={165}
+                    height={110}
+                    className="rounded"
                   />
                 </div>
               </div>
@@ -68,8 +69,16 @@ const DetailPage = () => {
               <Row>
                 <div>
                   <div className={styles.heading}>
-                    <h5 className={styles.headingActive}>Detail</h5>
-                    <h5 className={styles.headingOff}>Field</h5>
+                    <h5>
+                      <a href="/venue/detail" className={styles.headingActive}>
+                        Detail
+                      </a>
+                    </h5>
+                    <h5>
+                      <a href="/venue/field" className={styles.headingOff}>
+                        Field
+                      </a>
+                    </h5>
                     <h5 className={styles.headingOff}>Review</h5>
                   </div>
                   <div className={styles.description}>
@@ -77,7 +86,9 @@ const DetailPage = () => {
                       <div className={styles.descTitle}>
                         <h5>Description :</h5>
                         <div>
-                          <Button>Edit Description</Button>
+                          <Button className={styles.buttonEdit}>
+                            Edit Description
+                          </Button>
                         </div>
                       </div>
                     </Row>
@@ -102,7 +113,7 @@ const DetailPage = () => {
                     <Row className={styles.location}>
                       <h5>Lokasi :</h5>
                       <p>Jalan Konoha raya No. 10 Dressrosa, Kota East Blue</p>
-                      <div>
+                      <div className={styles.map}>
                         <Image src="/map.png" width={750} height={300} />
                       </div>
                     </Row>
