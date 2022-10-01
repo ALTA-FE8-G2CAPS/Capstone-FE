@@ -62,10 +62,10 @@ export const Navbars = () => {
                 <Col md={9} lg={7} className={styles.nav}>
                     {/* Top Navbar */}
                     <Col md={4} className={`${styles.navBox} d-none d-md-flex`}>
-                        <a onClick={() => handleHover("home")}
+                        <a onClick={() => handleClick("home")}
                             className={hover === "home" ? styles.linkActive : styles.link}
                         >Home</a>
-                        <a onClick={() => handleHover("venue")}
+                        <a onClick={() => handleClick("venue")}
                             className={hover === "venue" ? styles.linkActive : styles.link}
                         >Venue</a>
                     </Col>
@@ -76,7 +76,7 @@ export const Navbars = () => {
                             width={50}
                             height={50}
                         />
-                        <a onClick={() => handleHover("profile")}
+                        <a onClick={() => handleClick("profile")}
                             className={hover === "profile" ? styles.linkActive : styles.link}
                             style={{ marginLeft: "1rem" }}>John Doe</a>
                     </Col>

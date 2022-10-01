@@ -87,6 +87,7 @@
     } */
 
     .container {
+        z-index: 90;
         position: fixed;
         min-height: 2rem;
         max-height: 4rem;
