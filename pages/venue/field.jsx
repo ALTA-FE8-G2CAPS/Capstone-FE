@@ -11,14 +11,12 @@ import {
 } from "react-bootstrap";
 import { BsInfoLg } from "react-icons/bs";
 import { IoAddOutline } from "react-icons/io5";
-import { AiFillEdit, AiOutlineDelete } from "react-icons/ai";
+import { AiFillEdit, AiOutlineDelete, AiOutlineClose } from "react-icons/ai";
 import styles from "../../styles/Field.module.css";
 
 const Field = () => {
-  const [open, setOpen] = useState(false);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [summon, setSummon] = useState(true)
 
   const alertClicked = () => {
     alert("You clicked the third ListGroupItem");
@@ -258,61 +256,59 @@ const Field = () => {
                           </ListGroup.Item>
                         </ListGroup>
                       </div>
-                      {/* <div
-                        className={styles.buttonBox}
-                        onMouseEnter={handleOpen}
-                        onMouseLeave={handleClose}
-                      >
-                        <div className={`${open} fab-action`}>
-                          <button
-                            className={`${styles.addButton} ${open} fab-action`}
-                          >
-                            <IoAddOutline size={30} />
-                          </button>
-                          <button
-                            className={`${styles.editButton} ${open} fab-action`}
-                          >
-                            <AiFillEdit size={30} />
-                          </button>
-                          <button
-                            className={`${styles.deleteButton} ${open} fab-action`}
-                          >
-                            <AiOutlineDelete size={30} />
-                          </button>
-                        </div>
-
-                        <div className="fab-button">
-                          <BsInfoCircleFill size={45} />
-                        </div>
-                      </div> */}
-                      <div className={styles.fabContainer}>
-                        <Button className={styles.button}>
-                          <BsInfoLg size={20} />
-                        </Button>
-                        <ul className={styles.option}>
-                          <li>
-                            <span className={styles.btnLabel}>
-                              Add new field
-                            </span>
-                            <Button className={styles.infoButton}>
-                              <IoAddOutline size={20} />
-                            </Button>
-                          </li>
-                          <li>
-                            <span className={styles.btnLabel}>Edit field</span>
-                            <Button className={styles.infoButton}>
-                              <AiFillEdit size={20} />
-                            </Button>
-                          </li>
-                          <li>
-                            <span className={styles.btnLabel}>
-                              Delete field
-                            </span>
-                            <Button className={styles.infoButton}>
-                              <AiOutlineDelete size={20} />
-                            </Button>
-                          </li>
-                        </ul>
+                      <div className={`${styles.fabContainer}`}>
+                        {summon ? <Button onClick={() => setSummon(false)} className={styles.button}>
+                          <AiOutlineClose size={20} />
+                        </Button> :
+                          <Button onClick={() => setSummon(true)} className={styles.button}>
+                            <BsInfoLg size={20} />
+                          </Button>
+                        }
+                        {summon ?
+                          <ul onMouseEnter={() => setSummon(true)} onMouseLeave={() => setSummon(false)} className={`${styles.option}`}>
+                            <li>
+                              <OverlayTrigger
+                                key="left"
+                                placement="left"
+                                overlay={
+                                  <Tooltip id={`tooltip-left`}>
+                                    Add Field
+                                  </Tooltip>
+                                }>
+                                <Button className={`${styles.infoButton} ${styles.addButton}`}>
+                                  <IoAddOutline size={20} />
+                                </Button>
+                              </OverlayTrigger>
+                            </li>
+                            <li>
+                              <OverlayTrigger
+                                key="left"
+                                placement="left"
+                                overlay={
+                                  <Tooltip id={`tooltip-left`}>
+                                    Edit Field
+                                  </Tooltip>
+                                }>
+                                <Button className={`${styles.infoButton} ${styles.editButton}`}>
+                                  <AiFillEdit size={20} />
+                                </Button>
+                              </OverlayTrigger>
+                            </li>
+                            <li>
+                              <OverlayTrigger
+                                key="left"
+                                placement="left"
+                                overlay={
+                                  <Tooltip id={`tooltip-left`}>
+                                    Delete Field
+                                  </Tooltip>
+                                }>
+                                <Button className={`${styles.infoButton} ${styles.deleteButton}`}>
+                                  <AiOutlineDelete size={20} />
+                                </Button>
+                              </OverlayTrigger>
+                            </li>
+                          </ul> : ""}
                       </div>
 
                       <div className={styles.colorLegend}>
