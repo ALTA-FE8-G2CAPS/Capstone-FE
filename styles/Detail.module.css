@@ -1,3 +1,11 @@
+.fontOpen {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.fontLato {
+    font-family: 'Lato';
+}
+
 .container {
     padding-left: 50px;
     padding-right: 50px;
@@ -6,8 +14,8 @@
 }
 
 .leftCol {
-display: grid;
-justify-content: center;
+    display: grid;
+    justify-content: center;
 }
 
 .imageBox {
@@ -19,17 +27,17 @@ justify-content: center;
 }
 
 .scrollImage {
-vertical-align: middle;
-  display: inline-block;
-  width: 100%;
-  white-space: nowrap;
-  overflow-x: auto;
-  overflow-y: hidden;
+    vertical-align: middle;
+    display: inline-block;
+    width: 100%;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .imageItem {
     font-size: 25px;
-    display: inline-block; 
+    display: inline-block;
     padding: 5px !important;
 }
 
@@ -54,8 +62,9 @@ vertical-align: middle;
     height: 40px;
     justify-content: space-between;
     padding-left: 20px;
-    padding-right: 20px; 
+    padding-right: 20px;
     align-items: flex-end;
+    padding-top: 0;
 }
 
 .heading h5 {
@@ -63,15 +72,22 @@ vertical-align: middle;
 }
 
 .headingActive {
+    margin-top: 5px;
     color: #A1D8D2;
+    cursor: pointer;
+    transition: 0.3s;
+    border-bottom: 1px solid #A1D8D2;
 }
 
 .headingActive:hover {
     color: #405654;
+    border-bottom: 1px solid #405654;
 }
 
 .headingOff {
     color: #E3E3E3;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .headingOff:hover {
@@ -89,15 +105,24 @@ vertical-align: middle;
 
 .buttonEdit {
     background-color: #405654;
+    padding: 10px;
     color: #ECF7F6;
-    border-radius: 20px;
-    font-size: 10px;
-    padding-left: 30px;
-    padding-right: 30px;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 12vh;
+    right: 10vh;
+    box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
+    transition: 0.3s;
 }
 
 .buttonEdit:hover {
-    background-color: #A1D8D2 ;
+    background-color: #A1D8D2 !important;
+    color: #405654 !important;
+}
+
+.buttonEdit:focus {
+    background-color: #405654 !important;
+    color: #ECF7F6 !important;
 }
 
 .descBody {
@@ -115,14 +140,20 @@ vertical-align: middle;
 .scrollImage::-webkit-scrollbar {
     width: 10px;
 }
+
 .scrollImage::-webkit-scrollbar-track {
     background: #f1f1f1;
+    border-radius: 10px;
 }
+
 .scrollImage::-webkit-scrollbar-thumb {
     background-color: #888;
+    border-radius: 10px;
 }
+
 .scrollImage::-webkit-scrollbar-thumb:hover {
     background: #555;
+    border-radius: 10px;
 }
 
 /* Phone xs */
@@ -130,23 +161,51 @@ vertical-align: middle;
     .container {
         padding-top: 50px;
     }
+
     .title {
         line-height: 1.2;
     }
+
     .heading {
         margin-top: 10px;
         width: 100%;
     }
+
     .containerRight {
         padding-left: 0;
         margin-top: 20px;
     }
+
     .location {
         line-height: 1.2;
     }
+
     .map {
         z-index: -1;
         margin-bottom: 80px;
+    }
+}
+
+/* Phone sm */
+@media (min-width : 575.98px) and (max-width : 767.98px) {
+    .imageBox {
+        margin-left: 12rem;
+        margin-top: 10rem;
+        width: 50%;
+        display: none;
+    }
+
+    .title {
+        padding-top: 10rem;
+    }
+
+    .iconButton {
+        background-color: white;
+        border-style: none;
+        position: absolute;
+        left: 86%;
+        top: 25%;
+        z-index: 99;
     }
 }
 
@@ -155,17 +214,27 @@ vertical-align: middle;
     .title {
         line-height: 1;
     }
+
     .heading {
         margin-top: 10px;
         width: 100%;
     }
+
     .containerRight {
         padding-left: 0;
         margin-top: 20px;
     }
+
     .location {
         line-height: 1;
     }
 }
 
-
+/* Laptop lg*/
+@media (min-width : 991.98px) and (max-width : 1199.98px) {
+    .imageBox {
+        margin-left: 10rem;
+        margin-top: 20vh;
+        width: 35%;
+    }
+}

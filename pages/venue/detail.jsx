@@ -1,10 +1,13 @@
 import Image from "next/image";
-import React from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
+import { AiFillEdit } from "react-icons/ai"
 import styles from "../../styles/Detail.module.css";
-import RSC from "react-scrollbars-custom";
 
 const DetailPage = () => {
+
+  const [image, setImage] = useState("/basket.jpg")
+
   return (
     <div>
       <div className={styles.container}>
@@ -13,7 +16,7 @@ const DetailPage = () => {
             <Row className={styles.leftCol}>
               <div>
                 <Image
-                  src="/basket.jpg"
+                  src={image}
                   width={500}
                   height={500}
                   className={styles.imageBox}
@@ -24,34 +27,42 @@ const DetailPage = () => {
               <div className={styles.scrollImage}>
                 <div className={styles.imageItem}>
                   <Image
+                    onClick={() => setImage("/futsal.jpg")}
                     src="/futsal.jpg"
                     width={165}
                     height={110}
                     className="rounded"
+                    style={{ cursor: "pointer" }}
                   />
                 </div>
                 <div className={styles.imageItem}>
                   <Image
+                    onClick={() => setImage("/volley.jpg")}
                     src="/volley.jpg"
                     width={165}
                     height={110}
                     className="rounded"
+                    style={{ cursor: "pointer" }}
                   />
                 </div>
                 <div className={styles.imageItem}>
                   <Image
+                    onClick={() => setImage("/basket.jpg")}
                     src="/basket.jpg"
                     width={165}
                     height={110}
                     className="rounded"
+                    style={{ cursor: "pointer" }}
                   />
                 </div>
                 <div className={styles.imageItem}>
                   <Image
+                    onClick={() => setImage("/basket.jpg")}
                     src="/basket.jpg"
                     width={165}
                     height={110}
                     className="rounded"
+                    style={{ cursor: "pointer" }}
                   />
                 </div>
               </div>
@@ -61,15 +72,24 @@ const DetailPage = () => {
             <div className={styles.containerRight}>
               <Row>
                 <div className={styles.title}>
-                  <h1>Buana Jaya Sport</h1>
-                  <p>Jalan Konoha raya No. 10, Dressrosa, Kota East Blue</p>
+                  <h1 className={styles.fontOpen}>Buana Jaya Sport</h1>
+                  <p className={styles.fontLato}>Jalan Konoha raya No. 10, Dressrosa, Kota East Blue</p>
                   <p className={styles.price}>Rp 210.000</p>
                 </div>
               </Row>
               <Row>
                 <div>
-                  <div className={styles.heading}>
-                    <h5>
+                  <Row className={styles.heading}>
+                    <Col sm={3} className={`${styles.headingActive} py-auto text-center`}>
+                      <h5>Detail</h5>
+                    </Col>
+                    <Col sm={3} className={`${styles.headingOff} py-auto text-center`}>
+                      <h5>Venue</h5>
+                    </Col>
+                    <Col sm={3} className={`${styles.headingOff} py-auto text-center`}>
+                      <h5>Review</h5>
+                    </Col>
+                    {/* <h5>
                       <a href="/venue/detail" className={styles.headingActive}>
                         Detail
                       </a>
@@ -79,16 +99,29 @@ const DetailPage = () => {
                         Field
                       </a>
                     </h5>
-                    <h5 className={styles.headingOff}>Review</h5>
-                  </div>
+                    <h5 className={styles.headingOff}>Review</h5> */}
+                  </Row>
                   <div className={styles.description}>
                     <Row>
                       <div className={styles.descTitle}>
                         <h5>Description :</h5>
                         <div>
-                          <Button className={styles.buttonEdit}>
+                          {/* <Button className={styles.buttonEdit}>
                             Edit Description
-                          </Button>
+                          </Button> */}
+                          <OverlayTrigger
+                            key="top"
+                            placement="top"
+                            overlay={
+                              <Tooltip id={`tooltip-top`}>
+                                Edit this page ?
+                              </Tooltip>
+                            }
+                          >
+                            <Button variant="success" className={styles.buttonEdit}>
+                              <AiFillEdit size={35} />
+                            </Button>
+                          </OverlayTrigger>
                         </div>
                       </div>
                     </Row>
@@ -111,8 +144,8 @@ const DetailPage = () => {
                       </p>
                     </Row>
                     <Row className={styles.location}>
-                      <h5>Lokasi :</h5>
-                      <p>Jalan Konoha raya No. 10 Dressrosa, Kota East Blue</p>
+                      <h5 className="mb-2 fw-reguler">Lokasi :</h5>
+                      <p className={styles.fontLato}>Jalan Konoha raya No. 10 Dressrosa, Kota East Blue</p>
                       <div className={styles.map}>
                         <Image src="/map.png" width={750} height={300} />
                       </div>

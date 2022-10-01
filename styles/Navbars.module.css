@@ -21,14 +21,14 @@
 }
 
 .link:hover {
-    color: #ECF7F6;
+    color: #D9EFED;
     font-size: 25px;
     font-weight: bolder;
     text-shadow: 2px 2px #61827E;
 }
 
 .linkActive {
-    color: #ECF7F6;
+    color: #D9EFED;
     font-size: 20px;
     font-weight: bolder;
     cursor: context-menu;
@@ -36,7 +36,7 @@
 }
 
 .linkActive:hover {
-    color: #ECF7F6;
+    color: #D9EFED;
     font-size: 20px;
     font-weight: bolder;
 }
@@ -74,14 +74,27 @@
         display: none;
     }
 
+    /* @keyframes animate-box {
+        from {
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    } */
+
     .container {
+        z-index: 90;
         position: fixed;
-        min-height: 6rem;
+        min-height: 2rem;
+        max-height: 4rem;
         align-items: center;
         bottom: 0;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.2rem;
         left: 0.8rem;
-        /* width: 98.5%; */
         width: 100%;
         display: flex;
         justify-content: space-around;
@@ -107,7 +120,7 @@
 
     .titleIcon {
         animation: animate-text 0.5s linear;
-        font-size: 16px;
+        font-size: 12px;
         line-height: 0px;
         color: #ECF7F6;
     }
