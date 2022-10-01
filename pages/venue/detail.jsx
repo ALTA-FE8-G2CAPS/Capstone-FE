@@ -1,6 +1,6 @@
 import Image from "next/image";
-import React, { useCallback, useRef, useState } from "react";
-import { Button, Carousel, Col, Row } from "react-bootstrap";
+import React from "react";
+import { Button, Col, Row } from "react-bootstrap";
 import styles from "../../styles/Detail.module.css";
 import RSC from "react-scrollbars-custom";
 

@@ -150,28 +150,6 @@ vertical-align: middle;
     }
 }
 
-/* Phone sm */
-@media (min-width : 575.98px) and (max-width : 767.98px) {
-    .imageBox {
-        margin-left: 12rem;
-        margin-top: 10rem;
-        width: 50%;
-        display: none;
-    }
-    .title {
-       padding-top: 10rem;
-    }
-
-    .iconButton {
-        background-color: white;
-        border-style: none;
-        position: absolute;
-        left: 86%;
-        top: 25%;
-        z-index: 99;
-    }
-}
-
 /* Tablet md */
 @media (min-width : 767.98px) and (max-width : 991.98px) {
     .title {
@@ -187,15 +165,6 @@ vertical-align: middle;
     }
     .location {
         line-height: 1;
-    }
-}
-
-/* Laptop lg*/
-@media (min-width : 991.98px) and (max-width : 1199.98px) {
-    .imageBox {
-        margin-left: 10rem;
-        margin-top: 20vh;
-        width: 35%;
     }
 }
 

@@ -1,0 +1,240 @@
+.container {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 80px;
+    padding-bottom: 50px;
+}
+
+.leftCol {
+display: grid;
+justify-content: center;
+}
+
+.imageBox {
+    width: 409px;
+    height: 386px;
+    left: 61px;
+    top: 185px;
+    border-radius: 10px;
+}
+
+.scrollImage {
+vertical-align: middle;
+  display: inline-block;
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.imageItem {
+    font-size: 25px;
+    display: inline-block; 
+    padding: 5px !important;
+}
+
+.containerRight {
+    padding-left: 30px;
+}
+
+.title {
+    line-height: 0.8;
+}
+
+.price {
+    font-size: x-large;
+}
+
+.heading {
+    margin-top: 20px;
+    display: flex;
+    border-top: 1px solid rgba(196, 195, 195, 0.414);
+    border-bottom: 1px solid rgba(196, 195, 195, 0.414);
+    width: 75%;
+    height: 40px;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px; 
+    align-items: flex-end;
+}
+
+.heading h5 {
+    font-weight: bolder;
+}
+
+.headingActive {
+    color: #A1D8D2;
+}
+
+.headingActive:hover {
+    color: #405654;
+}
+
+.headingOff {
+    color: #E3E3E3;
+}
+
+.headingOff:hover {
+    color: #A1D8D2;
+}
+
+.description {
+    margin-top: 20px;
+}
+
+.scrollImage::-webkit-scrollbar {
+    width: 10px;
+}
+.scrollImage::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.scrollImage::-webkit-scrollbar-thumb {
+    background-color: #888;
+}
+.scrollImage::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.scheduleDay {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    background-color: #CFF4FC;
+    padding: 10px;
+    color: #5899B8;
+    font-weight: bolder;
+}
+
+.scrollSchedule {
+  display: inline-block;
+  height: 500px;
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.scheduleItem {
+    background-color: #F8D7DA;
+    box-shadow: 5px 10px 8px #8888;
+}
+
+.perItem {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #932029;
+    font-weight: bolder;
+    margin-top: 5px;
+}
+
+.scrollSchedule::-webkit-scrollbar {
+    width: 10px;
+}
+.scrollSchedule::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.scrollSchedule::-webkit-scrollbar-thumb {
+    background-color: #888;
+}
+.scrollSchedule::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.buttonBox {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    gap: 5px;
+}
+
+.addButton {
+    border-radius: 20px;
+    background: #405654;
+    border: #405654;
+    font-size: 13px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.addButton:hover {
+    background: #81ADA8;
+    border: #81ADA8;
+}
+
+.editButton {
+    border-radius: 20px;
+    background: #405654;
+    border: #405654;
+    font-size: 13px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.editButton:hover {
+    background: #81ADA8;
+    border: #81ADA8;
+}
+
+.deleteButton {
+    border-radius: 20px;
+    background: #DE1E1E;
+    border: #DE1E1E;
+    font-size: 13px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.deleteButton:hover {
+    background: #932029;
+    border: #932029;
+}
+
+.colorLegend {
+    margin-top: 20px;
+    line-height: 0.8;
+}
+.colorIndex {
+    width: 20px;
+    height: 20px;
+    background-color: #E2E3E5;
+    border: 1px solid #E2E3E5;
+    border-radius: 10px;
+}
+.titleIndex {
+    font-weight: bolder;
+}
+
+/* Phone xs */
+@media (max-width : 575.98px) {
+    .container {
+        padding-top: 50px;
+    }
+    .title {
+        line-height: 1.2;
+    }
+    .heading {
+        margin-top: 10px;
+        width: 100%;
+    }
+    .containerRight {
+        padding-left: 0;
+        margin-top: 20px;
+    }
+}
+
+/* Tablet md */
+@media (min-width : 767.98px) and (max-width : 991.98px) {
+    .title {
+        line-height: 1;
+    }
+    .heading {
+        margin-top: 10px;
+        width: 100%;
+    }
+    .containerRight {
+        padding-left: 0;
+        margin-top: 20px;
+    }
+}
+
+
