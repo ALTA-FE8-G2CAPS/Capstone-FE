@@ -46,7 +46,7 @@ export const useNavbarContext = () => {
 }
 
 export const NavbarProvider = ({ children }) => {
-    const [statusNav, setStatusNav] = useState("home")
+    const [statusNav, setStatusNav] = useState("show")
 
     return (
         <NavbarContext.Provider
