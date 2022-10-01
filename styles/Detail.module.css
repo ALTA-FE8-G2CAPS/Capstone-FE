@@ -1,0 +1,30 @@
+.container {
+    border: 1px solid black;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 80px;
+}
+
+.leftCol {
+display: grid;
+justify-content: center;
+}
+
+.imageBox {
+    width: 409px;
+    height: 386px;
+    left: 61px;
+    top: 185px;
+    border-radius: 10px;
+}
+
+.scrollImage {
+    display: flex;
+    column-gap: 10px;
+}
+
+.imageItem {
+width: 500px;
+height: 500px;
+border-radius: 10px;
+}
