@@ -1,11 +1,33 @@
 import Image from "next/image";
-import React from "react";
-import { Button, Col, ListGroup, Row } from "react-bootstrap";
+import Router from "next/router";
+import React, { useState } from "react";
+import {
+  Button,
+  Col,
+  ListGroup,
+  OverlayTrigger,
+  Row,
+  Tooltip,
+} from "react-bootstrap";
+import { BsInfoLg } from "react-icons/bs";
+import { IoAddOutline } from "react-icons/io5";
+import { AiFillEdit, AiOutlineDelete } from "react-icons/ai";
 import styles from "../../styles/Field.module.css";
 
 const Field = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const alertClicked = () => {
     alert("You clicked the third ListGroupItem");
+  };
+
+  const goToDetail = () => {
+    Router.push({
+      pathname: "/venue/detail",
+    });
   };
 
   return (
@@ -71,32 +93,39 @@ const Field = () => {
               </Row>
               <Row>
                 <div>
-                  <div className={styles.heading}>
-                    <h5>
-                      <a href="/venue/detail" className={styles.headingOff}>
-                        Detail
-                      </a>
-                    </h5>
-                    <h5>
-                      <a href="/venue/field" className={styles.headingActive}>
-                        Field
-                      </a>
-                    </h5>
-                    <h5 className={styles.headingOff}>Review</h5>
-                  </div>
-                  <div className={styles.description}></div>
+                  <Row className={styles.heading}>
+                    <Col
+                      sm={3}
+                      className={`${styles.headingOff} py-auto text-center`}
+                      onClick={goToDetail}
+                    >
+                      <h5>Detail</h5>
+                    </Col>
+                    <Col
+                      sm={3}
+                      className={`${styles.headingActive} py-auto text-center`}
+                    >
+                      <h5>Field</h5>
+                    </Col>
+                    <Col
+                      sm={3}
+                      className={`${styles.headingOff} py-auto text-center`}
+                    >
+                      <h5>Review</h5>
+                    </Col>
+                  </Row>
                 </div>
                 <div>
                   <Row>
                     <Col sm="12" md="8">
                       <div className={styles.scheduleDay}>
-                        <div>Monday</div>
-                        <div>Tuesday</div>
-                        <div style={{ color: "black" }}>Wednesday</div>
-                        <div>Thursday</div>
-                        <div>Friday</div>
-                        <div>Saturday</div>
-                        <div>Sunday</div>
+                        <div className={styles.dayActive}>Monday</div>
+                        <div className={styles.dayOff}>Tuesday</div>
+                        <div className={styles.dayOff}>Wednesday</div>
+                        <div className={styles.dayOff}>Thursday</div>
+                        <div className={styles.dayOff}>Friday</div>
+                        <div className={styles.dayOff}>Saturday</div>
+                        <div className={styles.dayOff}>Sunday</div>
                       </div>
                       <div className={styles.scrollSchedule}>
                         <ListGroup>
@@ -229,61 +258,107 @@ const Field = () => {
                           </ListGroup.Item>
                         </ListGroup>
                       </div>
-                      <div className={styles.buttonBox}>
-                        <button className={styles.addButton}>
-                          Add New Field
-                        </button>
-                        <button className={styles.editButton}>
-                          Edit Field
-                        </button>
-                        <button className={styles.deleteButton}>
-                          Delete Field
-                        </button>
+                      {/* <div
+                        className={styles.buttonBox}
+                        onMouseEnter={handleOpen}
+                        onMouseLeave={handleClose}
+                      >
+                        <div className={`${open} fab-action`}>
+                          <button
+                            className={`${styles.addButton} ${open} fab-action`}
+                          >
+                            <IoAddOutline size={30} />
+                          </button>
+                          <button
+                            className={`${styles.editButton} ${open} fab-action`}
+                          >
+                            <AiFillEdit size={30} />
+                          </button>
+                          <button
+                            className={`${styles.deleteButton} ${open} fab-action`}
+                          >
+                            <AiOutlineDelete size={30} />
+                          </button>
+                        </div>
+
+                        <div className="fab-button">
+                          <BsInfoCircleFill size={45} />
+                        </div>
+                      </div> */}
+                      <div className={styles.fabContainer}>
+                        <Button className={styles.button}>
+                          <BsInfoLg size={20} />
+                        </Button>
+                        <ul className={styles.option}>
+                          <li>
+                            <span className={styles.btnLabel}>
+                              Add new field
+                            </span>
+                            <Button className={styles.infoButton}>
+                              <IoAddOutline size={20} />
+                            </Button>
+                          </li>
+                          <li>
+                            <span className={styles.btnLabel}>Edit field</span>
+                            <Button className={styles.infoButton}>
+                              <AiFillEdit size={20} />
+                            </Button>
+                          </li>
+                          <li>
+                            <span className={styles.btnLabel}>
+                              Delete field
+                            </span>
+                            <Button className={styles.infoButton}>
+                              <AiOutlineDelete size={20} />
+                            </Button>
+                          </li>
+                        </ul>
                       </div>
+
                       <div className={styles.colorLegend}>
                         <Row>
-                          <Col xs="2">
+                          <Col xs="3">
                             <div className="d-flex justify-content-center py-2">
                               <div className={styles.colorIndex}></div>
                             </div>
                           </Col>
-                          <Col xs="10">
+                          <Col xs="9">
                             <div className="d-flex justify-content-start py-2">
                               <div className={styles.titleIndex}>Empty</div>
                             </div>
                           </Col>
                         </Row>
                         <Row>
-                          <Col xs="2">
+                          <Col xs="3">
                             <div className="d-flex justify-content-center py-2">
                               <div className={styles.colorIndex}></div>
                             </div>
                           </Col>
-                          <Col xs="10">
+                          <Col xs="9">
                             <div className="d-flex justify-content-start py-2">
                               <div className={styles.titleIndex}>Empty</div>
                             </div>
                           </Col>
                         </Row>
                         <Row>
-                          <Col xs="2">
+                          <Col xs="3">
                             <div className="d-flex justify-content-center py-2">
                               <div className={styles.colorIndex}></div>
                             </div>
                           </Col>
-                          <Col xs="10">
+                          <Col xs="9">
                             <div className="d-flex justify-content-start py-2">
                               <div className={styles.titleIndex}>Empty</div>
                             </div>
                           </Col>
                         </Row>
                         <Row>
-                          <Col xs="2">
+                          <Col xs="3">
                             <div className="d-flex justify-content-center py-2">
                               <div className={styles.colorIndex}></div>
                             </div>
                           </Col>
-                          <Col xs="10">
+                          <Col xs="9">
                             <div className="d-flex justify-content-start py-2">
                               <div className={styles.titleIndex}>Empty</div>
                             </div>

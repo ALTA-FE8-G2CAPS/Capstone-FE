@@ -56,6 +56,7 @@ vertical-align: middle;
     padding-left: 20px;
     padding-right: 20px; 
     align-items: flex-end;
+    padding-top: 0px;
 }
 
 .heading h5 {
@@ -63,23 +64,26 @@ vertical-align: middle;
 }
 
 .headingActive {
+    margin-top: 5px;
     color: #A1D8D2;
+    cursor: pointer;
+    transition: 0.3s;
+    border-bottom: 1px solid #A1D8D2;
 }
 
 .headingActive:hover {
     color: #405654;
+    border-bottom: 1px solid #405654;
 }
 
 .headingOff {
     color: #E3E3E3;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .headingOff:hover {
     color: #A1D8D2;
-}
-
-.description {
-    margin-top: 20px;
 }
 
 .scrollImage::-webkit-scrollbar {
@@ -87,24 +91,44 @@ vertical-align: middle;
 }
 .scrollImage::-webkit-scrollbar-track {
     background: #f1f1f1;
+    border-radius: 10px;
 }
 .scrollImage::-webkit-scrollbar-thumb {
     background-color: #888;
+    border-radius: 10px;
 }
 .scrollImage::-webkit-scrollbar-thumb:hover {
     background: #555;
+    border-radius: 10px;
 }
 
 .scheduleDay {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     background-color: #CFF4FC;
     padding: 10px;
-    color: #5899B8;
     font-weight: bolder;
 }
-
+.dayActive{
+    color: #202B2A;
+    cursor: pointer;
+    transition: 0.3s;
+    border-bottom: 1px solid #A1D8D2;
+}
+.dayActive:hover{
+    color: #5899B8;
+    border-bottom: 1px solid #5899B8;
+}
+.dayOff {
+    color: #5899B8;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.dayOff:hover {
+    color: #202B2A;
+}
 .scrollSchedule {
   display: inline-block;
   height: 500px;
@@ -116,7 +140,9 @@ vertical-align: middle;
 
 .scheduleItem {
     background-color: #F8D7DA;
-    box-shadow: 5px 10px 8px #8888;
+    box-shadow: 5px 3px 8px #8888;
+    margin-bottom: 5px;
+    border-radius: 5px;
 }
 
 .perItem {
@@ -135,12 +161,60 @@ vertical-align: middle;
 }
 .scrollSchedule::-webkit-scrollbar-track {
     background: #f1f1f1;
+    border-radius: 10px;
 }
 .scrollSchedule::-webkit-scrollbar-thumb {
     background-color: #888;
+    border-radius: 10px;
 }
 .scrollSchedule::-webkit-scrollbar-thumb:hover {
     background: #555;
+    border-radius: 10px;
+}
+
+.fabContainer {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    cursor: pointer;
+}
+.button {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+.infoButton {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+.option {
+    list-style-type: none;
+    position: absolute;
+    right: 0px;
+    bottom: 70px;
+    width: 250px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+.option li {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 5px;
+}
+.btnLabel {
+    margin-right: 10px;
+    text-align: right;
+}
+.button:hover+.option, .option:hover {
+    opacity: 1;
 }
 
 .buttonBox {
@@ -151,25 +225,31 @@ vertical-align: middle;
 }
 
 .addButton {
-    border-radius: 20px;
+    border-radius: 40px;
     background: #405654;
     border: #405654;
     font-size: 13px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    width: 56px;
 }
 .addButton:hover {
-    background: #81ADA8;
-    border: #81ADA8;
+    background-color: #A1D8D2 !important;
+    color: #405654 !important;
+}
+.addButton:focus {
+    background-color: #405654 !important;
+    color: #ECF7F6 !important;
 }
 
 .editButton {
-    border-radius: 20px;
+    border-radius: 40px;
     background: #405654;
     border: #405654;
     font-size: 13px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    width: 56px;
 }
 .editButton:hover {
     background: #81ADA8;
@@ -177,12 +257,13 @@ vertical-align: middle;
 }
 
 .deleteButton {
-    border-radius: 20px;
+    border-radius: 40px;
     background: #DE1E1E;
     border: #DE1E1E;
     font-size: 13px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    width: 56px;
 }
 .deleteButton:hover {
     background: #932029;
@@ -202,6 +283,7 @@ vertical-align: middle;
 }
 .titleIndex {
     font-weight: bolder;
+
 }
 
 /* Phone xs */
@@ -220,6 +302,10 @@ vertical-align: middle;
         padding-left: 0;
         margin-top: 20px;
     }
+    .scheduleDay {
+        flex-wrap: wrap;
+        margin-top: 80px;
+    }
 }
 
 /* Tablet md */
@@ -234,6 +320,11 @@ vertical-align: middle;
     .containerRight {
         padding-left: 0;
         margin-top: 20px;
+    }
+    .scheduleDay {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
     }
 }
 
