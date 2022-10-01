@@ -1,0 +1,93 @@
+.container {
+    border: 1px solid black;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 80px;
+}
+
+.leftCol {
+display: grid;
+justify-content: center;
+}
+
+.imageBox {
+    width: 409px;
+    height: 386px;
+    left: 61px;
+    top: 185px;
+    border-radius: 10px;
+}
+
+.scrollImage {
+    display: flex;
+    column-gap: 10px;
+}
+
+.imageItem {
+width: 500px;
+height: 500px;
+border-radius: 10px;
+}
+
+.containerRight {
+    padding-left: 30px;
+}
+
+.title {
+    line-height: 0.8;
+}
+
+.price {
+    font-size: x-large;
+}
+
+.heading {
+    margin-top: 20px;
+    display: flex;
+    border-top: 1px solid rgba(196, 195, 195, 0.414);
+    border-bottom: 1px solid rgba(196, 195, 195, 0.414);
+    width: 75%;
+    height: 40px;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px; 
+    align-items: flex-end;
+}
+
+.heading h5 {
+    font-weight: bolder;
+}
+
+.headingActive {
+    color: #A1D8D2;
+}
+
+.headingOff {
+    color: #E3E3E3;
+}
+
+.description {
+    margin-top: 20px;
+}
+
+.descTitle {
+    display: flex;
+    justify-content: space-between;
+}
+
+.descTitle Button {
+    background-color: #405654;
+    color: #ECF7F6;
+    border-radius: 20px;
+    font-size: 10px;
+}
+
+.descBody {
+    margin-top: 10px;
+}
+
+.location {
+    line-height: 0.8;
+}
+
+

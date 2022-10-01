@@ -1,35 +1,34 @@
-import Image from "next/image"
-import React, { useState } from "react"
-import { Col, Row } from "react-bootstrap"
-import { TbSoccerField, TbHome } from "react-icons/tb"
-import { CgProfile } from "react-icons/cg"
-import { useRouter } from "next/router"
+import Image from "next/image";
+import React, { useState } from "react";
+import { Col, Row } from "react-bootstrap";
+import { TbSoccerField, TbHome } from "react-icons/tb";
+import { CgProfile } from "react-icons/cg";
+import { useRouter } from "next/router";
 // Import Components
-import styles from "../styles/Navbars.module.css"
-import { useGlobalContext } from "../context/contextGlobal"
+import styles from "../styles/Navbars.module.css";
+import { useGlobalContext } from "../context/contextGlobal";
 
 export const Navbars = () => {
-
-    const router = useRouter()
-    const { isLogin } = useGlobalContext()
-    const [hover, setHover] = useState("")
+    const router = useRouter();
+    const { isLogin } = useGlobalContext();
+    const [hover, setHover] = useState("");
 
     const handleHover = (title) => {
         switch (title) {
             case "home":
                 setHover("home");
-                router.push("/")
+                router.push("/");
                 break;
             case "venue":
                 setHover("venue");
-                router.push("/venue")
+                router.push("/venue");
                 break;
             case "profile":
-                setHover("profile")
-                router.push("/profile")
+                setHover("profile");
+                router.push("/profile");
                 break;
         }
-    }
+    };
 
     return (
         <>
