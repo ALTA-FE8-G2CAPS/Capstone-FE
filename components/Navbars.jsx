@@ -17,6 +17,23 @@ export const Navbars = () => {
         switch (title) {
             case "home":
                 setHover("home");
+                break;
+            case "venue":
+                setHover("venue");
+                break;
+            case "profile":
+                setHover("profile");
+                break;
+            case "kosong":
+                setHover("kosong");
+                break;
+        }
+    };
+
+    const handleClick = (title) => {
+        switch (title) {
+            case "home":
+                setHover("home");
                 router.push("/");
                 break;
             case "venue":
@@ -39,7 +56,6 @@ export const Navbars = () => {
                             src="/segoroSM.png"
                             width={185}
                             height={60}
-
                         />
                     </a>
                 </Col>
@@ -69,21 +85,21 @@ export const Navbars = () => {
                 {/* Bottom Navbar */}
                 <Col className={`d-flex d-md-none text-center `}>
                     <Row className={styles.container}>
-                        <Col onClick={() => handleHover("home")}>
+                        <Col onMouseLeave={() => handleHover("kosong")} onMouseEnter={() => handleHover("home")} onClick={() => handleClick("home")}>
                             <TbHome
                                 color={hover === "home" ? "#ECF7F6" : "#202B2A"}
                                 className={`${styles.icon} my-2`}
                                 size={20} />
                             {hover === "home" ? <p className={styles.titleIcon}>Home</p> : ""}
                         </Col>
-                        <Col onClick={() => handleHover("venue")}>
+                        <Col onMouseLeave={() => handleHover("kosong")} onMouseEnter={() => handleHover("venue")} onClick={() => handleClick("venue")}>
                             <TbSoccerField
                                 color={hover === "venue" ? "#ECF7F6" : "#202B2A"}
                                 className={`${styles.icon} my-2 `}
                                 size={20} />
                             {hover === "venue" ? <p className={styles.titleIcon}>Venue</p> : ""}
                         </Col>
-                        <Col onClick={() => handleHover("profile")}>
+                        <Col onMouseLeave={() => handleHover("kosong")} onMouseEnter={() => handleHover("profile")} onClick={() => handleClick("profile")}>
                             <CgProfile
                                 color={hover === "profile" ? "#ECF7F6" : "#202B2A"}
                                 className={`${styles.icon} my-2`}
