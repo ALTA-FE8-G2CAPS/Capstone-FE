@@ -21,14 +21,14 @@
 }
 
 .link:hover {
-    color: #ECF7F6;
+    color: #D9EFED;
     font-size: 25px;
     font-weight: bolder;
     text-shadow: 2px 2px #61827E;
 }
 
 .linkActive {
-    color: #ECF7F6;
+    color: #D9EFED;
     font-size: 20px;
     font-weight: bolder;
     cursor: context-menu;
@@ -36,7 +36,7 @@
 }
 
 .linkActive:hover {
-    color: #ECF7F6;
+    color: #D9EFED;
     font-size: 20px;
     font-weight: bolder;
 }
@@ -74,12 +74,25 @@
         display: none;
     }
 
+    @keyframes animate-box {
+        from {
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
     .container {
         position: fixed;
-        min-height: 6rem;
+        min-height: 2rem;
+        max-height: 4rem;
         align-items: center;
         bottom: 0;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.2rem;
         left: 0.8rem;
         /* width: 98.5%; */
         width: 100%;
@@ -87,10 +100,12 @@
         justify-content: space-around;
         border-radius: 3px 3px 35px 35px;
         box-shadow: 0px 6px 6px rgba(161, 216, 210, 0.25);
+        animation: animate-box 0.5s linear;
     }
 
     .icon {
         transition: 0.5s;
+        margin-top: 0px;
     }
 
     @keyframes animate-text {
@@ -107,7 +122,7 @@
 
     .titleIcon {
         animation: animate-text 0.5s linear;
-        font-size: 16px;
+        font-size: 12px;
         line-height: 0px;
         color: #ECF7F6;
     }

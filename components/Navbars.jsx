@@ -35,11 +35,14 @@ export const Navbars = () => {
         <>
             {isLogin ? <Row className={`${styles.container}`}>
                 <Col md={2} className="d-none d-md-flex">
-                    <Image
-                        src="/segoro.png"
-                        width={170}
-                        height={75}
-                    />
+                    <a className="navbar-brand">
+                        <Image
+                            src="/segoroSM.png"
+                            width={185}
+                            height={60}
+
+                        />
+                    </a>
                 </Col>
                 <Col md={9} lg={7} className={styles.nav}>
                     {/* Top Navbar */}
@@ -55,8 +58,8 @@ export const Navbars = () => {
                         <Image
                             className={styles.profileImage}
                             src="/profile.jpg"
-                            width={60}
-                            height={60}
+                            width={50}
+                            height={50}
                         />
                         <a onClick={() => handleHover("profile")}
                             className={hover === "profile" ? styles.linkActive : styles.link}
@@ -70,22 +73,22 @@ export const Navbars = () => {
                         <Col onClick={() => handleHover("home")}>
                             <TbHome
                                 color={hover === "home" ? "#ECF7F6" : "#202B2A"}
-                                className={`${styles.icon} my-3`}
-                                size={40} />
+                                className={`${styles.icon} my-2`}
+                                size={20} />
                             {hover === "home" ? <p className={styles.titleIcon}>Home</p> : ""}
                         </Col>
                         <Col onClick={() => handleHover("venue")}>
                             <TbSoccerField
                                 color={hover === "venue" ? "#ECF7F6" : "#202B2A"}
-                                className={`${styles.icon} my-3`}
-                                size={40} />
+                                className={`${styles.icon} my-2 `}
+                                size={20} />
                             {hover === "venue" ? <p className={styles.titleIcon}>Venue</p> : ""}
                         </Col>
                         <Col onClick={() => handleHover("profile")}>
                             <CgProfile
                                 color={hover === "profile" ? "#ECF7F6" : "#202B2A"}
-                                className={`${styles.icon} my-3`}
-                                size={40} />
+                                className={`${styles.icon} my-2`}
+                                size={20} />
                             {hover === "profile" ? <p className={styles.titleIcon}>Profile</p> : ""}
                         </Col>
                     </Row>
