@@ -1,8 +1,8 @@
 .container {
-    border: 1px solid black;
     padding-left: 50px;
     padding-right: 50px;
     padding-top: 80px;
+    padding-bottom: 50px;
 }
 
 .leftCol {
@@ -19,14 +19,18 @@ justify-content: center;
 }
 
 .scrollImage {
-    display: flex;
-    column-gap: 10px;
+vertical-align: middle;
+  display: inline-block;
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .imageItem {
-width: 500px;
-height: 500px;
-border-radius: 10px;
+    font-size: 25px;
+    display: inline-block; 
+    padding: 5px !important;
 }
 
 .containerRight {
@@ -62,8 +66,16 @@ border-radius: 10px;
     color: #A1D8D2;
 }
 
+.headingActive:hover {
+    color: #405654;
+}
+
 .headingOff {
     color: #E3E3E3;
+}
+
+.headingOff:hover {
+    color: #A1D8D2;
 }
 
 .description {
@@ -75,11 +87,17 @@ border-radius: 10px;
     justify-content: space-between;
 }
 
-.descTitle Button {
+.buttonEdit {
     background-color: #405654;
     color: #ECF7F6;
     border-radius: 20px;
     font-size: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.buttonEdit:hover {
+    background-color: #A1D8D2 ;
 }
 
 .descBody {
@@ -88,6 +106,97 @@ border-radius: 10px;
 
 .location {
     line-height: 0.8;
+}
+
+.map {
+    z-index: -1;
+}
+
+.scrollImage::-webkit-scrollbar {
+    width: 10px;
+}
+.scrollImage::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.scrollImage::-webkit-scrollbar-thumb {
+    background-color: #888;
+}
+.scrollImage::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Phone xs */
+@media (max-width : 575.98px) {
+    .container {
+        padding-top: 50px;
+    }
+    .title {
+        line-height: 1.2;
+    }
+    .heading {
+        margin-top: 10px;
+        width: 100%;
+    }
+    .containerRight {
+        padding-left: 0;
+        margin-top: 20px;
+    }
+    .location {
+        line-height: 1.2;
+    }
+    .map {
+        z-index: -1;
+        margin-bottom: 80px;
+    }
+}
+
+/* Phone sm */
+@media (min-width : 575.98px) and (max-width : 767.98px) {
+    .imageBox {
+        margin-left: 12rem;
+        margin-top: 10rem;
+        width: 50%;
+        display: none;
+    }
+    .title {
+       padding-top: 10rem;
+    }
+
+    .iconButton {
+        background-color: white;
+        border-style: none;
+        position: absolute;
+        left: 86%;
+        top: 25%;
+        z-index: 99;
+    }
+}
+
+/* Tablet md */
+@media (min-width : 767.98px) and (max-width : 991.98px) {
+    .title {
+        line-height: 1;
+    }
+    .heading {
+        margin-top: 10px;
+        width: 100%;
+    }
+    .containerRight {
+        padding-left: 0;
+        margin-top: 20px;
+    }
+    .location {
+        line-height: 1;
+    }
+}
+
+/* Laptop lg*/
+@media (min-width : 991.98px) and (max-width : 1199.98px) {
+    .imageBox {
+        margin-left: 10rem;
+        margin-top: 20vh;
+        width: 35%;
+    }
 }
 
 
