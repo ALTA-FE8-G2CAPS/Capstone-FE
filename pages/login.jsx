@@ -5,16 +5,16 @@ import { MDBBtn } from 'mdb-react-ui-kit';
 import { BsFillEyeSlashFill, BsFillEyeFill } from "react-icons/bs"
 // Import Components
 import styles from "../styles/Login.module.css"
-import { useGlobalContext } from "../context/contextGlobal";
+import { useNavbarContext } from "../context/contextNavbar";
 
 const Login = () => {
 
-    const { setIsLogin } = useGlobalContext()
+    const { setStatusNav } = useNavbarContext()
     const [test, setTest] = useState(false)
     const [password, setPassword] = useState(true)
 
     useEffect(() => {
-        setIsLogin(false)
+        setStatusNav("")
     })
 
     const handleTest = () => {

@@ -35,7 +35,19 @@
     display: flex;
     padding-top: 9vh;
     justify-content: center;
-    color: white
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.contentBox:hover {
+    width: 10% !important;
+    display: flex;
+    padding-top: 9vh;
+    justify-content: center;
+    transform: scale(1.1);
+    color: #405654;
+    cursor: pointer;
 }
 
 .wave {
@@ -46,4 +58,15 @@
     bottom: 0;
     width: 100%;
     min-height: 9vh;
+}
+
+.popBox {
+    margin: 20vh auto 2rem !important
+}
+
+/* Phone sm */
+@media (min-width : 0) and (max-width : 767.98px) {
+    .popBox {
+        margin: 8vh auto 0rem !important
+    }
 }
