@@ -1,12 +1,24 @@
 import Image from "next/image";
+import Router from "next/router";
 import React, { useState } from "react";
 import { Button, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
-import { AiFillEdit } from "react-icons/ai"
+import { AiFillEdit } from "react-icons/ai";
 import styles from "../../styles/Detail.module.css";
 
 const DetailPage = () => {
+  const [image, setImage] = useState("/basket.jpg");
 
-  const [image, setImage] = useState("/basket.jpg")
+  const goToField = () => {
+    Router.push({
+      pathname: "/venue/field",
+    });
+  };
+
+  const goToReview = () => {
+    Router.push({
+      pathname: "/venue/field",
+    });
+  };
 
   return (
     <div>
@@ -73,42 +85,41 @@ const DetailPage = () => {
               <Row>
                 <div className={styles.title}>
                   <h1 className={styles.fontOpen}>Buana Jaya Sport</h1>
-                  <p className={styles.fontLato}>Jalan Konoha raya No. 10, Dressrosa, Kota East Blue</p>
+                  <p className={styles.fontLato}>
+                    Jalan Konoha raya No. 10, Dressrosa, Kota East Blue
+                  </p>
                   <p className={styles.price}>Rp 210.000</p>
                 </div>
               </Row>
               <Row>
                 <div>
                   <Row className={styles.heading}>
-                    <Col sm={3} className={`${styles.headingActive} py-auto text-center`}>
+                    <Col
+                      sm={3}
+                      className={`${styles.headingActive} py-auto text-center`}
+                    >
                       <h5>Detail</h5>
                     </Col>
-                    <Col sm={3} className={`${styles.headingOff} py-auto text-center`}>
-                      <h5>Venue</h5>
+                    <Col
+                      sm={3}
+                      className={`${styles.headingOff} py-auto text-center`}
+                      onClick={goToField}
+                    >
+                      <h5>Field</h5>
                     </Col>
-                    <Col sm={3} className={`${styles.headingOff} py-auto text-center`}>
+                    <Col
+                      sm={3}
+                      className={`${styles.headingOff} py-auto text-center`}
+                      onClick={goToReview}
+                    >
                       <h5>Review</h5>
                     </Col>
-                    {/* <h5>
-                      <a href="/venue/detail" className={styles.headingActive}>
-                        Detail
-                      </a>
-                    </h5>
-                    <h5>
-                      <a href="/venue/field" className={styles.headingOff}>
-                        Field
-                      </a>
-                    </h5>
-                    <h5 className={styles.headingOff}>Review</h5> */}
                   </Row>
                   <div className={styles.description}>
                     <Row>
                       <div className={styles.descTitle}>
                         <h5>Description :</h5>
                         <div>
-                          {/* <Button className={styles.buttonEdit}>
-                            Edit Description
-                          </Button> */}
                           <OverlayTrigger
                             key="top"
                             placement="top"
@@ -118,7 +129,10 @@ const DetailPage = () => {
                               </Tooltip>
                             }
                           >
-                            <Button variant="success" className={styles.buttonEdit}>
+                            <Button
+                              variant="success"
+                              className={styles.buttonEdit}
+                            >
                               <AiFillEdit size={35} />
                             </Button>
                           </OverlayTrigger>
@@ -145,7 +159,9 @@ const DetailPage = () => {
                     </Row>
                     <Row className={styles.location}>
                       <h5 className="mb-2 fw-reguler">Lokasi :</h5>
-                      <p className={styles.fontLato}>Jalan Konoha raya No. 10 Dressrosa, Kota East Blue</p>
+                      <p className={styles.fontLato}>
+                        Jalan Konoha raya No. 10 Dressrosa, Kota East Blue
+                      </p>
                       <div className={styles.map}>
                         <Image src="/map.png" width={750} height={300} />
                       </div>
