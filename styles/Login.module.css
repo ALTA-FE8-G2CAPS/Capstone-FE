@@ -73,10 +73,35 @@
     pointer-events: all;
 }
 
-.loginButton:hover {
+.loading {
+    width: 30%;
+    margin: 0 auto;
+    margin-top: 3rem;
+    background-color: #A1D8D2;
+    border: 0.5px solid #A1D8D2;
+    transition: 0.5s;
+    pointer-events: all;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.loading:focus {
     background-color: #405654 !important;
-    color: white !important;
     border: 0.5px solid #405654 !important;
+}
+
+.loginButton:hover {
+    color: white !important;
+    background-color: #405654 !important;
+    border: 0.5px solid #405654 !important;
+    box-shadow: inset;
+}
+
+.loginButton:focus {
+    background-color: #61827E !important;
+    color: white !important;
+    border: 0.5px solid #61827E !important;
     box-shadow: inset;
 }
 
@@ -125,8 +150,9 @@
         width: 50%;
         display: none;
     }
+
     .title {
-       padding-top: 10rem;
+        padding-top: 10rem;
     }
 
     .iconButton {

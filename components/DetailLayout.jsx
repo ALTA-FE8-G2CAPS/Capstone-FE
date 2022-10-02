@@ -53,8 +53,8 @@ export const DetailLayout = () => {
                     </div>
                     <div className={styles.imageItem}>
                         <Image
-                            onClick={() => setImage("/basket.jpg")}
-                            src="/basket.jpg"
+                            onClick={() => setImage("/logo.png")}
+                            src="/logo.png"
                             width={165}
                             height={110}
                             className="rounded"
