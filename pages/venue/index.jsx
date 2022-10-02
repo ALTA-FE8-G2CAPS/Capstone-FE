@@ -10,6 +10,7 @@ import styles from "../../styles/Venue.module.css";
 const Index = () => {
   const { setStatusNav } = useNavbarContext();
   const [filter, setFilter] = useState(false);
+
   useEffect(() => {
     setStatusNav("venue");
   }, []);

@@ -1,17 +1,19 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { Button, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { AiFillEdit } from "react-icons/ai";
+import AddModal from "../../components/AddModal";
 import { DetailLayout, DetailHeading } from "../../components/DetailLayout";
 import styles from "../../styles/Detail.module.css";
 
 const DetailPage = () => {
+  const [show, setShow] = useState(false);
 
   return (
     <Row className={`${styles.container}`}>
       <DetailLayout />
       <Col md="12" lg="8" className={styles.containerRight}>
-        <DetailHeading page="detail"/>
+        <DetailHeading page="detail" />
         <Row className={styles.description}>
           <Row>
             <div className={styles.descTitle}>
@@ -21,14 +23,13 @@ const DetailPage = () => {
                   key="top"
                   placement="top"
                   overlay={
-                    <Tooltip id={`tooltip-top`}>
-                      Edit this page ?
-                    </Tooltip>
+                    <Tooltip id={`tooltip-top`}>Edit this page ?</Tooltip>
                   }
                 >
                   <Button
                     variant="success"
                     className={styles.buttonEdit}
+                    onClick={() => setShow(true)}
                   >
                     <AiFillEdit size={35} />
                   </Button>
@@ -38,20 +39,18 @@ const DetailPage = () => {
           </Row>
           <Row>
             <p className={styles.descBody}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Illum id ab ipsum corrupti nihil harum omnis veniam
-              soluta, incidunt fuga minima dolore cum, sint, quaerat
-              cupiditate voluptatibus nulla voluptates! Voluptas
-              veniam ea soluta. Repellendus modi, vero sit voluptates
-              quae, ipsa fuga tempore aliquid rem id aliquam officiis
-              saepe quidem, sed voluptate illo obcaecati. Delectus
-              nesciunt animi voluptates laudantium exercitationem
-              deserunt ratione magnam tenetur explicabo maiores
-              placeat eum ad fugit expedita laboriosam iure
-              perferendis assumenda, et perspiciatis quos atque dicta
-              necessitatibus sapiente! Autem aperiam libero sit
-              expedita quis? Sint ea odio tenetur impedit omnis, nihil
-              odit, amet ab illum earum sed.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum id
+              ab ipsum corrupti nihil harum omnis veniam soluta, incidunt fuga
+              minima dolore cum, sint, quaerat cupiditate voluptatibus nulla
+              voluptates! Voluptas veniam ea soluta. Repellendus modi, vero sit
+              voluptates quae, ipsa fuga tempore aliquid rem id aliquam officiis
+              saepe quidem, sed voluptate illo obcaecati. Delectus nesciunt
+              animi voluptates laudantium exercitationem deserunt ratione magnam
+              tenetur explicabo maiores placeat eum ad fugit expedita laboriosam
+              iure perferendis assumenda, et perspiciatis quos atque dicta
+              necessitatibus sapiente! Autem aperiam libero sit expedita quis?
+              Sint ea odio tenetur impedit omnis, nihil odit, amet ab illum
+              earum sed.
             </p>
           </Row>
           <Row className={styles.location}>
@@ -65,9 +64,11 @@ const DetailPage = () => {
           </Row>
         </Row>
       </Col>
+
+      {/* Modal */}
+      <AddModal add="venue" show={show} handleClose={() => setShow(false)} />
     </Row>
   );
 };
 
-export default DetailPage
-
+export default DetailPage;

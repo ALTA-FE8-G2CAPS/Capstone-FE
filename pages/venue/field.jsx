@@ -14,10 +14,11 @@ import { IoAddOutline } from "react-icons/io5";
 import { AiFillEdit, AiOutlineDelete, AiOutlineClose } from "react-icons/ai";
 import styles from "../../styles/Field.module.css";
 import { DetailHeading, DetailLayout } from "../../components/DetailLayout";
+import AddModal from "../../components/AddModal";
 
 const Field = () => {
-
-  const [summon, setSummon] = useState(false)
+  const [summon, setSummon] = useState(false);
+  const [show, setShow] = useState(false);
 
   const alertClicked = () => {
     alert("You clicked the third ListGroupItem");
@@ -28,9 +29,7 @@ const Field = () => {
       <DetailLayout />
       <Col md="12" lg="8">
         <div className={styles.containerRight}>
-          <DetailHeading
-            page="field"
-          />
+          <DetailHeading page="field" />
           <div>
             <Row>
               <Col sm="12" md="8">
@@ -175,25 +174,39 @@ const Field = () => {
                   </ListGroup>
                 </div>
                 <div className={`${styles.fabContainer}`}>
-                  {summon ? <Button onClick={() => setSummon(false)} className={styles.button}>
-                    <AiOutlineClose size={20} />
-                  </Button> :
-                    <Button onClick={() => setSummon(true)} className={styles.button}>
+                  {summon ? (
+                    <Button
+                      onClick={() => setSummon(false)}
+                      className={styles.button}
+                    >
+                      <AiOutlineClose size={20} />
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => setSummon(true)}
+                      className={styles.button}
+                    >
                       <BsInfoLg size={20} />
                     </Button>
-                  }
-                  {summon ?
-                    <ul onMouseEnter={() => setSummon(true)} onMouseLeave={() => setSummon(false)} className={`${styles.option}`}>
+                  )}
+                  {summon ? (
+                    <ul
+                      onMouseEnter={() => setSummon(true)}
+                      onMouseLeave={() => setSummon(false)}
+                      className={`${styles.option}`}
+                    >
                       <li>
                         <OverlayTrigger
                           key="left"
                           placement="left"
                           overlay={
-                            <Tooltip id={`tooltip-left`}>
-                              Add Field
-                            </Tooltip>
-                          }>
-                          <Button className={`${styles.infoButton} ${styles.addButton}`}>
+                            <Tooltip id={`tooltip-left`}>Add Field</Tooltip>
+                          }
+                        >
+                          <Button
+                            className={`${styles.infoButton} ${styles.addButton}`}
+                            onClick={() => setShow(true)}
+                          >
                             <IoAddOutline size={20} />
                           </Button>
                         </OverlayTrigger>
@@ -203,11 +216,13 @@ const Field = () => {
                           key="left"
                           placement="left"
                           overlay={
-                            <Tooltip id={`tooltip-left`}>
-                              Edit Field
-                            </Tooltip>
-                          }>
-                          <Button className={`${styles.infoButton} ${styles.editButton}`}>
+                            <Tooltip id={`tooltip-left`}>Edit Field</Tooltip>
+                          }
+                        >
+                          <Button
+                            className={`${styles.infoButton} ${styles.editButton}`}
+                            onClick={() => setShow(true)}
+                          >
                             <AiFillEdit size={20} />
                           </Button>
                         </OverlayTrigger>
@@ -217,16 +232,20 @@ const Field = () => {
                           key="left"
                           placement="left"
                           overlay={
-                            <Tooltip id={`tooltip-left`}>
-                              Delete Field
-                            </Tooltip>
-                          }>
-                          <Button className={`${styles.infoButton} ${styles.deleteButton}`}>
+                            <Tooltip id={`tooltip-left`}>Delete Field</Tooltip>
+                          }
+                        >
+                          <Button
+                            className={`${styles.infoButton} ${styles.deleteButton}`}
+                          >
                             <AiOutlineDelete size={20} />
                           </Button>
                         </OverlayTrigger>
                       </li>
-                    </ul> : ""}
+                    </ul>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div className={styles.colorLegend}>
                   <Row>
@@ -283,6 +302,9 @@ const Field = () => {
           </div>
         </div>
       </Col>
+
+      {/* Modal */}
+      <AddModal add="field" show={show} handleClose={() => setShow(false)} />
     </Row>
   );
 };
