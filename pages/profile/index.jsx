@@ -35,7 +35,7 @@ const Index = () => {
               </div>
               <div
                 className={styles.itemLeft}
-                onClick={() => router("/profile")}
+                onClick={() => router.push("/venue/myvenue")}
               >
                 <div>
                   <TbSoccerField size={30} />
