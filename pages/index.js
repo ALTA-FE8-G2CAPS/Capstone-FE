@@ -28,8 +28,8 @@ const Home = () => {
 
         <Row className={`${styles.flyingBox} d-none d-md-block`}>
           <Row className="w-75 mx-auto">
-            <Col className={`${styles.contentBox}`} >
-              <HiOutlineClipboardList size={28} className="mb-1 me-2" /> List Booking
+            <Col className={`${styles.contentBox}`} onClick={() => router.push("/order/history")}>
+              <HiOutlineClipboardList size={28} className="mb-1 me-2" />Booking History 
             </Col>
             <Col className={`${styles.contentBox}`} onClick={() => router.push("/order")}>
               <RiMoneyDollarCircleLine size={28} className="mb-1 me-2" /> Pay Venue

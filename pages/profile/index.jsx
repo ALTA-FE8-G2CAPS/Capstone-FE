@@ -10,6 +10,7 @@ import { AiOutlineSchedule } from "react-icons/ai"
 import styles from "../../styles/Profile.module.css";
 import { useRouter } from "next/router";
 import AddModal from "../../components/AddModal";
+import toast, { Toaster } from "react-hot-toast";
 
 const Index = () => {
   // active nav
@@ -21,8 +22,14 @@ const Index = () => {
   const router = useRouter();
   const [show, setShow] = useState(false);
 
+  const handleLogout = () => {
+    toast.success("You have been logout")
+    router.push("/login")
+  }
+
   return (
     <div>
+      <div><Toaster /></div>
       <Row className={styles.container}>
         <Col md="4">
           <div className={styles.colLeft}>
@@ -53,7 +60,7 @@ const Index = () => {
               </div>
               <div
                 className={styles.itemLeft}
-                onClick={() => router("/profile")}
+                onClick={() => router.push("/schedule")}
               >
                 <div>
                   <AiOutlineSchedule size={30} />
@@ -69,7 +76,7 @@ const Index = () => {
               <div>
                 <div
                   className={styles.logOut}
-                  onClick={() => router("/profile")}
+                  onClick={handleLogout}
                 >
                   <div>
                     <BiLogOut size={30} />

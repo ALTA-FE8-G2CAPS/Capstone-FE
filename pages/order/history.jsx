@@ -9,7 +9,7 @@ const Index = () => {
             <Row className="w-75 mx-auto d-flex border-bottom border-5 shadow-sm pb-4">
                 <Row className="ms-0 my-2 fs-4 fw-bold">Owner</Row>
                 <Col lg={2} className="d-flex align-items-center">
-                    <Image src="/basket.jpg" width={300} height={240} />
+                    <Image src="/futsal.jpg" width={300} height={240} />
                 </Col>
                 <Col lg={6} className="py-2">
                     <p className="fs-5 fw-bold my-2 lh-sm">Nama Gornya - Lorem ipsum dolor sit amet consectetur </p>
@@ -22,7 +22,7 @@ const Index = () => {
             <Row className="w-75 mx-auto d-flex border-bottom border-5 shadow-sm pb-4">
                 <Row className="ms-0 my-2 fs-4 fw-bold">Owner</Row>
                 <Col lg={2} className="d-flex align-items-center">
-                    <Image src="/basket.jpg" width={300} height={240} />
+                    <Image src="/tennis.jpg" width={300} height={240} />
                 </Col>
                 <Col lg={6} className="py-2">
                     <p className="fs-5 fw-bold my-2 lh-sm">Nama Gornya - Lorem ipsum dolor sit amet consectetur </p>

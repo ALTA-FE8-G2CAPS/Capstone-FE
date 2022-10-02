@@ -40,7 +40,7 @@ const Login = () => {
             setTimeout(() => {
                 setLoading(false)
                 swal("Register successfully", "Thanks for your register", "success")
-                    // .then(() => setTest(prev => !prev))
+                    .then(() => setTest(prev => !prev))
             }, 2000)
         }
     }
