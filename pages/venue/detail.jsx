@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Button, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { AiFillEdit } from "react-icons/ai";
@@ -7,18 +7,7 @@ import styles from "../../styles/Detail.module.css";
 
 const DetailPage = () => {
   const [image, setImage] = useState("/basket.jpg");
-
-  const goToField = () => {
-    Router.push({
-      pathname: "/venue/field",
-    });
-  };
-
-  const goToReview = () => {
-    Router.push({
-      pathname: "/venue/field",
-    });
-  };
+  const router = useRouter();
 
   return (
     <div>
@@ -103,14 +92,14 @@ const DetailPage = () => {
                     <Col
                       sm={3}
                       className={`${styles.headingOff} py-auto text-center`}
-                      onClick={goToField}
+                      onClick={() => router.push("/venue/field")}
                     >
                       <h5>Field</h5>
                     </Col>
                     <Col
                       sm={3}
                       className={`${styles.headingOff} py-auto text-center`}
-                      onClick={goToReview}
+                      onClick={() => router.push("/venue/review")}
                     >
                       <h5>Review</h5>
                     </Col>
