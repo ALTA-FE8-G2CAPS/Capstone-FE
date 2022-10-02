@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Router, { useRouter } from "next/router";
 import React, { useState } from "react";
 import {
   Button,
@@ -226,7 +228,6 @@ const Field = () => {
                       </li>
                     </ul> : ""}
                 </div>
-
                 <div className={styles.colorLegend}>
                   <Row>
                     <Col xs="3">

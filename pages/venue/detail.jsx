@@ -1,11 +1,15 @@
 import Image from "next/image";
-import React from "react";
+import Router, { useRouter } from "next/router";
+import React, { useState } from "react";
 import { Button, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { AiFillEdit } from "react-icons/ai";
 import { DetailLayout, DetailHeading } from "../../components/DetailLayout";
 import styles from "../../styles/Detail.module.css";
 
 const DetailPage = () => {
+
+  const [image, setImage] = useState("/basket.jpg");
+  const router = useRouter();
 
   return (
     <Row className={styles.container}>
