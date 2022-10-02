@@ -42,7 +42,7 @@
 }
 
 .containerRight {
-    padding-left: 30px;
+    padding-left: 2.5rem;
 }
 
 .title {
@@ -92,6 +92,7 @@
 
 .headingOff:hover {
     color: #A1D8D2;
+    border-bottom: 1px solid #A1D8D2;
 }
 
 .description {
