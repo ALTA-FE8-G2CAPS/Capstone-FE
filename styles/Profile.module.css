@@ -1,0 +1,85 @@
+.container {
+    margin-bottom: 30px;
+}
+
+.colLeft {
+    background-color: #ECF7F6;
+    margin-top: 40px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+    padding: 30px;
+}
+
+.topBox {
+    margin-bottom: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.itemLeft {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    cursor: pointer;
+}
+.itemLeft:hover {
+    color: #A1D8D2;
+}
+.itemLabel {
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.bottomBox {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.beOwner {
+    font-size: larger;
+    font-weight: bolder;
+    color: #61827E;
+}
+.beOwner span {
+    cursor: pointer;
+    color: #405654;
+}
+.beOwner span:hover {
+    color: #A1D8D2;
+}
+.logOut {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    cursor: pointer;
+    color: red;
+}
+.logOut:hover {
+    color: rgb(168, 6, 6);
+}
+
+.colRight {
+    margin-top: 40px;
+    margin-right: 80px;
+}
+
+.topItem {
+    border-bottom: 1px solid #81ada87f;
+}
+
+.imageBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.imageProfile {
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.tableBox {
+    width: 60%;
+}
