@@ -6,6 +6,7 @@ import { FiEdit } from "react-icons/fi";
 import { TbSoccerField } from "react-icons/tb";
 import { BsCalendarCheck } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
+import { AiOutlineSchedule } from "react-icons/ai"
 import styles from "../../styles/Profile.module.css";
 import { useRouter } from "next/router";
 
@@ -56,7 +57,7 @@ const Index = () => {
                 onClick={() => router("/profile")}
               >
                 <div>
-                  <BsCalendarCheck size={30} />
+                  <AiOutlineSchedule size={30} />
                 </div>
                 <div className={styles.itemLabel}>My Schedule</div>
               </div>

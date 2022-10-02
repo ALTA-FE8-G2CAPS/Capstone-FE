@@ -19,7 +19,7 @@ export const Navbars = () => {
                     <a className="navbar-brand">
                         <Image
                             src="/segoroSM.png"
-                            width={185}
+                            width={195}
                             height={60}
                         />
                     </a>
