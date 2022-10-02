@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import ListCard from "../../components/ListCard";
 import { Button, Col, Row } from "react-bootstrap";
 import { IoAddOutline } from "react-icons/io5";
 import styles from "../../styles/MyVenue.module.css";
 import { useRouter } from "next/router";
+import AddModal from "../../components/AddModal";
 
 const Myvenue = () => {
   const router = useRouter();
+  const [show, setShow] = useState(false);
 
   return (
     <div>
@@ -19,7 +21,11 @@ const Myvenue = () => {
           </Col>
           <Col className={styles.rightCol}>
             <div>
-              <button sm className={styles.addButton}>
+              <button
+                sm
+                className={styles.addButton}
+                onClick={() => setShow(true)}
+              >
                 <IoAddOutline size={20} />
                 <div>Add New Venue</div>
               </button>
@@ -30,6 +36,9 @@ const Myvenue = () => {
           <ListCard onClick={() => router.push("/venue/detail")} />
         </Row>
       </div>
+
+      {/* Modal */}
+      <AddModal add="venue" show={show} handleClose={() => setShow(false)} />
     </div>
   );
 };

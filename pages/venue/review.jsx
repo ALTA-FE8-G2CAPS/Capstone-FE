@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { Col, OverlayTrigger, Row, Tooltip, Button } from "react-bootstrap";
 import { DetailHeading, DetailLayout } from "../../components/DetailLayout";
 import { AiFillStar } from "react-icons/ai";
 import { IoAddOutline } from "react-icons/io5";
 import styles from "../../styles/Review.module.css";
+import AddModal from "../../components/AddModal";
 
 const Review = () => {
+  const [show, setShow] = useState(false);
+
   return (
     <Row className={styles.container}>
       <DetailLayout />
@@ -23,7 +26,11 @@ const Review = () => {
                 placement="top"
                 overlay={<Tooltip id={`tooltip-top`}>Add review ?</Tooltip>}
               >
-                <Button variant="success" className={styles.buttonAdd}>
+                <Button
+                  variant="success"
+                  className={styles.buttonAdd}
+                  onClick={() => setShow(true)}
+                >
                   <IoAddOutline size={35} />
                 </Button>
               </OverlayTrigger>
@@ -99,6 +106,9 @@ const Review = () => {
           </div>
         </div>
       </Col>
+
+      {/* Modal */}
+      <AddModal add="review" show={show} handleClose={() => setShow(false)} />
     </Row>
   );
 };

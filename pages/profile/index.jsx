@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Col, Row, Table } from "react-bootstrap";
 import { useNavbarContext } from "../../context/contextNavbar";
@@ -8,6 +8,7 @@ import { BsCalendarCheck } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
 import styles from "../../styles/Profile.module.css";
 import { useRouter } from "next/router";
+import AddModal from "../../components/AddModal";
 
 const Index = () => {
   // active nav
@@ -17,6 +18,7 @@ const Index = () => {
   }, []);
 
   const router = useRouter();
+  const [show, setShow] = useState(false);
 
   return (
     <div>
@@ -24,10 +26,7 @@ const Index = () => {
         <Col md="4">
           <div className={styles.colLeft}>
             <div className={styles.topBox}>
-              <div
-                className={styles.itemLeft}
-                onClick={() => router.push("/profile")}
-              >
+              <div className={styles.itemLeft} onClick={() => setShow(true)}>
                 <div>
                   <FiEdit size={30} />
                 </div>
@@ -126,6 +125,9 @@ const Index = () => {
           </div>
         </Col>
       </Row>
+
+      {/* Modal */}
+      <AddModal add="profile" show={show} handleClose={() => setShow(false)} />
     </div>
   );
 };
