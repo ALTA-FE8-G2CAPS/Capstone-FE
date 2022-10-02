@@ -26,7 +26,7 @@ const Index = () => {
             <div className={styles.topBox}>
               <div
                 className={styles.itemLeft}
-                onClick={() => router("/profile")}
+                onClick={() => router.push("/profile")}
               >
                 <div>
                   <FiEdit size={30} />
@@ -44,7 +44,7 @@ const Index = () => {
               </div>
               <div
                 className={styles.itemLeft}
-                onClick={() => router("/profile")}
+                onClick={() => router.push("/profile/bookinglist")}
               >
                 <div>
                   <BsCalendarCheck size={30} />

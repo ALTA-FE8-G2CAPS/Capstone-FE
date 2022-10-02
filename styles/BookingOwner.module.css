@@ -1,0 +1,21 @@
+.container {
+    background-color: #ECF7F6;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding-bottom: 30px;
+    border-radius: 5px;
+    box-shadow: #81ADA8 3px 5px 8px;
+}
+
+.title {
+    text-align: center;
+    padding: 30px;
+}
+
+.titleTable {
+    font-size: larger;
+    font-weight: bold;
+}
+.titleItem {
+    font-weight: bolder;
+}
