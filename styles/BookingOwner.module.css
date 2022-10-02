@@ -14,7 +14,7 @@
 
 .titleTable {
     font-size: larger;
-    font-weight: bold;
+    font-weight: bold ;
 }
 
 .titleItem {
@@ -40,4 +40,13 @@
     border-radius: 20px;
     margin: 0px 2rem;
     background-color: #405654;
+}
+
+.icon {
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.icon:hover {
+    color: pink !important;
 }

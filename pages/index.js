@@ -7,8 +7,10 @@ import { AiOutlineSchedule } from "react-icons/ai"
 import styles from "../styles/Home.module.css"
 import ListCard from "../components/ListCard"
 import { useNavbarContext } from "../context/contextNavbar"
+import { useRouter } from "next/router"
 
 const Home = () => {
+  const router = useRouter()
   // active Nav
   const { setStatusNav } = useNavbarContext()
   useEffect(() => {
@@ -26,13 +28,13 @@ const Home = () => {
 
         <Row className={`${styles.flyingBox} d-none d-md-block`}>
           <Row className="w-75 mx-auto">
-            <Col className={`${styles.contentBox}`}>
+            <Col className={`${styles.contentBox}`} >
               <HiOutlineClipboardList size={28} className="mb-1 me-2" /> List Booking
             </Col>
-            <Col className={`${styles.contentBox}`}>
+            <Col className={`${styles.contentBox}`} onClick={() => router.push("/order")}>
               <RiMoneyDollarCircleLine size={28} className="mb-1 me-2" /> Pay Venue
             </Col>
-            <Col className={`${styles.contentBox}`}>
+            <Col className={`${styles.contentBox}`} onClick={() => router.push("/schedule")}>
               <AiOutlineSchedule size={28} className="mb-1 me-2" /> Don't Forgot
             </Col>
           </Row>

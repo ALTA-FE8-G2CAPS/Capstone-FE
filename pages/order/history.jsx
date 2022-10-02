@@ -1,13 +1,11 @@
 import Image from "next/image"
 import React from "react"
-import { AiOutlineDelete } from "react-icons/ai"
-import { Button, Col, Row } from "react-bootstrap"
-import styles from "../../styles/BookingOwner.module.css"
+import { Badge, Col, Row } from "react-bootstrap"
 
 const Index = () => {
     return (
         <Row className="mb-5">
-            <Row className="ms-5 my-5"><h2>Pay Venue</h2></Row>
+            <Row className="ms-5 my-5"><h2>History Booking</h2></Row>
             <Row className="w-75 mx-auto d-flex border-bottom border-5 shadow-sm pb-4">
                 <Row className="ms-0 my-2 fs-4 fw-bold">Owner</Row>
                 <Col lg={2} className="d-flex align-items-center">
@@ -18,8 +16,7 @@ const Index = () => {
                     <p>Jumat 10:00-12.00</p>
                 </Col>
                 <Col lg={4} className="d-flex justify-content-center align-items-center">
-                    <Button className={`${styles.button}`}>Rp120.000</Button>
-                    <AiOutlineDelete className={`${styles.icon}`} color="#EE0000" size={30} />
+                    <Badge bg="success">SUCCESS</Badge>
                 </Col>
             </Row>
             <Row className="w-75 mx-auto d-flex border-bottom border-5 shadow-sm pb-4">
@@ -32,8 +29,7 @@ const Index = () => {
                     <p>Jumat 10:00-12.00</p>
                 </Col>
                 <Col lg={4} className="d-flex justify-content-center align-items-center">
-                    <Button className={`${styles.button}`}>Rp120.000</Button>
-                    <AiOutlineDelete className={`${styles.icon}`} color="#EE0000" size={30} />
+                    <Badge bg="danger">FAILED</Badge>
                 </Col>
             </Row>
         </Row>
