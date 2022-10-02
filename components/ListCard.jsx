@@ -4,7 +4,7 @@ import styles from "../styles/Detail.module.css"
 
 const ListCard = () => {
     return (
-        <Row className={`${styles.listContainer}`}>
+        <Row className={`${styles.listContainer} mb-5`}>
             <Col sm={6} md={4} lg={3} className="mt-5 d-flex justify-content-center">
                 <Card style={{ width: '18rem' }} className={`${styles.cardItem} shadow`}>
                     <Card.Img variant="top" src="/basket.jpg" />

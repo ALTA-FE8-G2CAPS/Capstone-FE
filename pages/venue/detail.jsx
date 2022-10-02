@@ -1,6 +1,5 @@
 import Image from "next/image";
-import Router, { useRouter } from "next/router";
-import React, { useState } from "react";
+import React from "react";
 import { Button, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { AiFillEdit } from "react-icons/ai";
 import { DetailLayout, DetailHeading } from "../../components/DetailLayout";
@@ -8,15 +7,12 @@ import styles from "../../styles/Detail.module.css";
 
 const DetailPage = () => {
 
-  const [image, setImage] = useState("/basket.jpg");
-  const router = useRouter();
-
   return (
-    <Row className={styles.container}>
+    <Row className={`${styles.container}`}>
       <DetailLayout />
       <Col md="12" lg="8" className={styles.containerRight}>
         <DetailHeading page="detail"/>
-        <div className={styles.description}>
+        <Row className={styles.description}>
           <Row>
             <div className={styles.descTitle}>
               <h5>Description :</h5>
@@ -67,7 +63,7 @@ const DetailPage = () => {
               <Image src="/map.png" width={750} height={300} />
             </div>
           </Row>
-        </div>
+        </Row>
       </Col>
     </Row>
   );

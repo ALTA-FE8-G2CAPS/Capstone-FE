@@ -7,10 +7,7 @@
 }
 
 .container {
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-top: 80px;
-    padding-bottom: 50px;
+    padding : 80px 50px 50px
 }
 
 .leftCol {
@@ -42,7 +39,7 @@
 }
 
 .containerRight {
-    padding-left: 2.5rem;
+    padding-left: 42px;
 }
 
 .title {
