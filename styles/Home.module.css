@@ -64,6 +64,130 @@
     margin: 20vh auto 2rem !important
 }
 
+.fabContainer {
+    position: fixed;
+    bottom: 60px;
+    right: 50px;
+    cursor: pointer;
+    z-index: 99 !important;
+}
+
+.button {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    background-color: #405654;
+}
+
+.button:hover {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    background-color: #81ADA8 !important;
+}
+
+.button:focus {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    background-color: #81ADA8 !important;
+}
+
+.infoButton {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes mymove {
+    0% {
+        height: 0px;
+        opacity: 0.1;
+    }
+
+    100% {
+        height: 11vh
+    }
+}
+
+.option {
+    list-style-type: none;
+    position: absolute;
+    right: 0px;
+    bottom: 70px;
+    width: 80px;
+}
+
+.option li {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 5px;
+    animation: mymove 0.5s;
+    transition: all 1s;
+}
+
+.addButton {
+    background: #405654;
+    border: #405654;
+    transition: 0.5s ease-out;
+}
+
+.addButton:hover {
+    background: #81ADA8 !important;
+    border: #81ADA8 !important;
+}
+
+.addButton:focus {
+    background: #A1D8D2 !important;
+    border: #81ADA8 !important;
+}
+
+.editButton {
+    background: #405654;
+    border: #405654;
+    transition: 0.5s ease-out;
+}
+
+.editButton:hover {
+    background: #81ADA8 !important;
+    border: #81ADA8 !important;
+}
+
+.editButton:focus {
+    background: #A1D8D2 !important;
+    border: #81ADA8 !important;
+}
+
+.deleteButton {
+    background: #405654;
+    border: #405654;
+    transition: 0.5s ease-out;
+}
+
+.deleteButton:hover {
+    background: #81ADA8 !important;
+    border: #81ADA8 !important;
+}
+
+.deleteButton:focus {
+    background: #A1D8D2 !important;
+    border: #81ADA8 !important;
+}
+
+
 /* Phone sm */
 @media (min-width : 0) and (max-width : 767.98px) {
     .popBox {

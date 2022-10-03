@@ -5,7 +5,7 @@ import { Badge, Col, Row } from "react-bootstrap"
 const Index = () => {
     return (
         <Row className="mb-5">
-            <Row className="ms-5 my-5"><h2>History Booking</h2></Row>
+            <Row className="ms-5 my-5"><h2>Booking History</h2></Row>
             <Row className="w-75 mx-auto d-flex border-bottom border-5 shadow-sm pb-4">
                 <Row className="ms-0 my-2 fs-4 fw-bold">Owner</Row>
                 <Col lg={2} className="d-flex align-items-center">
