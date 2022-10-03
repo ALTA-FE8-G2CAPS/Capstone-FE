@@ -185,3 +185,42 @@ export const RegisPlus = ({ show, handleClose, handleSubmit, handleInput }) => {
     </div>
   );
 };
+
+export const VerifyModal = ({
+  show,
+  handleClose,
+  handleSubmit,
+  handleInput,
+}) => {
+  return (
+    <div>
+      <Modal centered show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Verify Account</Modal.Title>
+        </Modal.Header>
+        <Form onSubmit={(e) => handleSubmit(e)}>
+          <Modal.Body>
+            <div>
+              <p>Please verify this user plus account</p>
+            </div>
+            <FloatingLabel controlId="floatingSelect" label="Select verify">
+              <Form.Select aria-label="Floating label select example">
+                <option>Select</option>
+                <option value="pending">Pending</option>
+                <option value="verified">Verified</option>
+              </Form.Select>
+            </FloatingLabel>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" type="submit">
+              Save
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
+    </div>
+  );
+};
