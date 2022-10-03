@@ -1,3 +1,4 @@
+import { useRouter } from "next/router.js";
 import React, { useEffect, useState } from "react";
 import { Col, InputGroup, Row } from "react-bootstrap";
 import { BiSearchAlt } from "react-icons/bi";
@@ -10,6 +11,7 @@ import styles from "../../styles/Venue.module.css";
 const Index = () => {
   const { setStatusNav } = useNavbarContext();
   const [filter, setFilter] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setStatusNav("venue");
@@ -92,7 +94,7 @@ const Index = () => {
           </select>
         </Col>
       </Row>
-      <ListCard />
+      <ListCard onClick={() => router.push("/venue/detail")} />
     </Row>
   );
 };
