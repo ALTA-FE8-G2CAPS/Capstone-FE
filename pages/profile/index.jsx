@@ -7,6 +7,7 @@ import { TbSoccerField } from "react-icons/tb";
 import { BsCalendarCheck } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
 import { AiOutlineSchedule } from "react-icons/ai";
+import { MdOutlineDashboard } from "react-icons/md";
 import styles from "../../styles/Profile.module.css";
 import { useRouter } from "next/router";
 import { AddModal, RegisPlus } from "../../components/AddModal";
@@ -69,6 +70,15 @@ const Index = () => {
                   <AiOutlineSchedule size={30} />
                 </div>
                 <div className={styles.itemLabel}>My Schedule</div>
+              </div>
+              <div
+                className={styles.itemLeft}
+                onClick={() => router.push("/admin")}
+              >
+                <div>
+                  <MdOutlineDashboard size={30} />
+                </div>
+                <div className={styles.itemLabel}>Admin Dashboard</div>
               </div>
             </div>
             <div className={styles.bottomBox}>
