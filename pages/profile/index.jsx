@@ -6,10 +6,10 @@ import { FiEdit } from "react-icons/fi";
 import { TbSoccerField } from "react-icons/tb";
 import { BsCalendarCheck } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
-import { AiOutlineSchedule } from "react-icons/ai"
+import { AiOutlineSchedule } from "react-icons/ai";
 import styles from "../../styles/Profile.module.css";
 import { useRouter } from "next/router";
-import AddModal from "../../components/AddModal";
+import { AddModal, RegisPlus } from "../../components/AddModal";
 import toast, { Toaster } from "react-hot-toast";
 
 const Index = () => {
@@ -21,15 +21,18 @@ const Index = () => {
 
   const router = useRouter();
   const [show, setShow] = useState(false);
+  const [show2, setShow2] = useState(false);
 
   const handleLogout = () => {
-    toast.success("You have been logout")
-    router.push("/login")
-  }
+    toast.success("You have been logout");
+    router.push("/login");
+  };
 
   return (
     <div>
-      <div><Toaster /></div>
+      <div>
+        <Toaster />
+      </div>
       <Row className={styles.container}>
         <Col md="4">
           <div className={styles.colLeft}>
@@ -71,13 +74,10 @@ const Index = () => {
             <div className={styles.bottomBox}>
               <div className={styles.beOwner}>
                 Become an Owner?
-                <span> Click Here!</span>
+                <span onClick={() => setShow2(true)}> Click Here!</span>
               </div>
               <div>
-                <div
-                  className={styles.logOut}
-                  onClick={handleLogout}
-                >
+                <div className={styles.logOut} onClick={handleLogout}>
                   <div>
                     <BiLogOut size={30} />
                   </div>
@@ -136,6 +136,9 @@ const Index = () => {
 
       {/* Modal */}
       <AddModal add="profile" show={show} handleClose={() => setShow(false)} />
+
+      {/* Modal for register user plus */}
+      <RegisPlus show={show2} handleClose={() => setShow2(false)} />
     </div>
   );
 };

@@ -14,7 +14,7 @@ import { IoAddOutline } from "react-icons/io5";
 import { AiFillEdit, AiOutlineDelete, AiOutlineClose } from "react-icons/ai";
 import styles from "../../styles/Field.module.css";
 import { DetailHeading, DetailLayout } from "../../components/DetailLayout";
-import AddModal from "../../components/AddModal";
+import { AddModal } from "../../components/AddModal";
 
 const Field = () => {
   const [summon, setSummon] = useState(false);
