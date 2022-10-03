@@ -2,7 +2,13 @@ import React from "react";
 import Image from "next/image";
 import { Button, Col, FloatingLabel, Form, Modal, Row } from "react-bootstrap";
 
-const AddModal = ({ show, add, handleClose, handleSubmit, handleInput }) => {
+export const AddModal = ({
+  show,
+  add,
+  handleClose,
+  handleSubmit,
+  handleInput,
+}) => {
   return (
     <div>
       <Modal centered show={show} onHide={handleClose}>
@@ -146,4 +152,36 @@ const AddModal = ({ show, add, handleClose, handleSubmit, handleInput }) => {
   );
 };
 
-export default AddModal;
+export const RegisPlus = ({ show, handleClose, handleSubmit, handleInput }) => {
+  return (
+    <div>
+      <Modal centered show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Register User Plus</Modal.Title>
+        </Modal.Header>
+
+        <Form onSubmit={(e) => handleSubmit(e)}>
+          <Modal.Body>
+            <div>
+              <p>
+                For being an user plus please upload your venue picture and wait
+                for our admin to verify your register. Please upload here
+              </p>
+            </div>
+            <FloatingLabel controlId="floatingInput" label="Upload Picture">
+              <Form.Control type="file" placeholder="placeholder" />
+            </FloatingLabel>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" type="submit">
+              Save
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
+    </div>
+  );
+};

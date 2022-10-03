@@ -4,7 +4,7 @@ import { Button, Col, Row } from "react-bootstrap";
 import { IoAddOutline } from "react-icons/io5";
 import styles from "../../styles/MyVenue.module.css";
 import { useRouter } from "next/router";
-import AddModal from "../../components/AddModal";
+import { AddModal } from "../../components/AddModal";
 
 const Myvenue = () => {
   const router = useRouter();

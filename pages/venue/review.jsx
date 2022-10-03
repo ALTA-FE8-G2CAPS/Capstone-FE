@@ -5,7 +5,7 @@ import { DetailHeading, DetailLayout } from "../../components/DetailLayout";
 import { AiFillStar } from "react-icons/ai";
 import { IoAddOutline } from "react-icons/io5";
 import styles from "../../styles/Review.module.css";
-import AddModal from "../../components/AddModal";
+import { AddModal } from "../../components/AddModal";
 
 const Review = () => {
   const [show, setShow] = useState(false);

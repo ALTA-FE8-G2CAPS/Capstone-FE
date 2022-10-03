@@ -2,7 +2,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { Button, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { AiFillEdit } from "react-icons/ai";
-import AddModal from "../../components/AddModal";
+import { AddModal } from "../../components/AddModal";
 import { DetailLayout, DetailHeading } from "../../components/DetailLayout";
 import styles from "../../styles/Detail.module.css";
 
