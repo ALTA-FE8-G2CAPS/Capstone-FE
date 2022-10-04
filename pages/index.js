@@ -9,15 +9,24 @@ import { useRouter } from "next/router"
 import styles from "../styles/Home.module.css"
 import ListCard from "../components/ListCard"
 import { useNavbarContext } from "../context/contextNavbar"
+import axios from "axios"
 
 const Home = () => {
   const router = useRouter()
   const [summon, setSummon] = useState(false);
+  const [list, setList] = useState([])
   // active Nav
   const { setStatusNav } = useNavbarContext()
   useEffect(() => {
     setStatusNav("home")
   }, [])
+
+  // Get all venue
+  const getApi = () => {
+    axios.get("https://grupproject.site/venues")
+    .then(res => setList(res.data))
+    .catch(err => console.log(err.response.data))
+  }
 
   return (
     <div className="mb-5">
@@ -128,7 +137,7 @@ const Home = () => {
       <Row className={`${styles.popBox} text-center`}>
         <p className="fs-2 fw-bold" style={{ color: "#202B2A" }}>Popular Venue</p>
       </Row>
-      <ListCard />
+      <ListCard item={list}/>
     </div>
   )
 }

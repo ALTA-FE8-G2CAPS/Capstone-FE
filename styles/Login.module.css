@@ -182,4 +182,8 @@
         margin-top: 20vh;
         width: 35%;
     }
+
+    .iconButton {
+        left: 85%;
+    }
 }

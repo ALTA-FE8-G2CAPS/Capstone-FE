@@ -1,16 +1,19 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { TbSoccerField, TbHome } from "react-icons/tb";
 import { CgProfile } from "react-icons/cg";
 import { useRouter } from "next/router";
+import { getCookie } from "cookies-next"
 // Import Components
 import styles from "../styles/Navbars.module.css";
 import { useNavbarContext } from "../context/contextNavbar";
 
 export const Navbars = () => {
-    const router = useRouter();
+    const router = useRouter()
     const { statusNav, handleHover, handleClick } = useNavbarContext();
+    const [username, setUsername] = useState(".")
+    useEffect(() => { setUsername(getCookie("user")) }, [])
 
     return (
         <>
@@ -43,7 +46,9 @@ export const Navbars = () => {
                         />
                         <a onClick={() => handleClick("profile")}
                             className={statusNav === "profile" ? styles.linkActive : styles.link}
-                            style={{ marginLeft: "1rem" }}>John Doe</a>
+                            style={{ marginLeft: "1rem" }}>
+                            {username ? username : "Login"}
+                        </a>
                     </Col>
                 </Col>
 

@@ -4,8 +4,12 @@ import '../styles/globals.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'mdb-react-ui-kit/dist/css/mdb.min.css'
 import { NavbarProvider } from '../context/contextNavbar'
+import axios from 'axios'
+import {getCookie} from "cookies-next"
 
 function MyApp({ Component, pageProps }) {
+  axios.defaults.headers.common = {Authorization : `Bearer ${getCookie("token")}`}
+  
   return (
     <>
       <Head>

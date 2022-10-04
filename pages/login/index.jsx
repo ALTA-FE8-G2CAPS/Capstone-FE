@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 // Import Components
 import styles from "../../styles/Login.module.css"
 import { useNavbarContext } from "../../context/contextNavbar";
+import axios from "axios";
+import { setCookie } from "cookies-next";
 
 const Login = () => {
     const router = useRouter()
@@ -15,6 +17,10 @@ const Login = () => {
     const [test, setTest] = useState(false)
     const [password, setPassword] = useState(true)
     const [loading, setLoading] = useState(false)
+    const [user, setUser] = useState({
+        email: "",
+        password: ""
+    })
 
     useEffect(() => {
         setStatusNav("")
@@ -25,24 +31,22 @@ const Login = () => {
         setPassword(prev => !prev)
     }
 
-    const handleButton = (e, status) => {
+    const handleInput = (e) => {
+        setUser({ ...user, [e.target.name]: e.target.value })
+    }
+
+    const handleLogin = (e) => {
         e.preventDefault()
-        if (status) {
-            setLoading(true)
-            setTimeout(() => {
-                setLoading(false)
-                swal("Login Successfully", "Welcome to segoro", "success")
+        setLoading(true)
+        setTimeout(() => setLoading(false), 2000)
+        axios.post("https://grupproject.site/login", user)
+            .then(res => {
+                setCookie("token", res.data.token)
+                setCookie("user", res.data.user)
+                swal("Login Successfully", `Welcome to segoro , ${res.data.user}`, "success")
                     .then(() => router.push("/"))
-            }, 2000)
-        }
-        else {
-            setLoading(true)
-            setTimeout(() => {
-                setLoading(false)
-                swal("Register successfully", "Thanks for your register", "success")
-                    .then(() => setTest(prev => !prev))
-            }, 2000)
-        }
+            })
+            .catch(err => swal("Login Failed" , `${err.response.data.message}`, "error"))
     }
 
 
@@ -74,13 +78,20 @@ const Login = () => {
                     </Row>
                     {!test ? <Row className={styles.formBox}>
                         <h1 className={styles.loginTitle}>Login</h1>
-                        <Form>
+                        <Form onSubmit={(e) => handleLogin(e)}>
                             <FloatingLabel
                                 controlId="floatingInput"
                                 label="Email address"
                                 className="mb-4"
                             >
-                                <Form.Control className={styles.formControl} type="email" placeholder="placeholder" />
+                                <Form.Control
+                                    className={styles.formControl}
+                                    type="email"
+                                    placeholder="placeholder"
+                                    name="email"
+                                    onChange={(e) => handleInput(e)}
+                                />
+
                             </FloatingLabel>
                             <InputGroup>
                                 <FloatingLabel
@@ -91,15 +102,17 @@ const Login = () => {
                                         className={styles.formControl}
                                         placeholder="placeholder"
                                         type={password ? "password" : "text"}
+                                        name="password"
+                                        onChange={(e) => handleInput(e)}
                                     />
                                 </FloatingLabel>
                                 <button className={styles.iconButton} onClick={(e) => togglePassword(e)}>
                                     {password ? <BsFillEyeSlashFill /> : <BsFillEyeFill />}
                                 </button>
                             </InputGroup>
-                            <MDBBtn onClick={(e) => handleButton(e, true)} rippleColor='#A1D8D2' 
-                            className={loading ? styles.loading : styles.loginButton}>
-                            {loading ? <ReactLoading type="spin" width={40} height={40}/> : "Login"}
+                            <MDBBtn type="submit" rippleColor='#A1D8D2'
+                                className={loading ? styles.loading : styles.loginButton}>
+                                {loading ? <ReactLoading type="spin" width={40} height={40} /> : "Login"}
                             </MDBBtn>
                             <p className={styles.validateText}>Don't have account ?
                                 <span className={styles.span} onClick={() => setTest(prev => !prev)}>Register Now</span>
@@ -114,14 +127,24 @@ const Login = () => {
                                     label="Username"
                                     className="mb-4"
                                 >
-                                    <Form.Control className={styles.formControl} type="email" placeholder="placeholder" />
+                                    <Form.Control
+                                        onChange={(e) => handleInput(e)}
+                                        name="email"
+                                        className={styles.formControl}
+                                        type="email"
+                                        placeholder="placeholder" />
                                 </FloatingLabel>
                                 <FloatingLabel
                                     controlId="floatingInput"
                                     label="Email address"
                                     className="mb-4"
                                 >
-                                    <Form.Control className={styles.formControl} type="email" placeholder="placeholder" />
+                                    <Form.Control
+                                        onChange={(e) => handleInput(e)}
+                                        name="password"
+                                        className={styles.formControl}
+                                        type="email"
+                                        placeholder="placeholder" />
                                 </FloatingLabel>
                                 <InputGroup>
                                     <FloatingLabel
@@ -140,7 +163,7 @@ const Login = () => {
                                 </InputGroup>
                                 <MDBBtn onClick={(e) => handleButton(e, false)}
                                     className={loading ? styles.loading : styles.loginButton}>
-                                    {loading ? <ReactLoading type="spin" width={40} height={40}/> : "Register"}
+                                    {loading ? <ReactLoading type="spin" width={40} height={40} /> : "Register"}
                                 </MDBBtn>
                                 <p className={styles.validateText}>Already have account ?
                                     <span className={styles.span} onClick={() => setTest(prev => !prev)}>Login Now</span>
