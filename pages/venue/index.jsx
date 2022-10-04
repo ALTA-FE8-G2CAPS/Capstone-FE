@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useRouter } from "next/router.js";
 import React, { useEffect, useState } from "react";
 import { Col, InputGroup, Row } from "react-bootstrap";
@@ -10,11 +11,36 @@ import styles from "../../styles/Venue.module.css";
 
 const Index = () => {
   const { setStatusNav } = useNavbarContext();
-  const [filter, setFilter] = useState(false);
   const router = useRouter();
+  const [filter, setFilter] = useState(false);
+  const [allVenue, setAllVenue] = useState([]);
+
+  // Get all venues
+  const getVenues = () => {
+    var axios = require("axios");
+    var data = "";
+
+    var config = {
+      method: "get",
+      url: "https://grupproject.site/venues",
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjQ4OTg5OTgsIm5hbWVfdXNlciI6Inp1bGZhIiwicm9sZSI6InVzZXIiLCJ1c2VySWQiOjYsInVzZXJfb3duZXIiOmZhbHNlfQ.gRvnlZgrgqf5icrsaWWr1KR3UvX8ZJXiobfQwlQAuCI",
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config).then(function (resp) {
+      // console.log(resp.data);
+      setAllVenue(resp.data.data);
+      console.log(resp);
+    });
+  };
 
   useEffect(() => {
     setStatusNav("venue");
+    getVenues();
   }, []);
 
   return (
@@ -94,7 +120,7 @@ const Index = () => {
           </select>
         </Col>
       </Row>
-      <ListCard onClick={() => router.push("/venue/detail")} />
+      <ListCard item={allVenue} />
     </Row>
   );
 };

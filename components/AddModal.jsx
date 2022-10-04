@@ -30,14 +30,48 @@ export const AddModal = ({
                   label="Venue Name"
                   className="mb-3"
                 >
-                  <Form.Control type="text" placeholder="placeholder" />
+                  <Form.Control
+                    name="name_venue"
+                    type="text"
+                    placeholder="placeholder"
+                    onChange={(e) => handleInput(e)}
+                  />
                 </FloatingLabel>
                 <FloatingLabel
                   controlId="floatingInput"
                   label="Address"
                   className="mb-3"
                 >
-                  <Form.Control type="text" placeholder="placeholder" />
+                  <Form.Control
+                    name="Address_venue"
+                    type="text"
+                    placeholder="placeholder"
+                    onChange={(e) => handleInput(e)}
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingInput"
+                  label="Latitude"
+                  className="mb-3"
+                >
+                  <Form.Control
+                    name="latitude"
+                    type="number"
+                    placeholder="placeholder"
+                    onChange={(e) => handleInput(e)}
+                  />
+                </FloatingLabel>
+                <FloatingLabel
+                  controlId="floatingInput"
+                  label="Longitude"
+                  className="mb-3"
+                >
+                  <Form.Control
+                    name="longitude"
+                    type="number"
+                    placeholder="placeholder"
+                    onChange={(e) => handleInput(e)}
+                  />
                 </FloatingLabel>
                 <div>
                   <Image src="/map.jpg" width={500} height={200} />
@@ -55,8 +89,10 @@ export const AddModal = ({
                 >
                   <Form.Control
                     as="textarea"
+                    name="description_venue"
                     placeholder="Leave a comment here"
                     style={{ height: "150px" }}
+                    onChange={(e) => handleInput(e)}
                   />
                 </FloatingLabel>
               </div>
