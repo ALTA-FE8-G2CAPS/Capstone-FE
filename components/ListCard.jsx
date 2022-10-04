@@ -1,3 +1,4 @@
+import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
@@ -5,6 +6,10 @@ import styles from "../styles/Detail.module.css";
 
 const ListCard = ({ item }) => {
   const router = useRouter();
+  const handleDetail = (id) => {
+    router.push("/venue/detail");
+    setCookie("id", id);
+  };
 
   return (
     <Row className={`${styles.listContainer}`}>
@@ -20,12 +25,7 @@ const ListCard = ({ item }) => {
             <Card
               style={{ width: "18rem" }}
               className={`${styles.cardItem} shadow`}
-              onClick={() =>
-                router.push({
-                  pathname: "/venue/detail",
-                  query: { id: item.id },
-                })
-              }
+              onClick={() => handleDetail(item.id)}
             >
               <Card.Img variant="top" src="/basket.jpg" />
               <Card.Body>

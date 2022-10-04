@@ -1,25 +1,50 @@
+import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { AiFillEdit } from "react-icons/ai";
 import { AddModal } from "../../components/AddModal";
 import { DetailLayout, DetailHeading } from "../../components/DetailLayout";
 import styles from "../../styles/Detail.module.css";
+import { getCookie } from "cookies-next";
 
 const DetailPage = () => {
   const [show, setShow] = useState(false);
+  const [detail, setDetail] = useState([]);
   const router = useRouter();
-  const {
-    query: { id },
-  } = router;
-  console.log(id);
+  const [cookiess, setCookiess] = useState();
 
+  useEffect(() => {
+    setCookiess(getCookie("id"));
+  }, []);
+
+  const getDetail = () => {
+    axios
+      .get(`https://grupproject.site/venues/${getCookie("id")}`, {
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjQ5NDIzOTIsIm5hbWVfdXNlciI6Inp1bGZhIiwicm9sZSI6InVzZXIiLCJ1c2VySWQiOjYsInVzZXJfb3duZXIiOmZhbHNlfQ.3-zxa9bGaAlSMCN1MsL_yfGkgiLXEEUX9AjDS1tHHco",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        console.log("responnya", res.data.data);
+        setDetail(res.data.data);
+      });
+    // .catch((error) => console.error(error.response.data));
+  };
+
+  useEffect(() => {
+    getDetail();
+  }, []);
+  // get detail venue
+  console.log("ini detail", detail);
   return (
     <Row className={`${styles.container}`}>
       <DetailLayout />
       <Col md="12" lg="8" className={styles.containerRight}>
-        <DetailHeading page="detail" />
+        <DetailHeading page="detail" item={detail} />
         <Row className={styles.description}>
           <Row>
             <div className={styles.descTitle}>

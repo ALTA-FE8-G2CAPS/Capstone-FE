@@ -34,7 +34,7 @@ const Myvenue = () => {
       url: "https://grupproject.site/venues",
       headers: {
         Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjQ4OTg5OTgsIm5hbWVfdXNlciI6Inp1bGZhIiwicm9sZSI6InVzZXIiLCJ1c2VySWQiOjYsInVzZXJfb3duZXIiOmZhbHNlfQ.gRvnlZgrgqf5icrsaWWr1KR3UvX8ZJXiobfQwlQAuCI",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjQ5NDIzOTIsIm5hbWVfdXNlciI6Inp1bGZhIiwicm9sZSI6InVzZXIiLCJ1c2VySWQiOjYsInVzZXJfb3duZXIiOmZhbHNlfQ.3-zxa9bGaAlSMCN1MsL_yfGkgiLXEEUX9AjDS1tHHco",
         "Content-Type": "application/json",
       },
       data: data,
@@ -47,14 +47,7 @@ const Myvenue = () => {
     });
   };
 
-  // // Add new venue
-  // const handleInput = (e) => {
-  //   setNameVenue(e.target.value);
-  //   setAddress(e.target.value);
-  //   setLatVen(e.target.value);
-  //   setLongVen(e.target.value);
-  //   setDesc(e.target.value);
-  // };
+  // Add new venue
 
   const handleInput = (e) => {
     let newvenue = { ...venue };
@@ -80,27 +73,11 @@ const Myvenue = () => {
       description_venue: description_venue,
     };
 
-    // var config = {
-    //   method: "post",
-    //   url: "https://grupproject.site/venues",
-    //   headers: {
-    //     Authorization:
-    //       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjQ4OTc4NjEsIm5hbWVfdXNlciI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwidXNlcklkIjoxLCJ1c2VyX293bmVyIjpmYWxzZX0.sdL8dewfU7kHuHCd5woHqbJHvV3fDnBBauxlq28FVY4",
-    //     "Content-Type": "application/json",
-    //   },
-    //   data: data,
-    // };
-
-    // axios(config).then(function (resp) {
-    //   getVenues();
-    //   console.log(resp.data);
-    // });
-
     axios
       .post("https://grupproject.site/venues", data, {
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjQ4OTc4NjEsIm5hbWVfdXNlciI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwidXNlcklkIjoxLCJ1c2VyX293bmVyIjpmYWxzZX0.sdL8dewfU7kHuHCd5woHqbJHvV3fDnBBauxlq28FVY4",
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjQ5NDIzOTIsIm5hbWVfdXNlciI6Inp1bGZhIiwicm9sZSI6InVzZXIiLCJ1c2VySWQiOjYsInVzZXJfb3duZXIiOmZhbHNlfQ.3-zxa9bGaAlSMCN1MsL_yfGkgiLXEEUX9AjDS1tHHco",
           "Content-Type": "application/json",
         },
       })
@@ -120,7 +97,7 @@ const Myvenue = () => {
         <h2 className={styles.title}>My Venue</h2>
         <Row className={styles.boxBody}>
           <Col className={styles.boxAmount}>
-            <span className={styles.amount}>8</span>
+            <span className={styles.amount}>{allVenue.length}</span>
             <span> Venues</span>
           </Col>
           <Col className={styles.rightCol}>
