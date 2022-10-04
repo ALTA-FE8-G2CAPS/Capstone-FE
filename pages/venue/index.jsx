@@ -25,7 +25,7 @@ const Index = () => {
       url: "https://grupproject.site/venues",
       headers: {
         Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjQ4OTg5OTgsIm5hbWVfdXNlciI6Inp1bGZhIiwicm9sZSI6InVzZXIiLCJ1c2VySWQiOjYsInVzZXJfb3duZXIiOmZhbHNlfQ.gRvnlZgrgqf5icrsaWWr1KR3UvX8ZJXiobfQwlQAuCI",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjQ5NDIzOTIsIm5hbWVfdXNlciI6Inp1bGZhIiwicm9sZSI6InVzZXIiLCJ1c2VySWQiOjYsInVzZXJfb3duZXIiOmZhbHNlfQ.3-zxa9bGaAlSMCN1MsL_yfGkgiLXEEUX9AjDS1tHHco",
         "Content-Type": "application/json",
       },
       data: data,
