@@ -1,10 +1,11 @@
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import React from "react";
-import { Card, Col, Row } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
+import { MdDeleteOutline } from "react-icons/md";
 import styles from "../styles/Detail.module.css";
 
-const ListCard = ({ item }) => {
+const ListCard = ({ item, handleDelete }) => {
   const router = useRouter();
   const handleDetail = (id) => {
     router.push("/venue/detail");
@@ -25,9 +26,12 @@ const ListCard = ({ item }) => {
             <Card
               style={{ width: "18rem" }}
               className={`${styles.cardItem} shadow`}
-              onClick={() => handleDetail(item.id)}
             >
-              <Card.Img variant="top" src="/basket.jpg" />
+              <Card.Img
+                variant="top"
+                src="/basket.jpg"
+                onClick={() => handleDetail(item.id)}
+              />
               <Card.Body>
                 <Card.Title className={`${styles.fontOpen}`}>
                   {item.name_venue}
@@ -35,6 +39,9 @@ const ListCard = ({ item }) => {
                 <Card.Text className={`${styles.fontLato} fs-5 fw-bold`}>
                   Rp 150.000
                 </Card.Text>
+                <button className={styles.delete} onClick={handleDelete}>
+                  <MdDeleteOutline size={25} />
+                </button>
               </Card.Body>
             </Card>
           </Col>
