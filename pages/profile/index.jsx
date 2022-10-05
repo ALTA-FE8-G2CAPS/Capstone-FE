@@ -50,8 +50,6 @@ const Index = () => {
     getProfile()
   }, [])
 
-  console.log(profile)
-
   return (
     <div>
       <div>
@@ -168,7 +166,7 @@ const Index = () => {
       }
 
       {/* Modal */}
-      <AddModal add="profile" show={show} handleClose={() => setShow(false)} />
+      <AddModal add="profile" profile={profile} show={show} handleClose={() => setShow(false)} />
 
       {/* Modal for register user plus */}
       <RegisPlus show={show2} handleClose={() => setShow2(false)} />

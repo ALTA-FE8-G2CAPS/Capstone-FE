@@ -8,8 +8,10 @@ export const AddModal = ({
   handleClose,
   handleSubmit,
   handleInput,
+  profile
 }) => {
   return (
+    console.log(profile),
     <div>
       <Modal centered show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -140,28 +142,23 @@ export const AddModal = ({
                     label="Username"
                     className="mb-3"
                   >
-                    <Form.Control type="text" placeholder="placeholder" />
-                  </FloatingLabel>
-                  <FloatingLabel
-                    controlId="floatingInput"
-                    label="Name"
-                    className="mb-3"
-                  >
-                    <Form.Control type="text" placeholder="placeholder" />
+                    <Form.Control value={profile?.name_user} type="text" placeholder="placeholder" />
                   </FloatingLabel>
                   <FloatingLabel
                     controlId="floatingInput"
                     label="Email"
                     className="mb-3"
                   >
-                    <Form.Control type="email" placeholder="placeholder" />
+                    <Form.Control value={profile?.email} type="email" placeholder="placeholder" />
                   </FloatingLabel>
-                  <FloatingLabel
-                    controlId="floatingInput"
-                    label="Address"
-                    className="mb-3"
-                  >
-                    <Form.Control type="text" placeholder="placeholder" />
+                  <FloatingLabel className="mb-3" controlId="floatingTextarea23" label="Address">
+                    <Form.Control
+                      name="address_user"
+                      value={profile?.address_user}
+                      as="textarea"
+                      placeholder="Leave a comment here"
+                      style={{ height: '100px' }}
+                    />
                   </FloatingLabel>
                   <FloatingLabel
                     controlId="floatingInput"
