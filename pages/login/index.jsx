@@ -48,10 +48,12 @@ const Login = () => {
         setTimeout(() => setLoading(false), 2000)
         axios.post("https://grupproject.site/login", user)
             .then(res => {
-                setCookie("token", res.data.token)
-                setCookie("user", res.data.user)
-                setCookie("user_id", res.data.user_id)
-                swal("Login Successfully", `Welcome to segoro , ${res.data.user}`, "success")
+                const data = res.data
+                setCookie("token", data.token)
+                setCookie("user", data.user)
+                setCookie("user_id", data.user_id)
+                setCookie("foto_user", data.foto_user)
+                swal("Login Successfully", `Welcome to segoro , ${data.user}`, "success")
                     .then(() => window.location.href = "/")
             })
             .catch(err => swal("Login Failed", `${err.response.data.message}`, "error"))

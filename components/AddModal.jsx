@@ -11,7 +11,6 @@ export const AddModal = ({
   profile
 }) => {
   return (
-    console.log(profile),
     <div>
       <Modal centered show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -19,7 +18,9 @@ export const AddModal = ({
             {(add === "venue" && "Add Venue / Edit Venue") ||
               (add === "field" && "Add Field / Edit Field") ||
               (add === "review" && "Add Review") ||
-              (add === "profile" && "Edit Profile")}
+              (add === "profile" && "Edit Profile") ||
+              (add === "profileImage" && "Edit Image")
+              }
           </Modal.Title>
         </Modal.Header>
 
@@ -138,37 +139,34 @@ export const AddModal = ({
               (add === "profile" && (
                 <div>
                   <FloatingLabel
-                    controlId="floatingInput"
+                    controlId="floatingusername"
                     label="Username"
                     className="mb-3"
                   >
-                    <Form.Control value={profile?.name_user} type="text" placeholder="placeholder" />
-                  </FloatingLabel>
-                  <FloatingLabel
-                    controlId="floatingInput"
-                    label="Email"
-                    className="mb-3"
-                  >
-                    <Form.Control value={profile?.email} type="email" placeholder="placeholder" />
+                    <Form.Control name="name_user" onChange={(e) => handleInput(e)} value={profile?.name_user} type="text" placeholder="placeholder" />
                   </FloatingLabel>
                   <FloatingLabel className="mb-3" controlId="floatingTextarea23" label="Address">
                     <Form.Control
                       name="address_user"
+                      onChange={(e) => handleInput(e)}
                       value={profile?.address_user}
                       as="textarea"
                       placeholder="Leave a comment here"
                       style={{ height: '100px' }}
                     />
                   </FloatingLabel>
+                </div>
+              ) || (add === "profileImage" &&
+                <div>
                   <FloatingLabel
                     controlId="floatingInput"
-                    label="Upload your picture"
+                    label="Profile picture"
                     className="mb-3"
                   >
-                    <Form.Control type="file" placeholder="placeholder" />
+                    <Form.Control name="foto_user" onChange={(e) => handleInput(e)} type="file" placeholder="placeholder" />
                   </FloatingLabel>
-                </div>
-              ))}
+                </div>)
+              )}
           </Modal.Body>
 
           <Modal.Footer>

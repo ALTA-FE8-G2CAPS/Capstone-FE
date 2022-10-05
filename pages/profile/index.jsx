@@ -8,10 +8,11 @@ import { BiLogOut } from "react-icons/bi";
 import { AiOutlineSchedule } from "react-icons/ai";
 import { MdOutlineDashboard } from "react-icons/md";
 import { useRouter } from "next/router";
-import { deleteCookie, getCookie } from "cookies-next"
+import { deleteCookie, getCookie, setCookie } from "cookies-next"
 import toast, { Toaster } from "react-hot-toast";
 import ReactLoading from "react-loading"
 import axios from "axios";
+import { BsFillCameraFill } from "react-icons/bs"
 // import Components
 import { useNavbarContext } from "../../context/contextNavbar";
 import { AddModal, RegisPlus } from "../../components/AddModal";
@@ -26,14 +27,20 @@ const Index = () => {
 
   const router = useRouter();
   const [show, setShow] = useState(false);
+  const [add, setAdd] = useState("profile")
   const [show2, setShow2] = useState(false);
   const [profile, setProfile] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [update, setUpdate] = useState({
+    name_user: "",
+    address_user: ""
+  })
 
   const handleLogout = () => {
     deleteCookie("token")
     deleteCookie("user")
     deleteCookie("user_id")
+    deleteCookie("foto_user")
     toast.success("You have been logout");
     router.push("/login");
   };
@@ -42,15 +49,69 @@ const Index = () => {
     setLoading(true)
     axios.get(`https://grupproject.site/users/${getCookie("user_id")}`)
       .then(res => {
-        setProfile(res.data.data)
+        const data = res.data.data
+        setProfile(data)
+        setUpdate({
+          ...update,
+          name_user: data.name_user,
+          address_user: data.address_user
+        })
         setLoading(false)
       })
+      .catch(err => console.error(err.response.data.message))
   }
   useEffect(() => {
     getProfile()
+    setCookie("foto_user", profile?.foto_user)
   }, [])
 
+  const handleImage = () => {
+    setShow(true)
+    setAdd("profileImage")
+  }
+  const handleEdit = () => {
+    setShow(true)
+    setAdd("profile")
+  }
+
+  const handleInput = (e) => {
+    const target = e.target
+    let newUpdate = { ...update }
+    if (target.type === "file") {
+      newUpdate[e.target.name] = target.files[0]
+      setUpdate(newUpdate)
+    } else {
+      newUpdate[e.target.name] = target.value
+      setUpdate(newUpdate)
+    }
+  }
+
+  const handleSubmit = (e) => {
+    console.log(update)
+    e.preventDefault()
+    const data = new FormData();
+    for (var i in update) {
+      data.append(i, update[i])
+    }
+    setCookie("user", update.name_user)
+
+    const myPromise = axios.put("https://grupproject.site/users", data)
+      .then(res => {
+        console.log(res)
+        setShow(false)
+        getProfile()
+      })
+      .catch(err => console.error(err))
+
+    toast.promise(myPromise, {
+      loading: "Saving...",
+      success: "Update Successfully",
+      error: "Update Failed"
+    })
+  }
+
   return (
+    // console.log(profile),
     <div>
       <div>
         <Toaster />
@@ -62,7 +123,7 @@ const Index = () => {
           <Col md="4">
             <div className={styles.colLeft}>
               <div className={styles.topBox}>
-                <div className={styles.itemLeft} onClick={() => setShow(true)}>
+                <div className={styles.itemLeft} onClick={handleEdit}>
                   <div>
                     <FiEdit size={30} />
                   </div>
@@ -131,12 +192,21 @@ const Index = () => {
                 </p>
               </div>
               <div className={styles.imageBox}>
-                <Image
-                  src={profile?.foto_user}
-                  width={250}
-                  height={250}
-                  className={styles.imageProfile}
-                />
+                <div className={styles.colorBox} onClick={handleImage}>
+                  <Image
+                    src={profile?.foto_user ? profile?.foto_user : "/profile.jpg"}
+                    width={250}
+                    height={250}
+                    className={styles.imageProfile}
+                  />
+                  <ReactLoading type="bars" color="white" height={100} width={100}
+                    className={`position-absolute ${styles.loadingImage}`}
+                  />
+                  <Row className={`${styles.middle} d-flex justify-content-center text-center ms-0 fs-5 fw-bold`}>
+                    <BsFillCameraFill size={50} />
+                    Change Profile Picture
+                  </Row>
+                </div>
               </div>
               <div>
                 <Table className={styles.tableBox}>
@@ -166,7 +236,9 @@ const Index = () => {
       }
 
       {/* Modal */}
-      <AddModal add="profile" profile={profile} show={show} handleClose={() => setShow(false)} />
+      <AddModal add={add} profile={update} show={show} handleClose={() => setShow(false)}
+        handleInput={handleInput}
+        handleSubmit={handleSubmit} />
 
       {/* Modal for register user plus */}
       <RegisPlus show={show2} handleClose={() => setShow2(false)} />
