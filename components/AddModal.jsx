@@ -77,13 +77,6 @@ export const AddModal = ({
                   <Image src="/map.jpg" width={500} height={200} />
                 </div>
                 <FloatingLabel
-                  controlId="floatingInput"
-                  label="Upload your venue photo"
-                  className="mb-3"
-                >
-                  <Form.Control type="file" placeholder="placeholder" />
-                </FloatingLabel>
-                <FloatingLabel
                   controlId="floatingTextarea2"
                   label="Description"
                 >
@@ -254,6 +247,41 @@ export const VerifyModal = ({
             <Button variant="primary" type="submit">
               Save
             </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
+    </div>
+  );
+};
+
+export const AddFotoVenue = ({ show, handleClose, handleForm, handleFoto }) => {
+  return (
+    <div>
+      <Modal centered show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Venue Photo</Modal.Title>
+        </Modal.Header>
+        <Form onSubmit={(e) => handleFoto(e)}>
+          <Modal.Body>
+            <div>
+              <p>You can upload your picture here</p>
+            </div>
+            <FloatingLabel
+              controlId="floatingInput"
+              label="Upload your venue photo"
+              className="mb-3"
+            >
+              <Form.Control
+                type="file"
+                name="foto_venue"
+                placeholder="placeholder"
+                onChange={(e) => handleForm(e)}
+              />
+            </FloatingLabel>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={handleClose}>Close</Button>
+            <Button type="submit">Save</Button>
           </Modal.Footer>
         </Form>
       </Modal>
