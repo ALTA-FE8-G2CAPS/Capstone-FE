@@ -1,9 +1,23 @@
 .fontOpen {
     font-family: 'Open Sans', sans-serif;
 }
+.fontOpen:hover {
+    border-bottom: 1px solid #405654;
+}
 
 .fontLato {
     font-family: 'Lato';
+}
+
+.delete{
+    padding: 10px; 
+    border-radius: 40px;
+    background-color: red;
+    border: none;
+}
+.delete:hover{
+    color: red;
+    background-color: rgb(249, 184, 184);
 }
 
 .container {

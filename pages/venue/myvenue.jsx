@@ -6,11 +6,13 @@ import styles from "../../styles/MyVenue.module.css";
 import { useRouter } from "next/router";
 import { AddModal } from "../../components/AddModal";
 import axios from "axios";
+import { getCookie } from "cookies-next";
 
 const Myvenue = () => {
   const router = useRouter();
   const [show, setShow] = useState(false);
   const [allVenue, setAllVenue] = useState([]);
+  const [cookiess, setCookiess] = useState();
   const [venue, setVenue] = useState({
     name_venue: "",
     Address_venue: "",
@@ -18,11 +20,10 @@ const Myvenue = () => {
     longitude: parseInt(),
     description_venue: "",
   });
-  const [nameVenue, setNameVenue] = useState();
-  const [addressVenue, setAddress] = useState();
-  const [latVen, setLatVen] = useState();
-  const [longVen, setLongVen] = useState();
-  const [desc, setDesc] = useState();
+
+  useEffect(() => {
+    setCookiess(getCookie("id"));
+  }, []);
 
   // Get all venues
   const getVenues = () => {
@@ -32,18 +33,11 @@ const Myvenue = () => {
     var config = {
       method: "get",
       url: "https://grupproject.site/venues",
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjQ5NDIzOTIsIm5hbWVfdXNlciI6Inp1bGZhIiwicm9sZSI6InVzZXIiLCJ1c2VySWQiOjYsInVzZXJfb3duZXIiOmZhbHNlfQ.3-zxa9bGaAlSMCN1MsL_yfGkgiLXEEUX9AjDS1tHHco",
-        "Content-Type": "application/json",
-      },
       data: data,
     };
 
     axios(config).then(function (resp) {
-      // console.log(resp.data);
       setAllVenue(resp.data.data);
-      console.log(resp);
     });
   };
 
@@ -73,23 +67,26 @@ const Myvenue = () => {
       description_venue: description_venue,
     };
 
-    axios
-      .post("https://grupproject.site/venues", data, {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjQ5NDIzOTIsIm5hbWVfdXNlciI6Inp1bGZhIiwicm9sZSI6InVzZXIiLCJ1c2VySWQiOjYsInVzZXJfb3duZXIiOmZhbHNlfQ.3-zxa9bGaAlSMCN1MsL_yfGkgiLXEEUX9AjDS1tHHco",
-          "Content-Type": "application/json",
-        },
-      })
-      .then(() => {
-        alert("Add new venue success");
-        getVenues();
-      });
+    axios.post("https://grupproject.site/venues", data).then(() => {
+      alert("Add new venue success");
+      getVenues();
+      setShow(false);
+    });
   };
 
   useEffect(() => {
     getVenues();
   }, []);
+
+  // delete venue
+  const handleDelete = () => {
+    axios
+      .delete(`https://grupproject.site/venues/${getCookie("id")}`)
+      .then(() => {
+        alert("venue deleted");
+        getVenues();
+      });
+  };
 
   return (
     <div>
@@ -114,7 +111,7 @@ const Myvenue = () => {
           </Col>
         </Row>
         <Row>
-          <ListCard item={allVenue} />
+          <ListCard item={allVenue} handleDelete={() => handleDelete()} />
         </Row>
       </div>
 

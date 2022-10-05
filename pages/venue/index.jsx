@@ -23,18 +23,11 @@ const Index = () => {
     var config = {
       method: "get",
       url: "https://grupproject.site/venues",
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjQ5NDIzOTIsIm5hbWVfdXNlciI6Inp1bGZhIiwicm9sZSI6InVzZXIiLCJ1c2VySWQiOjYsInVzZXJfb3duZXIiOmZhbHNlfQ.3-zxa9bGaAlSMCN1MsL_yfGkgiLXEEUX9AjDS1tHHco",
-        "Content-Type": "application/json",
-      },
       data: data,
     };
 
     axios(config).then(function (resp) {
-      // console.log(resp.data);
       setAllVenue(resp.data.data);
-      console.log(resp);
     });
   };
 
