@@ -4,6 +4,7 @@ import React from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { MdDeleteOutline } from "react-icons/md";
 import styles from "../styles/Detail.module.css";
+import axios from "axios";
 
 const ListCard = ({ item, handleDelete }) => {
   const router = useRouter();
@@ -11,6 +12,14 @@ const ListCard = ({ item, handleDelete }) => {
     router.push("/venue/detail");
     setCookie("id", id);
   };
+
+  // // delete venue
+  // const handleDelete = (id) => {
+  //   axios.delete(`https://grupproject.site/venues/${id}`).then(() => {
+  //     alert("venue deleted");
+  //     // getVenues();
+  //   });
+  // };
 
   return (
     <Row className={`${styles.listContainer}`}>
@@ -39,7 +48,10 @@ const ListCard = ({ item, handleDelete }) => {
                 <Card.Text className={`${styles.fontLato} fs-5 fw-bold`}>
                   Rp 150.000
                 </Card.Text>
-                <button className={styles.delete} onClick={handleDelete}>
+                <button
+                  className={styles.delete}
+                  onClick={() => handleDelete(item.id)}
+                >
                   <MdDeleteOutline size={25} />
                 </button>
               </Card.Body>
