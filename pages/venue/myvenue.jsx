@@ -42,7 +42,6 @@ const Myvenue = () => {
   };
 
   // Add new venue
-
   const handleInput = (e) => {
     let newvenue = { ...venue };
     newvenue[e.target.name] = e.target.value;
@@ -79,13 +78,11 @@ const Myvenue = () => {
   }, []);
 
   // delete venue
-  const handleDelete = () => {
-    axios
-      .delete(`https://grupproject.site/venues/${getCookie("id")}`)
-      .then(() => {
-        alert("venue deleted");
-        getVenues();
-      });
+  const handleDelete = (id) => {
+    axios.delete(`https://grupproject.site/venues/${id}`).then(() => {
+      alert("venue deleted");
+      getVenues();
+    });
   };
 
   return (
@@ -111,7 +108,7 @@ const Myvenue = () => {
           </Col>
         </Row>
         <Row>
-          <ListCard item={allVenue} handleDelete={() => handleDelete()} />
+          <ListCard item={allVenue} handleDelete={(id) => handleDelete(id)} />
         </Row>
       </div>
 
