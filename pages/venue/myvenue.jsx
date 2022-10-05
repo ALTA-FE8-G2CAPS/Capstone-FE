@@ -119,6 +119,7 @@ const Myvenue = () => {
         handleClose={() => setShow(false)}
         handleInput={handleInput}
         handleSubmit={handleSubmit}
+        handleForm={handleForm}
       />
     </div>
   );

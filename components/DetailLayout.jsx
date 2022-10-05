@@ -3,66 +3,143 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import styles from "../styles/Detail.module.css";
+import { AddFotoVenue } from "./AddModal";
 
-export const DetailLayout = () => {
-  const [image, setImage] = useState("/basket.jpg");
+export const DetailLayout = ({
+  fotoVenue,
+  handleShow,
+  showAddFoto,
+  handleClose,
+  handleForm,
+  handleFoto,
+}) => {
+  const [image, setImage] = useState("/add.png");
+  console.log("ini isi foto venue", fotoVenue);
 
   return (
     <Col md={12} lg={4}>
-      <Row className={styles.leftCol}>
+      {fotoVenue ? (
         <div>
-          <Image
-            src={image}
-            width={500}
-            height={500}
-            className={styles.imageBox}
-          />
+          <Row className={styles.leftCol}>
+            <div>
+              <Image
+                src={image}
+                width={500}
+                height={500}
+                className={styles.imageBox}
+                onClick={handleShow}
+              />
+            </div>
+          </Row>
+          <Row>
+            <div className={styles.scrollImage}>
+              <div className={styles.imageItem}>
+                <Image
+                  onClick={() => setImage("/add.png")}
+                  src="/add.png"
+                  width={165}
+                  height={110}
+                  className="rounded"
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+              <div className={styles.imageItem}>
+                <Image
+                  onClick={() => setImage("/add.png")}
+                  src="/add.png"
+                  width={165}
+                  height={110}
+                  className="rounded"
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+              <div className={styles.imageItem}>
+                <Image
+                  onClick={() => setImage("/add.png")}
+                  src="/add.png"
+                  width={165}
+                  height={110}
+                  className="rounded"
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+              <div className={styles.imageItem}>
+                <Image
+                  onClick={() => setImage("/add.png")}
+                  src="/add.png"
+                  width={165}
+                  height={110}
+                  className="rounded"
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+            </div>
+          </Row>
         </div>
-      </Row>
-      <Row>
-        <div className={styles.scrollImage}>
-          <div className={styles.imageItem}>
-            <Image
-              onClick={() => setImage("/futsal.jpg")}
-              src="/futsal.jpg"
-              width={165}
-              height={110}
-              className="rounded"
-              style={{ cursor: "pointer" }}
-            />
-          </div>
-          <div className={styles.imageItem}>
-            <Image
-              onClick={() => setImage("/volley.jpg")}
-              src="/volley.jpg"
-              width={165}
-              height={110}
-              className="rounded"
-              style={{ cursor: "pointer" }}
-            />
-          </div>
-          <div className={styles.imageItem}>
-            <Image
-              onClick={() => setImage("/basket.jpg")}
-              src="/basket.jpg"
-              width={165}
-              height={110}
-              className="rounded"
-              style={{ cursor: "pointer" }}
-            />
-          </div>
-          <div className={styles.imageItem}>
-            <Image
-              onClick={() => setImage("/logo.png")}
-              src="/logo.png"
-              width={165}
-              height={110}
-              className="rounded"
-              style={{ cursor: "pointer" }}
-            />
-          </div>
+      ) : (
+        <div>
+          <Row className={styles.leftCol}>
+            <div>
+              <Image
+                src={image}
+                width={500}
+                height={500}
+                className={styles.imageBox}
+              />
+            </div>
+          </Row>
+          <Row>
+            <div className={styles.scrollImage}>
+              <div className={styles.imageItem}>
+                <Image
+                  onClick={() => setImage("/futsal.jpg")}
+                  src="/futsal.jpg"
+                  width={165}
+                  height={110}
+                  className="rounded"
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+              <div className={styles.imageItem}>
+                <Image
+                  onClick={() => setImage("/volley.jpg")}
+                  src="/volley.jpg"
+                  width={165}
+                  height={110}
+                  className="rounded"
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+              <div className={styles.imageItem}>
+                <Image
+                  onClick={() => setImage("/basket.jpg")}
+                  src="/basket.jpg"
+                  width={165}
+                  height={110}
+                  className="rounded"
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+              <div className={styles.imageItem}>
+                <Image
+                  onClick={() => setImage("/logo.png")}
+                  src="/logo.png"
+                  width={165}
+                  height={110}
+                  className="rounded"
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+            </div>
+          </Row>
         </div>
-      </Row>
+      )}
+      <AddFotoVenue
+        show={showAddFoto}
+        handleClose={handleClose}
+        handleForm={(e) => handleForm(e)}
+        handleFoto={handleFoto}
+      />
     </Col>
   );
 };

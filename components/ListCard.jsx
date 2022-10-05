@@ -13,14 +13,6 @@ const ListCard = ({ item, handleDelete }) => {
     setCookie("id", id);
   };
 
-  // // delete venue
-  // const handleDelete = (id) => {
-  //   axios.delete(`https://grupproject.site/venues/${id}`).then(() => {
-  //     alert("venue deleted");
-  //     // getVenues();
-  //   });
-  // };
-
   return (
     <Row className={`${styles.listContainer}`}>
       {item?.map((item, index) => {

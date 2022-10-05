@@ -1,9 +1,6 @@
 .fontOpen {
     font-family: 'Open Sans', sans-serif;
 }
-.fontOpen:hover {
-    border-bottom: 1px solid #405654;
-}
 
 .fontLato {
     font-family: 'Lato';
@@ -50,6 +47,9 @@
     font-size: 25px;
     display: inline-block;
     padding: 5px !important;
+}
+.imageItem Image {
+    object-fit: cover;
 }
 
 .containerRight {

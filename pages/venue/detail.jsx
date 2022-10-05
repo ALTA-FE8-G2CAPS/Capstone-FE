@@ -11,10 +11,13 @@ import { getCookie } from "cookies-next";
 
 const DetailPage = () => {
   const [show, setShow] = useState(false);
+  const [showAddFoto, setShowAddFoto] = useState(false);
   const [detail, setDetail] = useState([]);
   const router = useRouter();
   const [cookiess, setCookiess] = useState();
-
+  const [fotoVenue, setFotoVenue] = useState({
+    foto_venue: null,
+  });
   const [venue, setVenue] = useState({
     name_venue: "",
     Address_venue: "",
@@ -26,8 +29,6 @@ const DetailPage = () => {
   useEffect(() => {
     setCookiess(getCookie("id"));
   }, []);
-
-  // const [edit, setEdit] = useState(getCookie("id"));
 
   // get detail venue
   const getDetail = () => {
@@ -44,12 +45,30 @@ const DetailPage = () => {
     getDetail();
   }, []);
 
-  // handle edit
-  // const handleEdit = () => {
-  //   setShow(true);
-  //   setEdit();
-  //   console.log("ini id edit", edit);
-  // };
+  // add foto
+  const handleForm = (e) => {
+    const target = e.target;
+    let newFotoVenue = { ...fotoVenue };
+    newFotoVenue[e.target.name] = target.files[0];
+    setFotoVenue(newFotoVenue);
+  };
+  const handleFoto = (e) => {
+    var axios = require("axios");
+    var FormData = require("form-data");
+    var data = new FormData();
+    for (var i in fotoVenue) {
+      data.append(i, fotoVenue[i]);
+    }
+    axios
+      .post(`https://grupproject.site/venues/foto/${getCookie("id")}`)
+      .then((res) => {
+        console.log(res.data);
+        alert("add foto succces");
+        getDetail();
+        setShowAddFoto(false);
+      })
+      .catch((err) => console.log(err.response.data));
+  };
 
   // edit venue
   const handleInput = (e) => {
@@ -87,7 +106,14 @@ const DetailPage = () => {
 
   return (
     <Row className={`${styles.container}`}>
-      <DetailLayout />
+      <DetailLayout
+        fotoVenue={fotoVenue}
+        handleShow={() => setShowAddFoto(true)}
+        showAddFoto={showAddFoto}
+        handleClose={() => setShowAddFoto(false)}
+        handleForm={handleForm}
+        handleFoto={handleFoto}
+      />
       <Col md="12" lg="8" className={styles.containerRight}>
         <DetailHeading page="detail" item={detail} />
         <Row className={styles.description}>
