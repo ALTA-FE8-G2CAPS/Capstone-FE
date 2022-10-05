@@ -15,19 +15,24 @@ const DetailPage = () => {
   const router = useRouter();
   const [cookiess, setCookiess] = useState();
 
+  const [venue, setVenue] = useState({
+    name_venue: "",
+    Address_venue: "",
+    latitude: parseInt(),
+    longitude: parseInt(),
+    description_venue: "",
+  });
+
   useEffect(() => {
     setCookiess(getCookie("id"));
   }, []);
 
+  // const [edit, setEdit] = useState(getCookie("id"));
+
+  // get detail venue
   const getDetail = () => {
     axios
-      .get(`https://grupproject.site/venues/${getCookie("id")}`, {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjQ5NDIzOTIsIm5hbWVfdXNlciI6Inp1bGZhIiwicm9sZSI6InVzZXIiLCJ1c2VySWQiOjYsInVzZXJfb3duZXIiOmZhbHNlfQ.3-zxa9bGaAlSMCN1MsL_yfGkgiLXEEUX9AjDS1tHHco",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(`https://grupproject.site/venues/${getCookie("id")}`)
       .then((res) => {
         console.log("responnya", res.data.data);
         setDetail(res.data.data);
@@ -38,8 +43,48 @@ const DetailPage = () => {
   useEffect(() => {
     getDetail();
   }, []);
-  // get detail venue
-  console.log("ini detail", detail);
+
+  // handle edit
+  // const handleEdit = () => {
+  //   setShow(true);
+  //   setEdit();
+  //   console.log("ini id edit", edit);
+  // };
+
+  // edit venue
+  const handleInput = (e) => {
+    let newVenue = { ...venue };
+    newVenue[e.target.name] = e.target.value;
+    setVenue(newVenue);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    var axios = require("axios");
+    const {
+      name_venue,
+      Address_venue,
+      latitude,
+      longitude,
+      description_venue,
+    } = venue;
+    var data = {
+      name_venue: name_venue,
+      Address_venue: Address_venue,
+      latitude: parseInt(latitude),
+      longitude: parseInt(longitude),
+      description_venue: description_venue,
+    };
+
+    axios
+      .put(`https://grupproject.site/venues/${getCookie("id")}`, data)
+      .then(() => {
+        alert("Edit venue success");
+        getDetail();
+        setShow(false);
+      });
+  };
+
   return (
     <Row className={`${styles.container}`}>
       <DetailLayout />
@@ -69,26 +114,11 @@ const DetailPage = () => {
             </div>
           </Row>
           <Row>
-            <p className={styles.descBody}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum id
-              ab ipsum corrupti nihil harum omnis veniam soluta, incidunt fuga
-              minima dolore cum, sint, quaerat cupiditate voluptatibus nulla
-              voluptates! Voluptas veniam ea soluta. Repellendus modi, vero sit
-              voluptates quae, ipsa fuga tempore aliquid rem id aliquam officiis
-              saepe quidem, sed voluptate illo obcaecati. Delectus nesciunt
-              animi voluptates laudantium exercitationem deserunt ratione magnam
-              tenetur explicabo maiores placeat eum ad fugit expedita laboriosam
-              iure perferendis assumenda, et perspiciatis quos atque dicta
-              necessitatibus sapiente! Autem aperiam libero sit expedita quis?
-              Sint ea odio tenetur impedit omnis, nihil odit, amet ab illum
-              earum sed.
-            </p>
+            <p className={styles.descBody}>{detail.description_venue}</p>
           </Row>
           <Row className={styles.location}>
             <h5 className="mb-2 fw-reguler">Lokasi :</h5>
-            <p className={styles.fontLato}>
-              Jalan Konoha raya No. 10 Dressrosa, Kota East Blue
-            </p>
+            <p className={styles.fontLato}>{detail.address_venue}</p>
             <div className={styles.map}>
               <Image src="/map.png" width={750} height={300} />
             </div>
@@ -97,7 +127,13 @@ const DetailPage = () => {
       </Col>
 
       {/* Modal */}
-      <AddModal add="venue" show={show} handleClose={() => setShow(false)} />
+      <AddModal
+        add="venue"
+        show={show}
+        handleClose={() => setShow(false)}
+        handleInput={handleInput}
+        handleSubmit={handleSubmit}
+      />
     </Row>
   );
 };
