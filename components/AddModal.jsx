@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { Button, Col, FloatingLabel, Form, Modal, Row } from "react-bootstrap";
+import { Button, FloatingLabel, Form, Modal } from "react-bootstrap";
 
 export const AddModal = ({
   show,
