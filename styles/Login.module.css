@@ -39,8 +39,9 @@
 }
 
 .loginTitle {
+    margin-top: -1rem;
     font-weight: bolder;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
 }
 
 .formBox {
@@ -185,5 +186,10 @@
 
     .iconButton {
         left: 85%;
+    }
+
+    .loading {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
     }
 }

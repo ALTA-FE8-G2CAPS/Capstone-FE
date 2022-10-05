@@ -21,6 +21,13 @@ const Login = () => {
         email: "",
         password: ""
     })
+    const [register, setRegister] = useState({
+        name_user: "",
+        address_user: "",
+        email: "",
+        password: "",
+        foto_user: null
+    })
 
     useEffect(() => {
         setStatusNav("")
@@ -43,10 +50,38 @@ const Login = () => {
             .then(res => {
                 setCookie("token", res.data.token)
                 setCookie("user", res.data.user)
+                setCookie("user_id", res.data.user_id)
                 swal("Login Successfully", `Welcome to segoro , ${res.data.user}`, "success")
-                    .then(() => router.push("/"))
+                    .then(() => window.location.href = "/")
             })
-            .catch(err => swal("Login Failed" , `${err.response.data.message}`, "error"))
+            .catch(err => swal("Login Failed", `${err.response.data.message}`, "error"))
+    }
+
+    const handleForm = (e) => {
+        const target = e.target
+        console.log(register)
+        let newRegister = { ...register }
+        if (target.type === "file") {
+            newRegister[e.target.name] = target.files[0]
+            setRegister(newRegister)
+        } else {
+            newRegister[e.target.name] = target.value
+            setRegister(newRegister)
+        }
+    }
+
+    const handleRegister = (e) => {
+        e.preventDefault()
+        setLoading(true)
+        setTimeout(() => setLoading(false), 2000)
+        const data = new FormData();
+        for (var i in register) {
+            data.append(i, register[i])
+        }
+        axios.post("https://grupproject.site/users", data)
+            .then(res => swal("Register Successfully", `Login now to access segoro`, "success")
+                .then(() => setTest(prev => !prev)))
+            .catch(err => swal("Register Failed", `${err.response.data.message}`, "error"))
     }
 
 
@@ -80,9 +115,9 @@ const Login = () => {
                         <h1 className={styles.loginTitle}>Login</h1>
                         <Form onSubmit={(e) => handleLogin(e)}>
                             <FloatingLabel
-                                controlId="floatingInput"
+                                controlId="floatingEmail"
                                 label="Email address"
-                                className="mb-4"
+                                className="mb-3"
                             >
                                 <Form.Control
                                     className={styles.formControl}
@@ -121,27 +156,27 @@ const Login = () => {
                     </Row> :
                         <Row className={styles.formBox}>
                             <h1 className={styles.loginTitle}>Create Account</h1>
-                            <Form>
+                            <Form onSubmit={(e) => handleRegister(e)}>
                                 <FloatingLabel
                                     controlId="floatingInput"
                                     label="Username"
-                                    className="mb-4"
+                                    className="mb-3"
                                 >
                                     <Form.Control
-                                        onChange={(e) => handleInput(e)}
-                                        name="email"
+                                        onChange={(e) => handleForm(e)}
+                                        name="name_user"
                                         className={styles.formControl}
-                                        type="email"
+                                        type="text"
                                         placeholder="placeholder" />
                                 </FloatingLabel>
                                 <FloatingLabel
-                                    controlId="floatingInput"
+                                    controlId="floatingEmail"
                                     label="Email address"
-                                    className="mb-4"
+                                    className="mb-3"
                                 >
                                     <Form.Control
-                                        onChange={(e) => handleInput(e)}
-                                        name="password"
+                                        onChange={(e) => handleForm(e)}
+                                        name="email"
                                         className={styles.formControl}
                                         type="email"
                                         placeholder="placeholder" />
@@ -150,8 +185,11 @@ const Login = () => {
                                     <FloatingLabel
                                         controlId="floatingPassword"
                                         label="Password"
+                                        className="mb-3"
                                     >
                                         <Form.Control
+                                            name="password"
+                                            onChange={(e) => handleForm(e)}
                                             className={styles.formControl}
                                             placeholder="placeholder"
                                             type={password ? "password" : "text"}
@@ -161,7 +199,23 @@ const Login = () => {
                                         {password ? <BsFillEyeSlashFill /> : <BsFillEyeFill />}
                                     </button>
                                 </InputGroup>
-                                <MDBBtn onClick={(e) => handleButton(e, false)}
+                                <FloatingLabel className="mb-3" controlId="floatingTextarea23" label="Address">
+                                    <Form.Control
+                                        name="address_user"
+                                        onChange={(e) => handleForm(e)}
+                                        as="textarea"
+                                        placeholder="Leave a comment here"
+                                        style={{ height: '100px' }}
+                                    />
+                                </FloatingLabel>
+                                <Form.Group controlId="formFile" className="mb-3">
+                                    <FloatingLabel
+                                        controlId="floatingTextarea24"
+                                        label="Profile picture" >
+                                        <Form.Control name="foto_user" type="file" onChange={(e) => handleForm(e)} />
+                                    </FloatingLabel>
+                                </Form.Group>
+                                <MDBBtn type="submit"
                                     className={loading ? styles.loading : styles.loginButton}>
                                     {loading ? <ReactLoading type="spin" width={40} height={40} /> : "Register"}
                                 </MDBBtn>
