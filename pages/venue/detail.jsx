@@ -38,7 +38,6 @@ const DetailPage = () => {
         console.log("responnya", res.data.data);
         setDetail(res.data.data);
       });
-    // .catch((error) => console.error(error.response.data));
   };
 
   useEffect(() => {
