@@ -58,11 +58,10 @@ const Index = () => {
         })
         setLoading(false)
       })
-      .catch(err => console.error(err.response.data.message))
+      .catch(err => console.error(err))
   }
   useEffect(() => {
     getProfile()
-    setCookie("foto_user", profile?.foto_user)
   }, [])
 
   const handleImage = () => {
@@ -112,6 +111,7 @@ const Index = () => {
 
   return (
     // console.log(profile),
+    setCookie("foto_user", profile?.foto_user),
     <div>
       <div>
         <Toaster />

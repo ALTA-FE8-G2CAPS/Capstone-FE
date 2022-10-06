@@ -17,18 +17,10 @@ export const Navbars = () => {
 
     useEffect(() => {
         setUsername(getCookie("user"))
-        setFoto(getCookie("foto_user"))
-    },[])
-    // const [profile, setProfile] = useState({
-    //     user: "",
-    //     foto_user: ""
-    // })
-    // useEffect(() => {
-    //     setProfile({ ...profile, user: getCookie("user"), foto_user: getCookie("foto_user") })
-    // }, [getCookie("foto_user"), getCookie("user")])
+    }, [])
+    setFoto(getCookie("foto_user"))
 
     return (
-        console.log(foto),
         <>
             {statusNav ? <Row className={`${styles.container}`}>
                 <Col md={2} className="d-none d-md-flex">
