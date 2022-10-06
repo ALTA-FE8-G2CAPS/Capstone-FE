@@ -8,6 +8,7 @@ import { AddModal } from "../../components/AddModal";
 import { DetailLayout, DetailHeading } from "../../components/DetailLayout";
 import styles from "../../styles/Detail.module.css";
 import { getCookie } from "cookies-next";
+import dynamic from 'next/dynamic'
 
 function Detail() {
 
@@ -97,6 +98,10 @@ function Detail() {
       });
   };
 
+  const ShowMap = dynamic(() => import('../../components/ShowMap'), {
+    ssr: false,
+  })
+
   return (
     <Row className={`${styles.container}`}>
       <DetailLayout
@@ -114,7 +119,7 @@ function Detail() {
             <div className={styles.descTitle}>
               <h5>Description :</h5>
               <div>
-                <OverlayTrigger
+                {/* <OverlayTrigger
                   key="top"
                   placement="top"
                   overlay={
@@ -128,7 +133,7 @@ function Detail() {
                   >
                     <AiFillEdit size={35} />
                   </Button>
-                </OverlayTrigger>
+                </OverlayTrigger> */}
               </div>
             </div>
           </Row>
@@ -138,8 +143,8 @@ function Detail() {
           <Row className={styles.location}>
             <h5 className="mb-2 fw-reguler">Lokasi :</h5>
             <p className={styles.fontLato}>{detail.address_venue}</p>
-            <div className={styles.map}>
-
+            <div className="p-2" style={{backgroundColor : "lightgrey"}}>
+              <ShowMap marker={detail} />
             </div>
           </Row>
         </Row>

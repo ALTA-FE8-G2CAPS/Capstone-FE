@@ -4,7 +4,6 @@ import { Col, FloatingLabel, Form, InputGroup, Row } from "react-bootstrap"
 import { MDBBtn } from 'mdb-react-ui-kit';
 import { BsFillEyeSlashFill, BsFillEyeFill } from "react-icons/bs"
 import ReactLoading from "react-loading";
-import { useRouter } from "next/router";
 // Import Components
 import styles from "../../styles/Login.module.css"
 import { useNavbarContext } from "../../context/contextNavbar";
@@ -12,7 +11,6 @@ import axios from "axios";
 import { setCookie } from "cookies-next";
 
 const Login = () => {
-    const router = useRouter()
     const { setStatusNav } = useNavbarContext()
     const [test, setTest] = useState(false)
     const [password, setPassword] = useState(true)

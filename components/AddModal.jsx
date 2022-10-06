@@ -1,7 +1,5 @@
-import React, { useState, useRef, useMemo, useCallback } from "react";
-// import { MapContainer, TileLayer, useMapEvents, Marker, Popup } from 'react-leaflet'
-// import L from "leaflet"
-import Image from "next/image";
+import React from "react";
+import dynamic from 'next/dynamic'
 import { Button, FloatingLabel, Form, Modal } from "react-bootstrap";
 
 export const AddModal = ({
@@ -10,8 +8,13 @@ export const AddModal = ({
   handleClose,
   handleSubmit,
   handleInput,
-  profile,
+  profile
 }) => {
+
+  const OpenStreetMap = dynamic(() => import('./InputMap'), {
+    ssr: false,
+  })
+
   return (
     <div>
       <Modal centered show={show} onHide={handleClose}>
@@ -54,37 +57,6 @@ export const AddModal = ({
                   />
                 </FloatingLabel>
 
-                {/* <InputMaps /> */}
-                {/* <FloatingLabel
-                  controlId="floatingInput"
-                  label="Latitude"
-                  className="mb-3"
-                >
-                  <Form.Control
-                    name="latitude"
-                    type="number"
-                    placeholder="placeholder"
-                    onChange={(e) => handleInput(e)}
-                  />
-                </FloatingLabel>
-                <FloatingLabel
-                  controlId="floatingInput"
-                  label="Longitude"
-                  className="mb-3"
-                >
-                  <Form.Control
-                    name="longitude"
-                    type="number"
-                    placeholder="placeholder"
-                    onChange={(e) => handleInput(e)}
-                  />
-                </FloatingLabel> */}
-
-                {/* <div>
-                  <Image src="/map.jpg" width={500} height={200} />
-                </div> */}
-
-
                 <FloatingLabel
                   controlId="floatingTextarea2"
                   label="Description"
@@ -97,6 +69,12 @@ export const AddModal = ({
                     onChange={(e) => handleInput(e)}
                   />
                 </FloatingLabel>
+
+                <Form.Group className="mt-3">
+                  <Form.Label>Mark Your Venue (double click to see your mark)</Form.Label>
+                  <OpenStreetMap />
+                </Form.Group>
+
               </div>
             )) ||
               (add === "field" && (
@@ -281,7 +259,7 @@ export const VerifyModal = ({
   );
 };
 
-export const AddFotoVenue = ({ show, handleClose,handleForm,handleFoto }) => {
+export const AddFotoVenue = ({ show, handleClose, handleForm, handleFoto }) => {
   return (
     <div>
       <Modal centered show={show} onHide={handleClose}>

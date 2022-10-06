@@ -15,7 +15,6 @@
     color: #202B2A;
     font-size: 20px;
     font-weight: bolder;
-    /* margin-left: 3rem; */
     transition: 0.3s;
     cursor: pointer;
 }
@@ -61,9 +60,6 @@
 }
 
 
-/* Phone xs */
-/* @media (max-width : 575.98px) {} */
-
 /* Phone sm */
 @media (min-width : 0) and (max-width : 767.98px) {
     .link {
@@ -74,20 +70,8 @@
         display: none;
     }
 
-    /* @keyframes animate-box {
-        from {
-            transform: scale(0);
-            opacity: 0;
-        }
-
-        to {
-            transform: scale(1);
-            opacity: 1;
-        }
-    } */
-
     .container {
-        z-index: 90;
+        z-index: 9999;
         position: fixed;
         min-height: 2rem;
         max-height: 4rem;

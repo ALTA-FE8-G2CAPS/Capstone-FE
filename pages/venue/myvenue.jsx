@@ -6,7 +6,7 @@ import styles from "../../styles/MyVenue.module.css";
 import { useRouter } from "next/router";
 import { AddModal } from "../../components/AddModal";
 import axios from "axios";
-import { getCookie } from "cookies-next";
+import { deleteCookie, getCookie } from "cookies-next";
 
 const Myvenue = () => {
   const router = useRouter();
@@ -17,14 +17,16 @@ const Myvenue = () => {
   const [venue, setVenue] = useState({
     name_venue: "",
     Address_venue: "",
-    latitude: parseInt(),
-    longitude: parseInt(),
+    latitude: 0,
+    longitude: 0,
     description_venue: "",
   });
 
   useEffect(() => {
     setCookiess(getCookie("id"));
-  }, []);
+    setVenue({ ...venue, latitude: getCookie("lat"), longitude: getCookie("lng") })
+    console.log('test')
+  }, [getCookie("lat")]);
 
   // Get all venues
   const getVenues = () => {
@@ -47,6 +49,7 @@ const Myvenue = () => {
     let newvenue = { ...venue };
     newvenue[e.target.name] = e.target.value;
     setVenue(newvenue);
+    console.log(venue)
   };
 
   const handleSubmit = (e) => {
@@ -62,16 +65,19 @@ const Myvenue = () => {
     var data = {
       name_venue: name_venue,
       Address_venue: Address_venue,
-      latitude: parseInt(latitude),
-      longitude: parseInt(longitude),
+      latitude: parseFloat(latitude),
+      longitude: parseFloat(longitude),
       description_venue: description_venue,
     };
 
-    axios.post("https://grupproject.site/venues", data).then(() => {
-      alert("Add new venue success");
-      getVenues();
-      setShow(false);
-    });
+    axios.post("https://grupproject.site/venues", data)
+      .then(() => {
+        deleteCookie("lat")
+        deleteCookie("lng")
+        getVenues();
+        swal("Success", "Add new venue success", "success")
+          .then(setShow(false))
+      });
   };
 
   useEffect(() => {
@@ -85,6 +91,7 @@ const Myvenue = () => {
       getVenues();
     });
   };
+
 
   return (
     <div>
