@@ -17,8 +17,8 @@ export const Navbars = () => {
 
     useEffect(() => {
         setUsername(getCookie("user"))
+        setFoto(getCookie("foto_user"))
     }, [])
-    setFoto(getCookie("foto_user"))
 
     return (
         <>

@@ -93,6 +93,7 @@ const Index = () => {
       data.append(i, update[i])
     }
     setCookie("user", update.name_user)
+    // setCookie("user", update.name_user)
 
     const myPromise = axios.put("https://grupproject.site/users", data)
       .then(res => {

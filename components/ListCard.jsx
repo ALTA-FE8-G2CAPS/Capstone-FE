@@ -1,4 +1,4 @@
-import { setCookie } from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import React from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
@@ -27,11 +27,11 @@ const ListCard = ({ item, handleDelete }) => {
             <Card
               style={{ width: "18rem" }}
               className={`${styles.cardItem} shadow`}
+              onClick={() => handleDetail(item.id)}
             >
               <Card.Img
                 variant="top"
                 src="/basket.jpg"
-                onClick={() => handleDetail(item.id)}
               />
               <Card.Body>
                 <Card.Title className={`${styles.fontOpen}`}>
@@ -40,12 +40,13 @@ const ListCard = ({ item, handleDelete }) => {
                 <Card.Text className={`${styles.fontLato} fs-5 fw-bold`}>
                   Rp 150.000
                 </Card.Text>
-                <button
-                  className={styles.delete}
-                  onClick={() => handleDelete(item.id)}
-                >
-                  <MdDeleteOutline size={25} />
-                </button>
+                {(getCookie("role") === "user" && <div>{item.name_user}</div>) ||
+                  <button
+                    className={styles.delete}
+                    onClick={() => handleDelete(item.id)}
+                  >
+                    <MdDeleteOutline size={25} />
+                  </button>}
               </Card.Body>
             </Card>
           </Col>

@@ -17,16 +17,17 @@ const Home = () => {
   const [list, setList] = useState([])
   // active Nav
   const { setStatusNav } = useNavbarContext()
-  useEffect(() => {
-    setStatusNav("home")
-  }, [])
-
   // Get all venue
   const getApi = () => {
     axios.get("https://grupproject.site/venues")
-    .then(res => setList(res.data))
-    .catch(err => console.log(err.response.data))
+      .then(res => setList(res.data.data))
+      .catch(err => console.log(err.response.data))
   }
+  useEffect(() => {
+    setStatusNav("home")
+    getApi()
+  }, [])
+
 
   return (
     <div className="mb-5">
@@ -137,7 +138,7 @@ const Home = () => {
       <Row className={`${styles.popBox} text-center`}>
         <p className="fs-2 fw-bold" style={{ color: "#202B2A" }}>Popular Venue</p>
       </Row>
-      <ListCard item={list}/>
+      <ListCard item={list} />
     </div>
   )
 }
