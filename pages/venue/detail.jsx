@@ -37,7 +37,6 @@ function Detail() {
       .then((res) => {
         setDetail(res.data.data);
       });
-    // .catch((error) => console.error(error.response.data));
   };
 
   useEffect(() => {

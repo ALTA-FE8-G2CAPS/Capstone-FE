@@ -41,14 +41,15 @@ const Field = () => {
       .then((res) => {
         setDetail(res.data.data);
       });
-    // .catch((error) => console.error(error.response.data));
   };
 
   // get all fields ==> ini masih nyampur semua GOR
   const getFields = () => {
-    axios.get("https://grupproject.site/fields").then((res) => {
-      setFields(res.data.data);
-    });
+    axios
+      .get(`https://grupproject.site/fields?venue_id=${getCookie("id")}`)
+      .then((res) => {
+        setFields(res.data.data);
+      });
   };
 
   useEffect(() => {
