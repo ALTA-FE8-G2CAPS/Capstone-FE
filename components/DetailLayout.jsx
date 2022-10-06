@@ -14,7 +14,6 @@ export const DetailLayout = ({
   handleFoto,
 }) => {
   const [image, setImage] = useState("/add.png");
-  console.log("ini isi foto venue", fotoVenue);
 
   return (
     <Col md={12} lg={4}>
@@ -146,13 +145,12 @@ export const DetailLayout = ({
 
 export const DetailHeading = ({ page, item }) => {
   const router = useRouter();
-  console.log("ini item", item);
   return (
     <>
       <Row>
         <div className={styles.title}>
-          <h1 className={styles.fontOpen}>{item.name_venue}</h1>
-          <p className={styles.fontLato}>{item.address_venue}</p>
+          <h1 className={styles.fontOpen}>{item?.name_venue}</h1>
+          <p className={styles.fontLato}>{item?.address_venue}</p>
           <p className={styles.price}>Rp 210.000</p>
         </div>
       </Row>

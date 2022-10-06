@@ -8,11 +8,11 @@ import { BiLogOut } from "react-icons/bi";
 import { AiOutlineSchedule } from "react-icons/ai";
 import { MdOutlineDashboard } from "react-icons/md";
 import { useRouter } from "next/router";
-import { deleteCookie, getCookie, setCookie } from "cookies-next"
+import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import toast, { Toaster } from "react-hot-toast";
-import ReactLoading from "react-loading"
+import ReactLoading from "react-loading";
 import axios from "axios";
-import { BsFillCameraFill } from "react-icons/bs"
+import { BsFillCameraFill } from "react-icons/bs";
 // import Components
 import { useNavbarContext } from "../../context/contextNavbar";
 import { AddModal, RegisPlus } from "../../components/AddModal";
@@ -27,30 +27,31 @@ const Index = () => {
 
   const router = useRouter();
   const [show, setShow] = useState(false);
-  const [add, setAdd] = useState("profile")
+  const [add, setAdd] = useState("profile");
   const [show2, setShow2] = useState(false);
-  const [profile, setProfile] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [update, setUpdate] = useState({
     name_user: "",
-    address_user: ""
-  })
+    address_user: "",
+  });
 
   const handleLogout = () => {
-    deleteCookie("token")
-    deleteCookie("user")
-    deleteCookie("user_id")
-    deleteCookie("foto_user")
+    deleteCookie("token");
+    deleteCookie("user");
+    deleteCookie("user_id");
+    deleteCookie("foto_user");
     toast.success("You have been logout");
     router.push("/login");
   };
 
   const getProfile = () => {
-    setLoading(true)
-    axios.get(`https://grupproject.site/users/${getCookie("user_id")}`)
-      .then(res => {
-        const data = res.data.data
-        setProfile(data)
+    setLoading(true);
+    axios
+      .get(`https://grupproject.site/users/${getCookie("user_id")}`)
+      .then((res) => {
+        const data = res.data.data;
+        setProfile(data);
         setUpdate({
           ...update,
           name_user: data.name_user,
@@ -65,50 +66,51 @@ const Index = () => {
   }, [])
 
   const handleImage = () => {
-    setShow(true)
-    setAdd("profileImage")
-  }
+    setShow(true);
+    setAdd("profileImage");
+  };
   const handleEdit = () => {
-    setShow(true)
-    setAdd("profile")
-  }
+    setShow(true);
+    setAdd("profile");
+  };
 
   const handleInput = (e) => {
-    const target = e.target
-    let newUpdate = { ...update }
+    const target = e.target;
+    let newUpdate = { ...update };
     if (target.type === "file") {
-      newUpdate[e.target.name] = target.files[0]
-      setUpdate(newUpdate)
+      newUpdate[e.target.name] = target.files[0];
+      setUpdate(newUpdate);
     } else {
-      newUpdate[e.target.name] = target.value
-      setUpdate(newUpdate)
+      newUpdate[e.target.name] = target.value;
+      setUpdate(newUpdate);
     }
-  }
+  };
 
   const handleSubmit = (e) => {
-    console.log(update)
-    e.preventDefault()
+    console.log(update);
+    e.preventDefault();
     const data = new FormData();
     for (var i in update) {
-      data.append(i, update[i])
+      data.append(i, update[i]);
     }
     setCookie("user", update.name_user)
     // setCookie("user", update.name_user)
 
-    const myPromise = axios.put("https://grupproject.site/users", data)
-      .then(res => {
-        console.log(res)
-        setShow(false)
-        getProfile()
+    const myPromise = axios
+      .put("https://grupproject.site/users", data)
+      .then((res) => {
+        console.log(res);
+        setShow(false);
+        getProfile();
       })
-      .catch(err => console.error(err))
+      .catch((err) => console.error(err));
 
     toast.promise(myPromise, {
       loading: "Saving...",
       success: "Update Successfully",
-      error: "Update Failed"
-    })
-  }
+      error: "Update Failed",
+    });
+  };
 
   return (
     // console.log(profile),
@@ -117,9 +119,16 @@ const Index = () => {
       <div>
         <Toaster />
       </div>
-      {loading ? <Row className="d-flex justify-content-center align-items-center">
-        <ReactLoading type="bubbles" color="#81ADA8" height={667} width={375} />
-      </Row> :
+      {loading ? (
+        <Row className="d-flex justify-content-center align-items-center">
+          <ReactLoading
+            type="bubbles"
+            color="#81ADA8"
+            height={667}
+            width={375}
+          />
+        </Row>
+      ) : (
         <Row className={styles.container}>
           <Col md="4">
             <div className={styles.colLeft}>
@@ -195,15 +204,23 @@ const Index = () => {
               <div className={styles.imageBox}>
                 <div className={styles.colorBox} onClick={handleImage}>
                   <Image
-                    src={profile?.foto_user ? profile?.foto_user : "/profile.jpg"}
+                    src={
+                      profile?.foto_user ? profile?.foto_user : "/profile.jpg"
+                    }
                     width={250}
                     height={250}
                     className={styles.imageProfile}
                   />
-                  <ReactLoading type="bars" color="white" height={100} width={100}
+                  <ReactLoading
+                    type="bars"
+                    color="white"
+                    height={100}
+                    width={100}
                     className={`position-absolute ${styles.loadingImage}`}
                   />
-                  <Row className={`${styles.middle} d-flex justify-content-center text-center ms-0 fs-5 fw-bold`}>
+                  <Row
+                    className={`${styles.middle} d-flex justify-content-center text-center ms-0 fs-5 fw-bold`}
+                  >
                     <BsFillCameraFill size={50} />
                     Change Profile Picture
                   </Row>
@@ -234,12 +251,17 @@ const Index = () => {
             </div>
           </Col>
         </Row>
-      }
+      )}
 
       {/* Modal */}
-      <AddModal add={add} profile={update} show={show} handleClose={() => setShow(false)}
+      <AddModal
+        add={add}
+        profile={update}
+        show={show}
+        handleClose={() => setShow(false)}
         handleInput={handleInput}
-        handleSubmit={handleSubmit} />
+        handleSubmit={handleSubmit}
+      />
 
       {/* Modal for register user plus */}
       <RegisPlus show={show2} handleClose={() => setShow2(false)} />
