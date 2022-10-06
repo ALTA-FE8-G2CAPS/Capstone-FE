@@ -13,6 +13,7 @@ const Myvenue = () => {
   const [show, setShow] = useState(false);
   const [allVenue, setAllVenue] = useState([]);
   const [cookiess, setCookiess] = useState();
+  const [usercookie, setUsercookie] = useState();
   const [venue, setVenue] = useState({
     name_venue: "",
     Address_venue: "",
@@ -32,7 +33,7 @@ const Myvenue = () => {
 
     var config = {
       method: "get",
-      url: "https://grupproject.site/venues",
+      url: `https://grupproject.site/venues?user_id=${getCookie("user_id")}`,
       data: data,
     };
 
@@ -119,7 +120,6 @@ const Myvenue = () => {
         handleClose={() => setShow(false)}
         handleInput={handleInput}
         handleSubmit={handleSubmit}
-        handleForm={handleForm}
       />
     </div>
   );
