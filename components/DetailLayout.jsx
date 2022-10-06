@@ -17,12 +17,13 @@ export const DetailLayout = ({
   const [image, setImage] = useState("");
   useEffect(() => {
     if (detail !== null && detail !== undefined) {
-      setImage(detail[0]?.foto_venue)
+      setImage(detail[0].foto_venue)
     } else {
       setImage("/add.png")
     }
   }, [detail])
   return (
+    console.log(detail),
     <Col md={12} lg={4}>
       <Row className={styles.leftCol}>
         <div className={styles.imageBoxMain}>
@@ -53,6 +54,7 @@ export const DetailLayout = ({
                   src={item.foto_venue}
                   width={165}
                   height={110}
+                  fill
                   className="rounded"
                   style={{ cursor: "pointer" }}
                 />

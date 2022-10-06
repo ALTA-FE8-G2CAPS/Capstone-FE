@@ -19,12 +19,13 @@ import { AddModal } from "../../components/AddModal";
 import { getCookie } from "cookies-next";
 
 const Field = () => {
+  const router = useRouter();
   const [summon, setSummon] = useState(false);
   const [show, setShow] = useState(false);
+  const [showAddFoto, setShowAddFoto] = useState(false);
   const [detail, setDetail] = useState([]);
   const [fields, setFields] = useState([]);
   const [cookiess, setCookiess] = useState();
-  const router = useRouter();
 
   const alertClicked = () => {
     alert("You clicked the third ListGroupItem");
@@ -64,6 +65,26 @@ const Field = () => {
     price: parseInt(),
   });
 
+  // add foto
+  const handleForm = (e) => {
+    const files = e.target.files
+    setInputFoto(files)
+  };
+  const handleFoto = (e) => {
+    e.preventDefault()
+    const data = new FormData(e.target)
+    data.append("foto_venue", inputFoto[0])
+
+    axios.post(`https://grupproject.site/venues/foto/${getCookie("id")}`, data)
+      .then(res => {
+        const RES = res.data
+        getDetail()
+        swal(RES.status, RES.message, "success")
+          .then(setShowAddFoto(false))
+      })
+      .catch(err => console.log(err))
+  };
+
   // Add new field
   const handleInput = (e) => {
     let newField = { ...addField };
@@ -90,7 +111,14 @@ const Field = () => {
 
   return (
     <Row className={styles.container}>
-      <DetailLayout />
+      <DetailLayout
+        detail={detail.foto_venue}
+        handleForm={handleForm}
+        handleFoto={handleFoto}
+        handleShow={() => setShowAddFoto(true)}
+        showAddFoto={showAddFoto}
+        handleClose={() => setShowAddFoto(false)}
+      />
       <Col md="12" lg="8">
         <div className={styles.containerRight}>
           <DetailHeading page="field" item={detail} />
