@@ -1,6 +1,7 @@
+import axios from "axios";
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Col,
@@ -15,13 +16,77 @@ import { AiFillEdit, AiOutlineDelete, AiOutlineClose } from "react-icons/ai";
 import styles from "../../styles/Field.module.css";
 import { DetailHeading, DetailLayout } from "../../components/DetailLayout";
 import { AddModal } from "../../components/AddModal";
+import { getCookie } from "cookies-next";
 
 const Field = () => {
   const [summon, setSummon] = useState(false);
   const [show, setShow] = useState(false);
+  const [detail, setDetail] = useState([]);
+  const [fields, setFields] = useState([]);
+  const [cookiess, setCookiess] = useState();
+  const router = useRouter();
 
   const alertClicked = () => {
     alert("You clicked the third ListGroupItem");
+  };
+
+  useEffect(() => {
+    setCookiess(getCookie("id"));
+  }, []);
+
+  // get detail venue
+  const getDetail = () => {
+    axios
+      .get(`https://grupproject.site/venues/${getCookie("id")}`)
+      .then((res) => {
+        setDetail(res.data.data);
+      });
+    // .catch((error) => console.error(error.response.data));
+  };
+
+  // get all fields ==> ini masih nyampur semua GOR
+  const getFields = () => {
+    axios.get("https://grupproject.site/fields").then((res) => {
+      setFields(res.data.data);
+    });
+  };
+
+  useEffect(() => {
+    getDetail();
+    getFields();
+  }, []);
+
+  // initiate state addfield
+  const [addField, setAddField] = useState({
+    venue_id: parseInt(getCookie("id")),
+    category: "",
+    price: parseInt(),
+  });
+
+  // Add new field
+  const handleInput = (e) => {
+    let newField = { ...addField };
+    newField[e.target.name] = e.target.value;
+    console.log("ini target", e.target.value);
+    console.log("ini newField", newField);
+    setAddField(newField);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    var axios = require("axios");
+    const { venue_id, category, price } = addField;
+    var data = {
+      venue_id: parseInt(getCookie("id")),
+      category: category,
+      price: parseInt(price),
+    };
+
+    axios.post("https://grupproject.site/fields", data).then(() => {
+      alert("add new field success");
+      getFields();
+      setShow(false);
+    });
   };
 
   return (
@@ -29,7 +94,7 @@ const Field = () => {
       <DetailLayout />
       <Col md="12" lg="8">
         <div className={styles.containerRight}>
-          <DetailHeading page="field" />
+          <DetailHeading page="field" item={detail} />
           <div>
             <Row>
               <Col sm="12" md="8">
@@ -150,27 +215,18 @@ const Field = () => {
               <Col sm="12" md="4">
                 <div>
                   <ListGroup variant="flush">
-                    <ListGroup.Item action onClick={alertClicked}>
-                      Lapangan Tennis A
-                    </ListGroup.Item>
-                    <ListGroup.Item action onClick={alertClicked}>
-                      Lapangan Tennis A
-                    </ListGroup.Item>
-                    <ListGroup.Item action onClick={alertClicked}>
-                      Lapangan Tennis A
-                    </ListGroup.Item>
-                    <ListGroup.Item action onClick={alertClicked}>
-                      Lapangan Tennis A
-                    </ListGroup.Item>
-                    <ListGroup.Item action onClick={alertClicked}>
-                      Lapangan Tennis A
-                    </ListGroup.Item>
-                    <ListGroup.Item action onClick={alertClicked}>
-                      Lapangan Tennis A
-                    </ListGroup.Item>
-                    <ListGroup.Item action onClick={alertClicked}>
-                      Lapangan Tennis A
-                    </ListGroup.Item>
+                    {fields?.map((obj, index) => {
+                      const { venue_id, category, price } = obj;
+                      return (
+                        <ListGroup.Item
+                          key={index}
+                          action
+                          onClick={alertClicked}
+                        >
+                          {category}
+                        </ListGroup.Item>
+                      );
+                    })}
                   </ListGroup>
                 </div>
                 <div className={`${styles.fabContainer}`}>
@@ -304,7 +360,13 @@ const Field = () => {
       </Col>
 
       {/* Modal */}
-      <AddModal add="field" show={show} handleClose={() => setShow(false)} />
+      <AddModal
+        add="field"
+        show={show}
+        handleClose={() => setShow(false)}
+        handleInput={handleInput}
+        handleSubmit={handleSubmit}
+      />
     </Row>
   );
 };

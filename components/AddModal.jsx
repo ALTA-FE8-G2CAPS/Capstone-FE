@@ -8,7 +8,7 @@ export const AddModal = ({
   handleClose,
   handleSubmit,
   handleInput,
-  profile
+  profile,
 }) => {
   return (
     <div>
@@ -19,8 +19,7 @@ export const AddModal = ({
               (add === "field" && "Add Field / Edit Field") ||
               (add === "review" && "Add Review") ||
               (add === "profile" && "Edit Profile") ||
-              (add === "profileImage" && "Edit Image")
-              }
+              (add === "profileImage" && "Edit Image")}
           </Modal.Title>
         </Modal.Header>
 
@@ -100,14 +99,24 @@ export const AddModal = ({
                     label="Category"
                     className="mb-3"
                   >
-                    <Form.Control type="text" placeholder="placeholder" />
+                    <Form.Control
+                      type="text"
+                      name="category"
+                      placeholder="placeholder"
+                      onChange={(e) => handleInput(e)}
+                    />
                   </FloatingLabel>
                   <FloatingLabel
                     controlId="floatingInput"
                     label="Price/Hour"
                     className="mb-3"
                   >
-                    <Form.Control type="number" placeholder="placeholder" />
+                    <Form.Control
+                      type="number"
+                      name="price"
+                      placeholder="placeholder"
+                      onChange={(e) => handleInput(e)}
+                    />
                   </FloatingLabel>
                 </div>
               )) ||
@@ -136,30 +145,46 @@ export const AddModal = ({
                     label="Username"
                     className="mb-3"
                   >
-                    <Form.Control name="name_user" onChange={(e) => handleInput(e)} value={profile?.name_user} type="text" placeholder="placeholder" />
+                    <Form.Control
+                      name="name_user"
+                      onChange={(e) => handleInput(e)}
+                      value={profile?.name_user}
+                      type="text"
+                      placeholder="placeholder"
+                    />
                   </FloatingLabel>
-                  <FloatingLabel className="mb-3" controlId="floatingTextarea23" label="Address">
+                  <FloatingLabel
+                    className="mb-3"
+                    controlId="floatingTextarea23"
+                    label="Address"
+                  >
                     <Form.Control
                       name="address_user"
                       onChange={(e) => handleInput(e)}
                       value={profile?.address_user}
                       as="textarea"
                       placeholder="Leave a comment here"
-                      style={{ height: '100px' }}
+                      style={{ height: "100px" }}
                     />
                   </FloatingLabel>
                 </div>
-              ) || (add === "profileImage" &&
+              )) ||
+              (add === "profileImage" && (
                 <div>
                   <FloatingLabel
                     controlId="floatingInput"
                     label="Profile picture"
                     className="mb-3"
                   >
-                    <Form.Control name="foto_user" onChange={(e) => handleInput(e)} type="file" placeholder="placeholder" />
+                    <Form.Control
+                      name="foto_user"
+                      onChange={(e) => handleInput(e)}
+                      type="file"
+                      placeholder="placeholder"
+                    />
                   </FloatingLabel>
-                </div>)
-              )}
+                </div>
+              ))}
           </Modal.Body>
 
           <Modal.Footer>
