@@ -1,142 +1,70 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
+import { BsFillCameraFill } from "react-icons/bs"
 import styles from "../styles/Detail.module.css";
 import { AddFotoVenue } from "./AddModal";
 
 export const DetailLayout = ({
-  fotoVenue,
+  detail,
   handleShow,
   showAddFoto,
   handleClose,
   handleForm,
   handleFoto,
 }) => {
-  const [image, setImage] = useState("/add.png");
-
+  const [image, setImage] = useState("");
+  useEffect(() => {
+    if (detail !== null && detail !== undefined) {
+      setImage(detail[0]?.foto_venue)
+    } else {
+      setImage("/add.png")
+    }
+  }, [detail])
   return (
     <Col md={12} lg={4}>
-      {fotoVenue ? (
-        <div>
-          <Row className={styles.leftCol}>
-            <div>
-              <Image
-                src={image}
-                width={500}
-                height={500}
-                className={styles.imageBox}
-                onClick={handleShow}
-              />
-            </div>
-          </Row>
-          <Row>
-            <div className={styles.scrollImage}>
-              <div className={styles.imageItem}>
-                <Image
-                  onClick={() => setImage("/add.png")}
-                  src="/add.png"
-                  width={165}
-                  height={110}
-                  className="rounded"
-                  style={{ cursor: "pointer" }}
-                />
-              </div>
-              <div className={styles.imageItem}>
-                <Image
-                  onClick={() => setImage("/add.png")}
-                  src="/add.png"
-                  width={165}
-                  height={110}
-                  className="rounded"
-                  style={{ cursor: "pointer" }}
-                />
-              </div>
-              <div className={styles.imageItem}>
-                <Image
-                  onClick={() => setImage("/add.png")}
-                  src="/add.png"
-                  width={165}
-                  height={110}
-                  className="rounded"
-                  style={{ cursor: "pointer" }}
-                />
-              </div>
-              <div className={styles.imageItem}>
-                <Image
-                  onClick={() => setImage("/add.png")}
-                  src="/add.png"
-                  width={165}
-                  height={110}
-                  className="rounded"
-                  style={{ cursor: "pointer" }}
-                />
-              </div>
-            </div>
-          </Row>
+      <Row className={styles.leftCol}>
+        <div className={styles.imageBoxMain}>
+          <div className={styles.colorBox} onClick={handleShow}>
+            <Image
+              src={image}
+              width={500}
+              height={500}
+              className={styles.imageBox}
+              onClick={handleShow}
+            />
+            <Row
+              className={`${styles.middle} d-flex justify-content-center text-center ms-0 fs-5 fw-bold`}
+            >
+              <BsFillCameraFill size={50} />
+              Add Image
+            </Row>
+          </div>
         </div>
-      ) : (
-        <div>
-          <Row className={styles.leftCol}>
-            <div>
-              <Image
-                src={image}
-                width={500}
-                height={500}
-                className={styles.imageBox}
-              />
-            </div>
-          </Row>
-          <Row>
-            <div className={styles.scrollImage}>
-              <div className={styles.imageItem}>
+      </Row>
+      <Row>
+        <div className={styles.scrollImage}>
+          {detail?.map((item, index) => {
+            return (
+              <div key={index} className={styles.imageItem}>
                 <Image
-                  onClick={() => setImage("/futsal.jpg")}
-                  src="/futsal.jpg"
+                  onClick={() => setImage(item.foto_venue)}
+                  src={item.foto_venue}
                   width={165}
                   height={110}
                   className="rounded"
                   style={{ cursor: "pointer" }}
                 />
               </div>
-              <div className={styles.imageItem}>
-                <Image
-                  onClick={() => setImage("/volley.jpg")}
-                  src="/volley.jpg"
-                  width={165}
-                  height={110}
-                  className="rounded"
-                  style={{ cursor: "pointer" }}
-                />
-              </div>
-              <div className={styles.imageItem}>
-                <Image
-                  onClick={() => setImage("/basket.jpg")}
-                  src="/basket.jpg"
-                  width={165}
-                  height={110}
-                  className="rounded"
-                  style={{ cursor: "pointer" }}
-                />
-              </div>
-              <div className={styles.imageItem}>
-                <Image
-                  onClick={() => setImage("/logo.png")}
-                  src="/logo.png"
-                  width={165}
-                  height={110}
-                  className="rounded"
-                  style={{ cursor: "pointer" }}
-                />
-              </div>
-            </div>
-          </Row>
+            )
+          })}
         </div>
-      )}
+      </Row>
       <AddFotoVenue
         show={showAddFoto}
         handleClose={handleClose}
-        handleForm={(e) => handleForm(e)}
+        handleForm={handleForm}
         handleFoto={handleFoto}
       />
     </Col>
@@ -157,27 +85,24 @@ export const DetailHeading = ({ page, item }) => {
       <Row className={styles.heading}>
         <Col
           sm={3}
-          className={`${
-            (page === "detail" && styles.headingActive) || styles.headingOff
-          } py-auto text-center`}
+          className={`${(page === "detail" && styles.headingActive) || styles.headingOff
+            } py-auto text-center`}
           onClick={() => router.push("/venue/detail")}
         >
           <h5>Detail</h5>
         </Col>
         <Col
           sm={3}
-          className={`${
-            (page === "field" && styles.headingActive) || styles.headingOff
-          } py-auto text-center`}
+          className={`${(page === "field" && styles.headingActive) || styles.headingOff
+            } py-auto text-center`}
           onClick={() => router.push("/venue/field")}
         >
           <h5>Field</h5>
         </Col>
         <Col
           sm={3}
-          className={`${
-            (page === "review" && styles.headingActive) || styles.headingOff
-          } py-auto text-center`}
+          className={`${(page === "review" && styles.headingActive) || styles.headingOff
+            } py-auto text-center`}
           onClick={() => router.push("/venue/review")}
         >
           <h5>Review</h5>

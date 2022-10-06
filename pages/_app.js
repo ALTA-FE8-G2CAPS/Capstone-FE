@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { Layout } from '../components/Layout'
 import '../styles/globals.css'
 import 'bootstrap/dist/css/bootstrap.css'
+// import 'leaflet/dist/leaflet.css';
 import 'mdb-react-ui-kit/dist/css/mdb.min.css'
 import { NavbarProvider } from '../context/contextNavbar'
 import axios from 'axios'

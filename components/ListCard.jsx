@@ -8,13 +8,13 @@ import axios from "axios";
 
 const ListCard = ({ item, handleDelete }) => {
   const router = useRouter();
-  const handleDetail = (id) => {
+  const handleDetail = (item) => {
     router.push("/venue/detail");
-    setCookie("id", id);
+    setCookie("id", item.id);
   };
 
   return (
-    <Row className={`${styles.listContainer}`}>
+    <Row className={`${styles.listContainer} mb-5 pb-5`}>
       {item?.map((item, index) => {
         return (
           <Col
@@ -27,11 +27,12 @@ const ListCard = ({ item, handleDelete }) => {
             <Card
               style={{ width: "18rem" }}
               className={`${styles.cardItem} shadow`}
-              onClick={() => handleDetail(item.id)}
+              onClick={() => handleDetail(item)}
             >
               <Card.Img
+                style={{ minHeight: "66%", maxHeight: "66%" }}
                 variant="top"
-                src="/basket.jpg"
+                src={item.foto_venue === null ? "/basket.jpg" : item.foto_venue[0].foto_venue}
               />
               <Card.Body>
                 <Card.Title className={`${styles.fontOpen}`}>

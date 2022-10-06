@@ -67,8 +67,6 @@ const Field = () => {
   const handleInput = (e) => {
     let newField = { ...addField };
     newField[e.target.name] = e.target.value;
-    console.log("ini target", e.target.value);
-    console.log("ini newField", newField);
     setAddField(newField);
   };
 

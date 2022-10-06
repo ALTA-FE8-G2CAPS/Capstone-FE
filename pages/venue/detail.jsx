@@ -9,15 +9,14 @@ import { DetailLayout, DetailHeading } from "../../components/DetailLayout";
 import styles from "../../styles/Detail.module.css";
 import { getCookie } from "cookies-next";
 
-const DetailPage = () => {
+function Detail() {
+
+  const router = useRouter();
   const [show, setShow] = useState(false);
   const [showAddFoto, setShowAddFoto] = useState(false);
   const [detail, setDetail] = useState([]);
-  const router = useRouter();
   const [cookiess, setCookiess] = useState();
-  const [fotoVenue, setFotoVenue] = useState({
-    foto_venue: null,
-  });
+  const [fotoVenue, setFotoVenue] = useState([]);
   const [venue, setVenue] = useState({
     name_venue: "",
     Address_venue: "",
@@ -25,6 +24,7 @@ const DetailPage = () => {
     longitude: parseInt(),
     description_venue: "",
   });
+  const [inputFoto, setInputFoto] = useState({})
 
   useEffect(() => {
     setCookiess(getCookie("id"));
@@ -35,7 +35,6 @@ const DetailPage = () => {
     axios
       .get(`https://grupproject.site/venues/${getCookie("id")}`)
       .then((res) => {
-        console.log("responnya", res.data.data);
         setDetail(res.data.data);
       });
     // .catch((error) => console.error(error.response.data));
@@ -47,27 +46,22 @@ const DetailPage = () => {
 
   // add foto
   const handleForm = (e) => {
-    const target = e.target;
-    let newFotoVenue = { ...fotoVenue };
-    newFotoVenue[e.target.name] = target.files[0];
-    setFotoVenue(newFotoVenue);
+    const files = e.target.files
+    setInputFoto(files)
   };
   const handleFoto = (e) => {
-    var axios = require("axios");
-    var FormData = require("form-data");
-    var data = new FormData();
-    for (var i in fotoVenue) {
-      data.append(i, fotoVenue[i]);
-    }
-    axios
-      .post(`https://grupproject.site/venues/foto/${getCookie("id")}`)
-      .then((res) => {
-        console.log(res.data);
-        alert("add foto succces");
-        getDetail();
-        setShowAddFoto(false);
+    e.preventDefault()
+    const data = new FormData(e.target)
+    data.append("foto_venue", inputFoto[0])
+
+    axios.post(`https://grupproject.site/venues/foto/${getCookie("id")}`, data)
+      .then(res => {
+        const RES = res.data
+        getDetail()
+        swal(RES.status, RES.message, "success")
+          .then(setShowAddFoto(false))
       })
-      .catch((err) => console.log(err.response.data));
+      .catch(err => console.log(err))
   };
 
   // edit venue
@@ -107,12 +101,12 @@ const DetailPage = () => {
   return (
     <Row className={`${styles.container}`}>
       <DetailLayout
-        fotoVenue={fotoVenue}
+        detail={detail.foto_venue}
+        handleForm={handleForm}
+        handleFoto={handleFoto}
         handleShow={() => setShowAddFoto(true)}
         showAddFoto={showAddFoto}
         handleClose={() => setShowAddFoto(false)}
-        handleForm={handleForm}
-        handleFoto={handleFoto}
       />
       <Col md="12" lg="8" className={styles.containerRight}>
         <DetailHeading page="detail" item={detail} />
@@ -146,7 +140,7 @@ const DetailPage = () => {
             <h5 className="mb-2 fw-reguler">Lokasi :</h5>
             <p className={styles.fontLato}>{detail.address_venue}</p>
             <div className={styles.map}>
-              <Image src="/map.png" width={750} height={300} />
+
             </div>
           </Row>
         </Row>
@@ -164,4 +158,4 @@ const DetailPage = () => {
   );
 };
 
-export default DetailPage;
+export default Detail;

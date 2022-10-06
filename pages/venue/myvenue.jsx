@@ -98,7 +98,6 @@ const Myvenue = () => {
           <Col className={styles.rightCol}>
             <div>
               <button
-                sm
                 className={styles.addButton}
                 onClick={() => setShow(true)}
               >

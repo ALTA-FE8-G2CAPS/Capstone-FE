@@ -26,12 +26,26 @@
     justify-content: center;
 }
 
+@keyframes mymove {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
 .imageBox {
     width: 409px;
     height: 386px;
     left: 61px;
     top: 185px;
     border-radius: 10px;
+    transition: 0.3s;
+    animation: mymove 0.5s linear;
 }
 
 .scrollImage {
@@ -43,11 +57,46 @@
     overflow-y: hidden;
 }
 
+.imageBoxMain {
+    display: flex;
+    justify-content: center;
+}
+
+.colorBox {
+    position: relative;
+    cursor: pointer;
+}
+
+.middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    color: #405654;
+}
+
+.colorBox:hover .middle {
+    opacity: 1;
+}
+
+.colorBox:hover .imageBox {
+    opacity: 0.3;
+}
+
 .imageItem {
     font-size: 25px;
     display: inline-block;
     padding: 5px !important;
+    transition: 0.3s;
 }
+
+.imageItem:hover {
+    opacity: 0.8;
+}
+
 .imageItem Image {
     object-fit: cover;
 }

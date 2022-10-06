@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useRef, useMemo, useCallback } from "react";
+// import { MapContainer, TileLayer, useMapEvents, Marker, Popup } from 'react-leaflet'
+// import L from "leaflet"
 import Image from "next/image";
 import { Button, FloatingLabel, Form, Modal } from "react-bootstrap";
 
@@ -51,7 +53,9 @@ export const AddModal = ({
                     onChange={(e) => handleInput(e)}
                   />
                 </FloatingLabel>
-                <FloatingLabel
+
+                {/* <InputMaps /> */}
+                {/* <FloatingLabel
                   controlId="floatingInput"
                   label="Latitude"
                   className="mb-3"
@@ -74,10 +78,13 @@ export const AddModal = ({
                     placeholder="placeholder"
                     onChange={(e) => handleInput(e)}
                   />
-                </FloatingLabel>
-                <div>
+                </FloatingLabel> */}
+
+                {/* <div>
                   <Image src="/map.jpg" width={500} height={200} />
-                </div>
+                </div> */}
+
+
                 <FloatingLabel
                   controlId="floatingTextarea2"
                   label="Description"
@@ -274,7 +281,7 @@ export const VerifyModal = ({
   );
 };
 
-export const AddFotoVenue = ({ show, handleClose, handleForm, handleFoto }) => {
+export const AddFotoVenue = ({ show, handleClose,handleForm,handleFoto }) => {
   return (
     <div>
       <Modal centered show={show} onHide={handleClose}>
@@ -284,7 +291,7 @@ export const AddFotoVenue = ({ show, handleClose, handleForm, handleFoto }) => {
         <Form onSubmit={(e) => handleFoto(e)}>
           <Modal.Body>
             <div>
-              <p>You can upload your picture here</p>
+              <p>Select your image</p>
             </div>
             <FloatingLabel
               controlId="floatingInput"

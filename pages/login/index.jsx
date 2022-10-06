@@ -62,7 +62,6 @@ const Login = () => {
 
     const handleForm = (e) => {
         const target = e.target
-        console.log(register)
         let newRegister = { ...register }
         if (target.type === "file") {
             newRegister[e.target.name] = target.files[0]
