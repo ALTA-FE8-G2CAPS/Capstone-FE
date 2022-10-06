@@ -3,10 +3,13 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import { BsFillCameraFill } from "react-icons/bs"
+import { getCookie } from "cookies-next"
+// Import Component
 import styles from "../styles/Detail.module.css";
 import { AddFotoVenue } from "./AddModal";
 
 export const DetailLayout = ({
+  user_id,
   detail,
   handleShow,
   showAddFoto,
@@ -15,25 +18,28 @@ export const DetailLayout = ({
   handleFoto,
 }) => {
   const [image, setImage] = useState("");
+  const [userId, setUserId] = useState(false)
   useEffect(() => {
     if (detail !== null && detail !== undefined) {
       setImage(detail[0].foto_venue)
     } else {
       setImage("/add.png")
     }
+    const result = getCookie("user_id") === user_id
+    setUserId(result)
+    console.log(result)
   }, [detail])
   return (
-    console.log(detail),
     <Col md={12} lg={4}>
       <Row className={styles.leftCol}>
-        <div className={styles.imageBoxMain}>
-          <div className={styles.colorBox} onClick={handleShow}>
+        <div className={styles.imageBoxMain} onClick={userId? handleShow : () => {}}>
+          <div className={styles.colorBox} >
             <Image
               src={image}
               width={500}
               height={500}
               className={styles.imageBox}
-              onClick={handleShow}
+              onClick={userId? handleShow : () => {}}
             />
             <Row
               className={`${styles.middle} d-flex justify-content-center text-center ms-0 fs-5 fw-bold`}
@@ -54,7 +60,6 @@ export const DetailLayout = ({
                   src={item.foto_venue}
                   width={165}
                   height={110}
-                  fill
                   className="rounded"
                   style={{ cursor: "pointer" }}
                 />

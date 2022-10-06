@@ -16,8 +16,6 @@ function Detail() {
   const [show, setShow] = useState(false);
   const [showAddFoto, setShowAddFoto] = useState(false);
   const [detail, setDetail] = useState([]);
-  const [cookiess, setCookiess] = useState();
-  const [fotoVenue, setFotoVenue] = useState([]);
   const [venue, setVenue] = useState({
     name_venue: "",
     Address_venue: "",
@@ -26,10 +24,6 @@ function Detail() {
     description_venue: "",
   });
   const [inputFoto, setInputFoto] = useState({})
-
-  useEffect(() => {
-    setCookiess(getCookie("id"));
-  }, []);
 
   // get detail venue
   const getDetail = () => {
@@ -103,9 +97,11 @@ function Detail() {
   })
 
   return (
+    console.log(detail),
     <Row className={`${styles.container}`}>
       <DetailLayout
         detail={detail.foto_venue}
+        user_id={detail.user_id}
         handleForm={handleForm}
         handleFoto={handleFoto}
         handleShow={() => setShowAddFoto(true)}

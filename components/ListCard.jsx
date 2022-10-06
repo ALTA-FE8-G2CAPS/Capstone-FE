@@ -30,7 +30,7 @@ const ListCard = ({ item, handleDelete }) => {
               onClick={() => handleDetail(item)}
             >
               <Card.Img
-                style={{ minHeight: "66%", maxHeight: "66%" }}
+                style={{ minHeight: "20rem", maxHeight: "66%" }}
                 variant="top"
                 src={item.foto_venue === null ? "/basket.jpg" : item.foto_venue[0].foto_venue}
               />

@@ -37,7 +37,6 @@ const Index = () => {
   }, []);
 
   return (
-    console.log(allVenue),
     <Row>
       <Row className="d-flex justify-content-between">
         <Col xs={8} lg={9} className="ms-5 my-5">

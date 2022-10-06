@@ -69,7 +69,6 @@ function DraggableMarker() {
 }
 
 const Map2 = () => {
-  console.log(center)
   return (
     <MapContainer style={{minHeight:"300px" , minWidth:"300px"}} center={center} zoom={13} scrollWheelZoom={false}>
       <TileLayer

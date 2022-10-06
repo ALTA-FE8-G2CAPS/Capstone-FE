@@ -3,8 +3,10 @@ import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { TbSoccerField, TbHome } from "react-icons/tb";
 import { CgProfile } from "react-icons/cg";
+import { BiLogOut } from "react-icons/bi"
 import { useRouter } from "next/router";
-import { getCookie, hasCookie } from "cookies-next"
+import { getCookie, deleteCookie } from "cookies-next"
+import toast, { Toaster } from "react-hot-toast";
 // Import Components
 import styles from "../styles/Navbars.module.css";
 import { useNavbarContext } from "../context/contextNavbar";
@@ -20,8 +22,29 @@ export const Navbars = () => {
         setFoto(getCookie("foto_user"))
     }, [])
 
+    const handleLogout = (e) => {
+        e.preventDefault()
+        swal("Logout", "Are you sure?", "warning", {
+            dangerMode: true,
+            buttons: true,
+        })
+            .then((res) => {
+                if (res) {
+                    deleteCookie("token")
+                    deleteCookie("user")
+                    deleteCookie("user_id")
+                    deleteCookie("foto_user")
+                    router.push("/login")
+                    toast.success("You have been logout")
+                }
+            })
+    }
+
     return (
         <>
+            <div>
+                <Toaster />
+            </div>
             {statusNav ? <Row className={`${styles.container}`}>
                 <Col md={2} className="d-none d-md-flex">
                     <a className="navbar-brand">
@@ -54,6 +77,7 @@ export const Navbars = () => {
                             style={{ marginLeft: "1rem" }}>
                             {(username && username) || "Login"}
                         </a>
+                        <BiLogOut onClick={(e) => handleLogout(e)} color="#202B2A" style={{ cursor: "pointer" }} size={30} className="ms-5" />
                     </Col>
                 </Col>
 

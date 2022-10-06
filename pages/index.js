@@ -7,9 +7,10 @@ import { AiOutlineSchedule, AiOutlineClose } from "react-icons/ai"
 import { BsInfoLg } from "react-icons/bs"
 import { useRouter } from "next/router"
 import styles from "../styles/Home.module.css"
+import axios from "axios"
+// Import Component
 import ListCard from "../components/ListCard"
 import { useNavbarContext } from "../context/contextNavbar"
-import axios from "axios"
 
 const Home = () => {
   const router = useRouter()
