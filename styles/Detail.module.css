@@ -67,6 +67,11 @@
     cursor: pointer;
 }
 
+.colorBoxs {
+    position: relative;
+    cursor : zoom-in
+}
+
 .middle {
     transition: .5s ease;
     opacity: 0;

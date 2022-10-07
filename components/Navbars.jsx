@@ -67,6 +67,7 @@ export const Navbars = () => {
                     </Col>
                     <Col md={5} className={`${styles.profileBox} d-none d-md-flex`}>
                         <Image
+                            onClick={() => handleClick("profile")}
                             className={styles.profileImage}
                             src={(foto && foto) || "/profile.jpg"}
                             width={50}
