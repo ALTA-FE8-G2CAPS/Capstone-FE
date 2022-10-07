@@ -28,7 +28,9 @@ const Field = () => {
   const [detail, setDetail] = useState([]);
   const [fields, setFields] = useState([]);
   const [idField, setIdField] = useState();
+  const [result, setResult] = useState(null);
   const [cookiess, setCookiess] = useState();
+  const [id, setId] = useState();
 
   const alertClicked = () => {
     alert("You clicked the third ListGroupItem");
@@ -36,6 +38,7 @@ const Field = () => {
 
   useEffect(() => {
     setCookiess(getCookie("id"));
+    setId(getCookie("user_id"));
   }, []);
 
   // get detail venue
@@ -176,6 +179,12 @@ const Field = () => {
       error: "Delete Failed",
     });
   };
+
+  useEffect(() => {
+    const idN = parseInt(id);
+    const newResult = idN === detail.user_id;
+    setResult(newResult);
+  }, [detail]);
 
   return (
     <Row className={styles.container}>
@@ -324,86 +333,92 @@ const Field = () => {
                     })}
                   </ListGroup>
                 </div>
-                <div className={`${styles.fabContainer}`}>
-                  {summon ? (
-                    <Button
-                      onClick={() => setSummon(false)}
-                      className={styles.button}
-                    >
-                      <AiOutlineClose size={20} />
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={() => setSummon(true)}
-                      className={styles.button}
-                    >
-                      <BsInfoLg size={20} />
-                    </Button>
-                  )}
-                  {summon ? (
-                    <ul
-                      onMouseEnter={() => setSummon(true)}
-                      onMouseLeave={() => setSummon(false)}
-                      className={`${styles.option}`}
-                    >
-                      <li>
-                        <OverlayTrigger
-                          key="left"
-                          placement="left"
-                          overlay={
-                            <Tooltip id={`tooltip-left`}>Add Field</Tooltip>
-                          }
-                        >
-                          <Button
-                            className={`${styles.infoButton} ${styles.addButton}`}
-                            onClick={() => setShow(true)}
+                {result ? (
+                  <div className={`${styles.fabContainer}`}>
+                    {summon ? (
+                      <Button
+                        onClick={() => setSummon(false)}
+                        className={styles.button}
+                      >
+                        <AiOutlineClose size={20} />
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={() => setSummon(true)}
+                        className={styles.button}
+                      >
+                        <BsInfoLg size={20} />
+                      </Button>
+                    )}
+                    {summon ? (
+                      <ul
+                        onMouseEnter={() => setSummon(true)}
+                        onMouseLeave={() => setSummon(false)}
+                        className={`${styles.option}`}
+                      >
+                        <li>
+                          <OverlayTrigger
+                            key="left"
+                            placement="left"
+                            overlay={
+                              <Tooltip id={`tooltip-left`}>Add Field</Tooltip>
+                            }
                           >
-                            <IoAddOutline size={20} />
-                          </Button>
-                        </OverlayTrigger>
-                      </li>
-                      <li>
-                        <OverlayTrigger
-                          key="left"
-                          placement="left"
-                          overlay={
-                            <Tooltip id={`tooltip-left`}>Edit Field</Tooltip>
-                          }
-                        >
-                          <Button
-                            className={`${styles.infoButton} ${styles.editButton}`}
-                            onClick={() => handleEdit(idField)}
+                            <Button
+                              className={`${styles.infoButton} ${styles.addButton}`}
+                              onClick={() => setShow(true)}
+                            >
+                              <IoAddOutline size={20} />
+                            </Button>
+                          </OverlayTrigger>
+                        </li>
+                        <li>
+                          <OverlayTrigger
+                            key="left"
+                            placement="left"
+                            overlay={
+                              <Tooltip id={`tooltip-left`}>Edit Field</Tooltip>
+                            }
                           >
-                            <AiFillEdit size={20} />
-                          </Button>
-                        </OverlayTrigger>
-                      </li>
-                      <li>
-                        <OverlayTrigger
-                          key="left"
-                          placement="left"
-                          overlay={
-                            <Tooltip id={`tooltip-left`}>Delete Field</Tooltip>
-                          }
-                        >
-                          <Button
-                            className={`${styles.infoButton} ${styles.deleteButton}`}
-                            onClick={() => handleDelete(idField)}
+                            <Button
+                              className={`${styles.infoButton} ${styles.editButton}`}
+                              onClick={() => handleEdit(idField)}
+                            >
+                              <AiFillEdit size={20} />
+                            </Button>
+                          </OverlayTrigger>
+                        </li>
+                        <li>
+                          <OverlayTrigger
+                            key="left"
+                            placement="left"
+                            overlay={
+                              <Tooltip id={`tooltip-left`}>
+                                Delete Field
+                              </Tooltip>
+                            }
                           >
-                            <AiOutlineDelete size={20} />
-                          </Button>
-                        </OverlayTrigger>
-                      </li>
-                    </ul>
-                  ) : (
-                    ""
-                  )}
-                </div>
+                            <Button
+                              className={`${styles.infoButton} ${styles.deleteButton}`}
+                              onClick={() => handleDelete(idField)}
+                            >
+                              <AiOutlineDelete size={20} />
+                            </Button>
+                          </OverlayTrigger>
+                        </li>
+                      </ul>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                ) : (
+                  <></>
+                )}
                 <div className={styles.colorLegend}>
                   <Row>
                     <Col xs="3">
                       <div className="d-flex justify-content-center py-2">
-                        <div className={styles.colorIndex}></div>
+                        <div className={styles.colorIndexA}></div>
                       </div>
                     </Col>
                     <Col xs="9">
@@ -415,36 +430,36 @@ const Field = () => {
                   <Row>
                     <Col xs="3">
                       <div className="d-flex justify-content-center py-2">
-                        <div className={styles.colorIndex}></div>
+                        <div className={styles.colorIndexB}></div>
                       </div>
                     </Col>
                     <Col xs="9">
                       <div className="d-flex justify-content-start py-2">
-                        <div className={styles.titleIndex}>Empty</div>
+                        <div className={styles.titleIndex}>Booking</div>
                       </div>
                     </Col>
                   </Row>
                   <Row>
                     <Col xs="3">
                       <div className="d-flex justify-content-center py-2">
-                        <div className={styles.colorIndex}></div>
+                        <div className={styles.colorIndexC}></div>
                       </div>
                     </Col>
                     <Col xs="9">
                       <div className="d-flex justify-content-start py-2">
-                        <div className={styles.titleIndex}>Empty</div>
+                        <div className={styles.titleIndex}>Playing</div>
                       </div>
                     </Col>
                   </Row>
                   <Row>
                     <Col xs="3">
                       <div className="d-flex justify-content-center py-2">
-                        <div className={styles.colorIndex}></div>
+                        <div className={styles.colorIndexD}></div>
                       </div>
                     </Col>
                     <Col xs="9">
                       <div className="d-flex justify-content-start py-2">
-                        <div className={styles.titleIndex}>Empty</div>
+                        <div className={styles.titleIndex}>Done</div>
                       </div>
                     </Col>
                   </Row>
