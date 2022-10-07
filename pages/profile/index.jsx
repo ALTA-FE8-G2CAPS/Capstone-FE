@@ -113,7 +113,6 @@ const Index = () => {
   };
 
   return (
-    // console.log(profile),
     setCookie("foto_user", profile?.foto_user),
     <div>
       <div>

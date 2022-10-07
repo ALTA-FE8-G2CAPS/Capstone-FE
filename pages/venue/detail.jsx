@@ -2,20 +2,22 @@ import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Button, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
+import { Button, Col, Form, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { AiFillEdit } from "react-icons/ai";
-import { AddModal } from "../../components/AddModal";
-import { DetailLayout, DetailHeading } from "../../components/DetailLayout";
-import styles from "../../styles/Detail.module.css";
 import { getCookie } from "cookies-next";
 import dynamic from 'next/dynamic'
+import { Toaster,toast } from "react-hot-toast"
+// Import Component
+import styles from "../../styles/Detail.module.css";
+import { AddModal } from "../../components/AddModal";
+import { DetailLayout, DetailHeading } from "../../components/DetailLayout";
 
 function Detail() {
-
-  const router = useRouter();
   const [show, setShow] = useState(false);
   const [showAddFoto, setShowAddFoto] = useState(false);
   const [detail, setDetail] = useState([]);
+  const [id, setId] = useState("")
+  const [result, setResult] = useState(null)
   const [venue, setVenue] = useState({
     name_venue: "",
     Address_venue: "",
@@ -36,6 +38,7 @@ function Detail() {
 
   useEffect(() => {
     getDetail();
+    setId(getCookie("user_id"))
   }, []);
 
   // add foto
@@ -83,22 +86,34 @@ function Detail() {
       description_venue: description_venue,
     };
 
-    axios
+    const myPromise = axios
       .put(`https://grupproject.site/venues/${getCookie("id")}`, data)
       .then(() => {
-        alert("Edit venue success");
         getDetail();
         setShow(false);
       });
+    toast.promise(myPromise, {
+      loading: "Saving...",
+      success: "Update Successfully",
+      error: "Update Failed",
+    });
   };
 
   const ShowMap = dynamic(() => import('../../components/ShowMap'), {
     ssr: false,
   })
 
+  useEffect(() => {
+    const idN = parseInt(id)
+    const newResult = idN === detail.user_id
+    setResult(newResult)
+  }, [detail])
+
   return (
-    console.log(detail),
     <Row className={`${styles.container}`}>
+      <div>
+        <Toaster />
+      </div>
       <DetailLayout
         detail={detail.foto_venue}
         user_id={detail.user_id}
@@ -114,23 +129,22 @@ function Detail() {
           <Row>
             <div className={styles.descTitle}>
               <h5>Description :</h5>
-              <div>
-                {/* <OverlayTrigger
-                  key="top"
-                  placement="top"
-                  overlay={
-                    <Tooltip id={`tooltip-top`}>Edit this page ?</Tooltip>
-                  }
+              {result ? <OverlayTrigger
+                key="top"
+                placement="top"
+                overlay={
+                  <Tooltip id={`tooltip-top`}>Edit this page ?</Tooltip>
+                }
+              >
+                <Button
+                  variant="success"
+                  className={styles.buttonEdit}
+                  onClick={() => setShow(true)}
                 >
-                  <Button
-                    variant="success"
-                    className={styles.buttonEdit}
-                    onClick={() => setShow(true)}
-                  >
-                    <AiFillEdit size={35} />
-                  </Button>
-                </OverlayTrigger> */}
-              </div>
+                  <AiFillEdit size={35} />
+                </Button>
+              </OverlayTrigger> : <></>
+              }
             </div>
           </Row>
           <Row>
@@ -138,8 +152,9 @@ function Detail() {
           </Row>
           <Row className={styles.location}>
             <h5 className="mb-2 fw-reguler">Lokasi :</h5>
-            <p className={styles.fontLato}>{detail.address_venue}</p>
-            <div className="p-2" style={{backgroundColor : "lightgrey"}}>
+            <p className={`${styles.fontLato} mb-4`}>{detail.address_venue}</p>
+            <div className="p-2" style={{ backgroundColor: "lightgrey" }}>
+              <div className="my-1 mb-2 mx-auto text-dark w-50 text-center fs-6">Click map to see location</div>
               <ShowMap marker={detail} />
             </div>
           </Row>

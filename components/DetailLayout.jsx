@@ -33,7 +33,6 @@ export const DetailLayout = ({
     const result = ids === user_id
 
     setUserId(result)
-    console.log(result)
   }, [detail])
 
   const handleShows = (breakpoint) => {
