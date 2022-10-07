@@ -15,7 +15,7 @@ const Index = () => {
           onClick={() => router.push("/admin/user-reg")}
         >
           <div className={styles.box}>
-            <h4>List User Reguler</h4>
+            <h4>List User Request</h4>
           </div>
         </Col>
         <Col
@@ -23,7 +23,7 @@ const Index = () => {
           onClick={() => router.push("/admin/user-plus")}
         >
           <div className={styles.box}>
-            <h4>List User Plus</h4>
+            <h4>List All User</h4>
           </div>
         </Col>
       </Row>

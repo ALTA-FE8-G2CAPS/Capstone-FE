@@ -70,3 +70,15 @@
     background-color: #A1D8D2 !important;
     color: #405654 !important;
 }
+
+.accept {
+    background-color: #405654 !important;
+    color: #ECF7F6 !important;
+    transition: 0.3s;
+}
+
+.accept:hover{
+    background-color: #A1D8D2  !important;
+    color: #405654 !important;
+}
+
