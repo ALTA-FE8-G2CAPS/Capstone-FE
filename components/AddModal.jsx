@@ -1,6 +1,13 @@
 import React from "react";
-import dynamic from 'next/dynamic'
-import { Button, FloatingLabel, Form, Modal, InputGroup } from "react-bootstrap";
+import dynamic from "next/dynamic";
+import {
+  Button,
+  FloatingLabel,
+  Form,
+  Modal,
+  InputGroup,
+} from "react-bootstrap";
+import styles from "../styles/Modal.module.css";
 
 export const AddModal = ({
   show,
@@ -17,7 +24,7 @@ export const AddModal = ({
   return (
     <div>
       <Modal centered show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className={styles.header}>
           <Modal.Title>
             {(add === "venue" && "Add Venue / Edit Venue") ||
               (add === "field" && "Add Field") ||
@@ -70,7 +77,9 @@ export const AddModal = ({
                 </FloatingLabel>
 
                 <Form.Group className="mt-3">
-                  <Form.Label>Mark Your Venue (click to see your mark)</Form.Label>
+                  <Form.Label>
+                    Mark Your Venue (click to see your mark)
+                  </Form.Label>
                   <OpenStreetMap />
                 </Form.Group>
 
@@ -78,8 +87,12 @@ export const AddModal = ({
                   <InputGroup.Checkbox
                     aria-label="Checkbox for following text input"
                     onChange={(e) => handleInput(e)}
-                    />
-                  <Form.Control disabled value="Check this box to save your mark"  aria-label="Text input with checkbox" />
+                  />
+                  <Form.Control
+                    disabled
+                    value="Check this box to save your mark"
+                    aria-label="Text input with checkbox"
+                  />
                 </InputGroup>
               </div>
             )) ||
@@ -179,12 +192,12 @@ export const AddModal = ({
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <button onClick={handleClose} className={styles.close}>
               Close
-            </Button>
-            <Button variant="primary" type="submit">
+            </button>
+            <button type="submit" className={styles.save}>
               Save
-            </Button>
+            </button>
           </Modal.Footer>
         </Form>
       </Modal>
@@ -196,7 +209,7 @@ export const RegisPlus = ({ show, handleClose, handleSubmit, handleInput }) => {
   return (
     <div>
       <Modal centered show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className={styles.header}>
           <Modal.Title>Register User Plus</Modal.Title>
         </Modal.Header>
 
@@ -213,12 +226,12 @@ export const RegisPlus = ({ show, handleClose, handleSubmit, handleInput }) => {
             </FloatingLabel>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <button onClick={handleClose} className={styles.close}>
               Close
-            </Button>
-            <Button variant="primary" type="submit">
+            </button>
+            <button className={styles.save} type="submit">
               Save
-            </Button>
+            </button>
           </Modal.Footer>
         </Form>
       </Modal>
@@ -235,7 +248,7 @@ export const VerifyModal = ({
   return (
     <div>
       <Modal centered show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className={styles.header}>
           <Modal.Title>Verify Account</Modal.Title>
         </Modal.Header>
         <Form onSubmit={(e) => handleSubmit(e)}>
@@ -252,12 +265,12 @@ export const VerifyModal = ({
             </FloatingLabel>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <button className={styles.close} onClick={handleClose}>
               Close
-            </Button>
-            <Button variant="primary" type="submit">
+            </button>
+            <button className={styles.save} type="submit">
               Save
-            </Button>
+            </button>
           </Modal.Footer>
         </Form>
       </Modal>
@@ -269,7 +282,7 @@ export const AddFotoVenue = ({ show, handleClose, handleForm, handleFoto }) => {
   return (
     <div>
       <Modal centered show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className={styles.header}>
           <Modal.Title>Add Venue Photo</Modal.Title>
         </Modal.Header>
         <Form onSubmit={(e) => handleFoto(e)}>
@@ -291,8 +304,12 @@ export const AddFotoVenue = ({ show, handleClose, handleForm, handleFoto }) => {
             </FloatingLabel>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={handleClose}>Close</Button>
-            <Button type="submit">Save</Button>
+            <button className={styles.close} onClick={handleClose}>
+              Close
+            </button>
+            <button className={styles.save} type="submit">
+              Save
+            </button>
           </Modal.Footer>
         </Form>
       </Modal>
@@ -304,7 +321,7 @@ export const EditField = ({ showEdit, closeEdit, inputEdit, submitEdit }) => {
   return (
     <div>
       <Modal centered show={showEdit} onHide={closeEdit}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className={styles.header}>
           <Modal.Title>Edit Field</Modal.Title>
         </Modal.Header>
         <Form onSubmit={(e) => submitEdit(e)}>
@@ -337,8 +354,12 @@ export const EditField = ({ showEdit, closeEdit, inputEdit, submitEdit }) => {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={closeEdit}>Close</Button>
-            <Button type="submit">Save</Button>
+            <button className={styles.close} onClick={closeEdit}>
+              Close
+            </button>
+            <button className={styles.save} type="submit">
+              Save
+            </button>
           </Modal.Footer>
         </Form>
       </Modal>
