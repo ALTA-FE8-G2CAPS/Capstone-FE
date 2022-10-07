@@ -13,18 +13,21 @@ import {
 import { BsInfoLg } from "react-icons/bs";
 import { IoAddOutline } from "react-icons/io5";
 import { AiFillEdit, AiOutlineDelete, AiOutlineClose } from "react-icons/ai";
+import toast, { Toaster } from "react-hot-toast";
 import styles from "../../styles/Field.module.css";
 import { DetailHeading, DetailLayout } from "../../components/DetailLayout";
-import { AddModal } from "../../components/AddModal";
+import { AddModal, EditField } from "../../components/AddModal";
 import { getCookie } from "cookies-next";
 
 const Field = () => {
   const router = useRouter();
   const [summon, setSummon] = useState(false);
   const [show, setShow] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
   const [showAddFoto, setShowAddFoto] = useState(false);
   const [detail, setDetail] = useState([]);
   const [fields, setFields] = useState([]);
+  const [idField, setIdField] = useState();
   const [cookiess, setCookiess] = useState();
 
   const alertClicked = () => {
@@ -58,6 +61,11 @@ const Field = () => {
     getFields();
   }, []);
 
+  const handleId = (id) => {
+    console.log(id);
+    setIdField(id);
+  };
+
   // initiate state addfield
   const [addField, setAddField] = useState({
     venue_id: parseInt(getCookie("id")),
@@ -67,22 +75,22 @@ const Field = () => {
 
   // add foto
   const handleForm = (e) => {
-    const files = e.target.files
-    setInputFoto(files)
+    const files = e.target.files;
+    setInputFoto(files);
   };
   const handleFoto = (e) => {
-    e.preventDefault()
-    const data = new FormData(e.target)
-    data.append("foto_venue", inputFoto[0])
+    e.preventDefault();
+    const data = new FormData(e.target);
+    data.append("foto_venue", inputFoto[0]);
 
-    axios.post(`https://grupproject.site/venues/foto/${getCookie("id")}`, data)
-      .then(res => {
-        const RES = res.data
-        getDetail()
-        swal(RES.status, RES.message, "success")
-          .then(setShowAddFoto(false))
+    axios
+      .post(`https://grupproject.site/venues/foto/${getCookie("id")}`, data)
+      .then((res) => {
+        const RES = res.data;
+        getDetail();
+        swal(RES.status, RES.message, "success").then(setShowAddFoto(false));
       })
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err));
   };
 
   // Add new field
@@ -102,10 +110,66 @@ const Field = () => {
       price: parseInt(price),
     };
 
-    axios.post("https://grupproject.site/fields", data).then(() => {
-      alert("add new field success");
+    const myPromise = axios
+      .post("https://grupproject.site/fields", data)
+      .then(() => {
+        getFields();
+        setShow(false);
+      });
+    toast.promise(myPromise, {
+      loading: "Saving...",
+      success: "Adding Success!",
+      error: "Adding Fail",
+    });
+  };
+
+  // initiate state editfield
+  const handleEdit = (id) => {
+    setShowEdit(true);
+    setIdField(id);
+    console.log(idField);
+  };
+  const [editField, setEditField] = useState();
+  // Edit field
+  const inputEdit = (e) => {
+    let updateField = { ...editField };
+    updateField[e.target.name] = e.target.value;
+    setEditField(updateField);
+    console.log(editField);
+  };
+
+  const submitEdit = (e, id) => {
+    e.preventDefault();
+    var axios = require("axios");
+    const { venue_id, category, price } = editField;
+    var data2 = {
+      venue_id: parseInt(getCookie("id")),
+      category: category,
+      price: parseInt(price),
+    };
+    const myPromise = axios
+      .put(`https://grupproject.site/fields/${id}`, data2)
+      .then(() => {
+        console.log(data2);
+        getFields();
+        setShowEdit(false);
+      });
+    toast.promise(myPromise, {
+      loading: "Saving...",
+      success: "Update Success!",
+      error: "Update Failed",
+    });
+  };
+
+  // delete
+  const handleDelete = (id) => {
+    var config = {
+      method: "delete",
+      url: `https://grupproject.site/fields/${id}`,
+    };
+    axios(config).then(() => {
+      alert("field deleted");
       getFields();
-      setShow(false);
     });
   };
 
@@ -243,12 +307,12 @@ const Field = () => {
                 <div>
                   <ListGroup variant="flush">
                     {fields?.map((obj, index) => {
-                      const { venue_id, category, price } = obj;
+                      const { venue_id, category, price, id } = obj;
                       return (
                         <ListGroup.Item
                           key={index}
                           action
-                          onClick={alertClicked}
+                          onClick={() => handleId(id)}
                         >
                           {category}
                         </ListGroup.Item>
@@ -304,7 +368,7 @@ const Field = () => {
                         >
                           <Button
                             className={`${styles.infoButton} ${styles.editButton}`}
-                            onClick={() => setShow(true)}
+                            onClick={() => handleEdit(idField)}
                           >
                             <AiFillEdit size={20} />
                           </Button>
@@ -320,6 +384,7 @@ const Field = () => {
                         >
                           <Button
                             className={`${styles.infoButton} ${styles.deleteButton}`}
+                            onClick={() => handleDelete(idField)}
                           >
                             <AiOutlineDelete size={20} />
                           </Button>
@@ -386,13 +451,21 @@ const Field = () => {
         </div>
       </Col>
 
-      {/* Modal */}
+      {/* Modal add field*/}
       <AddModal
         add="field"
         show={show}
         handleClose={() => setShow(false)}
         handleInput={handleInput}
         handleSubmit={handleSubmit}
+      />
+
+      {/* Modal edit field */}
+      <EditField
+        showEdit={showEdit}
+        closeEdit={() => setShowEdit(false)}
+        inputEdit={inputEdit}
+        submitEdit={(e) => submitEdit(e, idField)}
       />
     </Row>
   );
