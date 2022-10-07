@@ -323,11 +323,32 @@
     line-height: 0.8;
 }
 
-.colorIndex {
+.colorIndexA {
     width: 20px;
     height: 20px;
     background-color: #E2E3E5;
     border: 1px solid #E2E3E5;
+    border-radius: 10px;
+}
+.colorIndexB {
+    width: 20px;
+    height: 20px;
+    background-color: #FFF3CD;
+    border: 1px solid #FFF3CD;
+    border-radius: 10px;
+}
+.colorIndexC {
+    width: 20px;
+    height: 20px;
+    background-color: #0F5163;
+    border: 1px solid #0F5163;
+    border-radius: 10px;
+}
+.colorIndexD {
+    width: 20px;
+    height: 20px;
+    background-color: #DE1E1E;
+    border: 1px solid #DE1E1E;
     border-radius: 10px;
 }
 
