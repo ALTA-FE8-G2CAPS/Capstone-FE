@@ -31,6 +31,10 @@ const Index = () => {
   const [show2, setShow2] = useState(false);
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState({
+    role: "user",
+    owner: ""
+  });
   const [update, setUpdate] = useState({
     name_user: "",
     address_user: "",
@@ -41,6 +45,8 @@ const Index = () => {
     deleteCookie("user");
     deleteCookie("user_id");
     deleteCookie("foto_user");
+    deleteCookie("role");
+    deleteCookie("user_owner");
     toast.success("You have been logout");
     router.push("/login");
   };
@@ -63,6 +69,7 @@ const Index = () => {
   }
   useEffect(() => {
     getProfile()
+    setStatus({ ...status, role: getCookie("role"), owner: getCookie("user_owner") })
   }, [])
 
   const handleImage = () => {
@@ -94,7 +101,6 @@ const Index = () => {
       data.append(i, update[i]);
     }
     setCookie("user", update.name_user)
-    // setCookie("user", update.name_user)
 
     const myPromise = axios
       .put("https://grupproject.site/users", data)
@@ -114,6 +120,7 @@ const Index = () => {
 
   return (
     setCookie("foto_user", profile?.foto_user),
+    console.log(status.role, typeof (status.owner)),
     <div>
       <div>
         <Toaster />
@@ -132,29 +139,12 @@ const Index = () => {
           <Col md="4">
             <div className={styles.colLeft}>
               <div className={styles.topBox}>
+                <h5 className="mb-0">General</h5>
                 <div className={styles.itemLeft} onClick={handleEdit}>
                   <div>
                     <FiEdit size={30} />
                   </div>
                   <div className={styles.itemLabel}>Edit Profile</div>
-                </div>
-                <div
-                  className={styles.itemLeft}
-                  onClick={() => router.push("/venue/myvenue")}
-                >
-                  <div>
-                    <TbSoccerField size={30} />
-                  </div>
-                  <div className={styles.itemLabel}>My Venues</div>
-                </div>
-                <div
-                  className={styles.itemLeft}
-                  onClick={() => router.push("/profile/bookinglist")}
-                >
-                  <div>
-                    <BsCalendarCheck size={30} />
-                  </div>
-                  <div className={styles.itemLabel}>My Booking List</div>
                 </div>
                 <div
                   className={styles.itemLeft}
@@ -165,21 +155,53 @@ const Index = () => {
                   </div>
                   <div className={styles.itemLabel}>My Schedule</div>
                 </div>
-                <div
-                  className={styles.itemLeft}
-                  onClick={() => router.push("/admin")}
-                >
-                  <div>
-                    <MdOutlineDashboard size={30} />
-                  </div>
-                  <div className={styles.itemLabel}>Admin Dashboard</div>
-                </div>
+                {status.role === "admin" || status.owner ?
+                  <>
+                    <h5 className="mt-2 mb-0">Owner</h5>
+                    <div
+                      className={styles.itemLeft}
+                      onClick={() => router.push("/venue/myvenue")}
+                    >
+                      <div>
+                        <TbSoccerField size={30} />
+                      </div>
+                      <div className={styles.itemLabel}>My Venues</div>
+                    </div>
+                    <div
+                      className={styles.itemLeft}
+                      onClick={() => router.push("/profile/bookinglist")}
+                    >
+                      <div>
+                        <BsCalendarCheck size={30} />
+                      </div>
+                      <div className={styles.itemLabel}>My Booking List</div>
+                    </div>
+                  </> : <></>
+                }
+
+                {status.role === "admin" &&
+                  <>
+                    <h5 className="mt-2 mb-0">Admin</h5>
+                    <div
+                      className={styles.itemLeft}
+                      onClick={() => router.push("/admin")}
+                    >
+                      <div>
+                        <MdOutlineDashboard size={30} />
+                      </div>
+                      <div className={styles.itemLabel}>Admin Dashboard</div>
+                    </div>
+                  </>
+                }
+
               </div>
+
               <div className={styles.bottomBox}>
-                <div className={styles.beOwner}>
-                  Become an Owner?
-                  <span onClick={() => setShow2(true)}> Click Here!</span>
-                </div>
+                {!status.owner ?
+                  <div className={styles.beOwner}>
+                    Become an Owner?
+                    <span onClick={() => setShow2(true)}> Click Here!</span>
+                  </div> : <></>}
                 <div>
                   <div className={styles.logOut} onClick={handleLogout}>
                     <div>

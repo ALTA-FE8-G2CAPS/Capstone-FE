@@ -52,6 +52,7 @@ const Login = () => {
                 setCookie("user_id", data.user_id)
                 setCookie("foto_user", data.foto_user)
                 setCookie("role", data.role)
+                setCookie("user_owner", data.user_owner)
                 swal("Login Successfully", `Welcome to segoro , ${data.user}`, "success")
                     .then(() => window.location.href = "/")
             })

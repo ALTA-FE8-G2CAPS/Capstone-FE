@@ -34,6 +34,8 @@ export const Navbars = () => {
                     deleteCookie("user")
                     deleteCookie("user_id")
                     deleteCookie("foto_user")
+                    deleteCookie("role");
+                    deleteCookie("user_owner");
                     router.push("/login")
                     toast.success("You have been logout")
                 }
