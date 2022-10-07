@@ -1,6 +1,6 @@
 import React from "react";
 import dynamic from 'next/dynamic'
-import { Button, FloatingLabel, Form, Modal } from "react-bootstrap";
+import { Button, FloatingLabel, Form, Modal, InputGroup } from "react-bootstrap";
 
 export const AddModal = ({
   show,
@@ -71,9 +71,19 @@ export const AddModal = ({
                 </FloatingLabel>
 
                 <Form.Group className="mt-3">
-                  <Form.Label>Mark Your Venue (double click to see your mark)</Form.Label>
+                  <Form.Label>Mark Your Venue (click to see your mark)</Form.Label>
                   <OpenStreetMap />
                 </Form.Group>
+
+                <InputGroup className="mt-3">
+                  <InputGroup.Checkbox
+                    aria-label="Checkbox for following text input"
+                    onChange={(e) => handleInput(e)}
+                    />
+                  <Form.Control disabled value="Check this box to save your mark"  aria-label="Text input with checkbox" />
+                </InputGroup>
+
+
 
               </div>
             )) ||
