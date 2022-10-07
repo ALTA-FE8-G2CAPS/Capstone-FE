@@ -205,7 +205,7 @@ export const AddModal = ({
   );
 };
 
-export const RegisPlus = ({ show, handleClose, handleSubmit, handleInput }) => {
+export const RegisPlus = ({ show, handleClose, handleRegSubmit, handleReg }) => {
   return (
     <div>
       <Modal centered show={show} onHide={handleClose}>
@@ -213,7 +213,7 @@ export const RegisPlus = ({ show, handleClose, handleSubmit, handleInput }) => {
           <Modal.Title>Register User Plus</Modal.Title>
         </Modal.Header>
 
-        <Form onSubmit={(e) => handleSubmit(e)}>
+        <Form onSubmit={(e) => handleRegSubmit(e)}>
           <Modal.Body>
             <div>
               <p>
@@ -222,7 +222,7 @@ export const RegisPlus = ({ show, handleClose, handleSubmit, handleInput }) => {
               </p>
             </div>
             <FloatingLabel controlId="floatingInput" label="Upload Picture">
-              <Form.Control type="file" placeholder="placeholder" />
+              <Form.Control onChange={(e) => handleReg(e)} type="file" placeholder="placeholder" />
             </FloatingLabel>
           </Modal.Body>
           <Modal.Footer>

@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import React from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { MdDeleteOutline } from "react-icons/md";
-import styles from "../styles/Detail.module.css";
 import axios from "axios";
+import styles from "../styles/Detail.module.css";
 
 const ListCard = ({ item, handleDelete }) => {
   const router = useRouter();

@@ -31,6 +31,7 @@ const Index = () => {
   const [show2, setShow2] = useState(false);
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [file, setFile] = useState(null)
   const [status, setStatus] = useState({
     role: "user",
     owner: ""
@@ -118,9 +119,21 @@ const Index = () => {
     });
   };
 
+  const handleReg = (e) => {
+    setFile(e.target.files[0])
+  }
+
+  const handleRegSubmit = (e) => {
+    e.preventDefault()
+    const data = new FormData()
+    data.append("foto_owner", file)
+    axios.post("https://grupproject.site/users/owner", data)
+      .then(() => swal("Register success", "Please wait admin to aprove your request", "success").then(setShow(false)))
+      .catch(() => swal("Register Failed", "Please try again later", "error"))
+  }
+
   return (
     setCookie("foto_user", profile?.foto_user),
-    console.log(status.role, typeof (status.owner)),
     <div>
       <div>
         <Toaster />
@@ -285,7 +298,7 @@ const Index = () => {
       />
 
       {/* Modal for register user plus */}
-      <RegisPlus show={show2} handleClose={() => setShow2(false)} />
+      <RegisPlus show={show2} handleClose={() => setShow2(false)} handleRegSubmit={handleRegSubmit} handleReg={handleReg} />
     </div>
   );
 };

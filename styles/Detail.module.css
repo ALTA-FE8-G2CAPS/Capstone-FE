@@ -223,13 +223,20 @@
     border-radius: 10px;
 }
 
+@keyframes example {
+    from {scale: 0;}
+    to {scale: 1;}
+  }
+
 .listContainer {
     width: 95%;
     margin: 0 auto;
+    animation : example 2s ease
 }
 
 .cardItem {
     transition: 0.3s;
+
     cursor : pointer
 }
 
