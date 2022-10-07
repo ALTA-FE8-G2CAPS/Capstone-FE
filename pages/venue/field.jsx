@@ -28,7 +28,9 @@ const Field = () => {
   const [detail, setDetail] = useState([]);
   const [fields, setFields] = useState([]);
   const [idField, setIdField] = useState();
+  const [result, setResult] = useState(null);
   const [cookiess, setCookiess] = useState();
+  const [id, setId] = useState();
 
   const alertClicked = () => {
     alert("You clicked the third ListGroupItem");
@@ -36,6 +38,7 @@ const Field = () => {
 
   useEffect(() => {
     setCookiess(getCookie("id"));
+    setId(getCookie("user_id"));
   }, []);
 
   // get detail venue
@@ -176,6 +179,12 @@ const Field = () => {
       error: "Delete Failed",
     });
   };
+
+  useEffect(() => {
+    const idN = parseInt(id);
+    const newResult = idN === detail.user_id;
+    setResult(newResult);
+  }, [detail]);
 
   return (
     <Row className={styles.container}>
