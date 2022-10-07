@@ -1,5 +1,5 @@
 import React from "react";
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic";
 import { Button, FloatingLabel, Form, Modal } from "react-bootstrap";
 
 export const AddModal = ({
@@ -8,12 +8,11 @@ export const AddModal = ({
   handleClose,
   handleSubmit,
   handleInput,
-  profile
+  profile,
 }) => {
-
-  const OpenStreetMap = dynamic(() => import('./InputMap'), {
+  const OpenStreetMap = dynamic(() => import("./InputMap"), {
     ssr: false,
-  })
+  });
 
   return (
     <div>
@@ -21,7 +20,7 @@ export const AddModal = ({
         <Modal.Header closeButton>
           <Modal.Title>
             {(add === "venue" && "Add Venue / Edit Venue") ||
-              (add === "field" && "Add Field / Edit Field") ||
+              (add === "field" && "Add Field") ||
               (add === "review" && "Add Review") ||
               (add === "profile" && "Edit Profile") ||
               (add === "profileImage" && "Edit Image")}
@@ -71,10 +70,11 @@ export const AddModal = ({
                 </FloatingLabel>
 
                 <Form.Group className="mt-3">
-                  <Form.Label>Mark Your Venue (double click to see your mark)</Form.Label>
+                  <Form.Label>
+                    Mark Your Venue (double click to see your mark)
+                  </Form.Label>
                   <OpenStreetMap />
                 </Form.Group>
-
               </div>
             )) ||
               (add === "field" && (
@@ -286,6 +286,52 @@ export const AddFotoVenue = ({ show, handleClose, handleForm, handleFoto }) => {
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={handleClose}>Close</Button>
+            <Button type="submit">Save</Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
+    </div>
+  );
+};
+
+export const EditField = ({ showEdit, closeEdit, inputEdit, submitEdit }) => {
+  return (
+    <div>
+      <Modal centered show={showEdit} onHide={closeEdit}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Field</Modal.Title>
+        </Modal.Header>
+        <Form onSubmit={(e) => submitEdit(e)}>
+          <Modal.Body>
+            <div>
+              <FloatingLabel
+                controlId="floatingInput"
+                label="Category"
+                className="mb-3"
+              >
+                <Form.Control
+                  type="text"
+                  name="category"
+                  placeholder="placeholder"
+                  onChange={(e) => inputEdit(e)}
+                />
+              </FloatingLabel>
+              <FloatingLabel
+                controlId="floatingInput"
+                label="Price/Hour"
+                className="mb-3"
+              >
+                <Form.Control
+                  type="number"
+                  name="price"
+                  placeholder="placeholder"
+                  onChange={(e) => inputEdit(e)}
+                />
+              </FloatingLabel>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={closeEdit}>Close</Button>
             <Button type="submit">Save</Button>
           </Modal.Footer>
         </Form>
