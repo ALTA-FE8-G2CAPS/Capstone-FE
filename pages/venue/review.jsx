@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"
+import axios from "axios";
 import Image from "next/image";
-import {getCookie} from "cookies-next"
+import { getCookie } from "cookies-next";
 import { Col, OverlayTrigger, Row, Tooltip, Button } from "react-bootstrap";
 import { DetailHeading, DetailLayout } from "../../components/DetailLayout";
 import { AiFillStar } from "react-icons/ai";
 import { IoAddOutline } from "react-icons/io5";
 import styles from "../../styles/Review.module.css";
 import { AddModal } from "../../components/AddModal";
+import swal from "sweetalert";
+import toast from "react-hot-toast";
 
 const Review = () => {
   const [show, setShow] = useState(false);
   const [showAddFoto, setShowAddFoto] = useState(false);
   const [cookiess, setCookiess] = useState();
   const [detail, setDetail] = useState([]);
+  const [reviews, setReviews] = useState([]);
 
   // get detail venue
   const getDetail = () => {
@@ -24,29 +27,86 @@ const Review = () => {
       });
   };
 
+  // get all review in id venue
+  const getReviews = () => {
+    axios
+      .get(`https://grupproject.site/reviews/${getCookie("id")}`)
+      .then((res) => {
+        setReviews(res.data.data);
+      });
+  };
+
   useEffect(() => {
     getDetail();
+    getReviews();
   }, []);
 
   // add foto
   const handleForm = (e) => {
-    const files = e.target.files
-    setInputFoto(files)
+    const files = e.target.files;
+    setInputFoto(files);
   };
   const handleFoto = (e) => {
-    e.preventDefault()
-    const data = new FormData(e.target)
-    data.append("foto_venue", inputFoto[0])
+    e.preventDefault();
+    const data = new FormData(e.target);
+    data.append("foto_venue", inputFoto[0]);
 
-    axios.post(`https://grupproject.site/venues/foto/${getCookie("id")}`, data)
-      .then(res => {
-        const RES = res.data
-        getDetail()
-        swal(RES.status, RES.message, "success")
-          .then(setShowAddFoto(false))
+    axios
+      .post(`https://grupproject.site/venues/foto/${getCookie("id")}`, data)
+      .then((res) => {
+        const RES = res.data;
+        getDetail();
+        swal(RES.status, RES.message, "success").then(setShowAddFoto(false));
       })
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err));
   };
+
+  // add new review
+  const [addReview, setAddReview] = useState({
+    name_user: getCookie("user"),
+    venue_id: parseInt(getCookie("id")),
+    user_id: parseInt(getCookie("user_id")),
+    rate: parseInt(),
+    feedback: "",
+    foto_review: null,
+  });
+
+  const handleInput = (e) => {
+    const target = e.target;
+    let newReview = { ...addReview };
+    if (target.type === "file") {
+      newReview[e.target.name] = target.files[0];
+      setAddReview(newReview);
+    } else {
+      newReview[e.target.name] = target.value;
+      setAddReview(newReview);
+    }
+    console.log(addReview);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData();
+    for (var i in addReview) {
+      data.append(i, addReview[i]);
+    }
+    const myPromise = axios
+      .post("https://grupproject.site/reviews", data)
+      .then(() => {
+        getReviews();
+        setShow(false);
+      });
+    toast.promise(myPromise, {
+      loading: "Saving...",
+      success: "Adding Success!",
+      error: "Adding Fail",
+    });
+  };
+
+  // // function for looping rate
+  // const rating = (star) => {
+  //   return star();
+  // };
 
   return (
     <Row className={styles.container}>
@@ -60,7 +120,7 @@ const Review = () => {
       />
       <Col md="12" lg="8">
         <div className={styles.containerRight}>
-          <DetailHeading page="review" item={detail}/>
+          <DetailHeading page="review" item={detail} />
           <div className={styles.reviewBody}>
             <div className={styles.titleBody}>
               <h5>Review :</h5>
@@ -81,79 +141,55 @@ const Review = () => {
               </OverlayTrigger>
             </div>
             <div className={styles.reviewBox}>
-              <Row className={styles.reviewItem}>
-                <div>
-                  <AiFillStar size={30} className={styles.star} />
-                  <AiFillStar size={30} className={styles.star} />
-                  <AiFillStar size={30} className={styles.star} />
-                  <AiFillStar size={30} className={styles.star} />
-                  <AiFillStar size={30} className={styles.star} />
-                </div>
-                <div className={styles.reviewProfile}>
-                  <div>
-                    <Image
-                      className={styles.imageProfile}
-                      src="/profile.jpg"
-                      width={40}
-                      height={40}
-                    />
-                  </div>
-                  <div className={styles.nameProfile}>
-                    <h6>Customer A</h6>
-                  </div>
-                </div>
-                <div>
-                  <p>Lapangannya nyaman kaya mantan</p>
-                </div>
-                <div className={styles.imageBox}>
-                  <Image
-                    className={styles.imageReview}
-                    src="/futsal.jpg"
-                    width={80}
-                    height={50}
-                  />
-                </div>
-              </Row>
-              <Row className={styles.reviewItem}>
-                <div>
-                  <AiFillStar size={30} className={styles.star} />
-                  <AiFillStar size={30} className={styles.star} />
-                  <AiFillStar size={30} className={styles.star} />
-                  <AiFillStar size={30} className={styles.star} />
-                  <AiFillStar size={30} className={styles.star} />
-                </div>
-                <div className={styles.reviewProfile}>
-                  <div>
-                    <Image
-                      className={styles.imageProfile}
-                      src="/profile.jpg"
-                      width={40}
-                      height={40}
-                    />
-                  </div>
-                  <div className={styles.nameProfile}>
-                    <h6>Customer A</h6>
-                  </div>
-                </div>
-                <div>
-                  <p>Lapangannya nyaman kaya mantan</p>
-                </div>
-                <div className={styles.imageBox}>
-                  <Image
-                    className={styles.imageReview}
-                    src="/futsal.jpg"
-                    width={80}
-                    height={50}
-                  />
-                </div>
-              </Row>
+              {reviews?.map((obj, index) => {
+                const { name_user, nama_venue, rate, feedback, foto_review } =
+                  obj;
+                return (
+                  <Row className={styles.reviewItem} key={index}>
+                    <div>
+                      <AiFillStar size={30} className={styles.star} />
+                      {rate}
+                    </div>
+                    <div className={styles.reviewProfile}>
+                      {/* <div>
+                        <Image
+                          className={styles.imageProfile}
+                          src={foto_review}
+                          width={40}
+                          height={40}
+                        />
+                      </div> */}
+                      <div className={styles.nameProfile}>
+                        <h6>{name_user}</h6>
+                      </div>
+                    </div>
+                    <div>
+                      <p>{feedback}</p>
+                    </div>
+                    <div className={styles.imageBox}>
+                      <Image
+                        className={styles.imageReview}
+                        src={foto_review}
+                        width={80}
+                        height={50}
+                      />
+                    </div>
+                  </Row>
+                );
+              })}
             </div>
           </div>
         </div>
       </Col>
 
       {/* Modal */}
-      <AddModal add="review" show={show} handleClose={() => setShow(false)} />
+      <AddModal
+        add="review"
+        show={show}
+        handleClose={() => setShow(false)}
+        handleInput={handleInput}
+        handleSubmit={handleSubmit}
+      />
     </Row>
   );
 };

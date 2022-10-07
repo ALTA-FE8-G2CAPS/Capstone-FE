@@ -131,12 +131,30 @@ export const AddModal = ({
                     label="Rate (out of 5)"
                     className="mb-3"
                   >
-                    <Form.Control type="number" placeholder="placeholder" />
+                    <Form.Control
+                      type="number"
+                      name="rate"
+                      placeholder="placeholder"
+                      onChange={(e) => handleInput(e)}
+                    />
+                  </FloatingLabel>
+                  <FloatingLabel
+                    controlId="floatingTextarea24"
+                    label="Add review photo"
+                    className="mb-3"
+                  >
+                    <Form.Control
+                      name="foto_review"
+                      type="file"
+                      onChange={(e) => handleInput(e)}
+                    />
                   </FloatingLabel>
                   <FloatingLabel controlId="floatingTextarea2" label="Review">
                     <Form.Control
                       as="textarea"
+                      name="feedback"
                       placeholder="Leave a comment here"
+                      onChange={(e) => handleInput(e)}
                       style={{ height: "150px" }}
                     />
                   </FloatingLabel>

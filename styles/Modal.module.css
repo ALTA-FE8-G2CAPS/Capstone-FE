@@ -5,6 +5,7 @@
 .close {
     background-color: rgb(255, 64, 64);
     border: 1px solid rgb(145, 0, 0);
+    font-weight: bolder;
     border: none;
     padding: 5px;
     padding-left: 20px;
@@ -19,6 +20,7 @@
 
 .save {
     background-color: #61827E;
+    font-weight: bolder;
     border: none;
     padding: 5px;
     padding-left: 20px;
@@ -29,4 +31,5 @@
 }
 .save:hover {
     background-color: #405654;
+    
 }
