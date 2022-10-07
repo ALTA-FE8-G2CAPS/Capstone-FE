@@ -103,7 +103,7 @@ const Field = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     var axios = require("axios");
-    const { venue_id, category, price } = addField;
+    const { category, price } = addField;
     var data = {
       venue_id: parseInt(getCookie("id")),
       category: category,
@@ -141,7 +141,7 @@ const Field = () => {
   const submitEdit = (e, id) => {
     e.preventDefault();
     var axios = require("axios");
-    const { venue_id, category, price } = editField;
+    const { category, price } = editField;
     var data2 = {
       venue_id: parseInt(getCookie("id")),
       category: category,
@@ -167,9 +167,13 @@ const Field = () => {
       method: "delete",
       url: `https://grupproject.site/fields/${id}`,
     };
-    axios(config).then(() => {
-      alert("field deleted");
+    const myPromise = axios(config).then(() => {
       getFields();
+    });
+    toast.promise(myPromise, {
+      loading: "Saving...",
+      success: "Delete Success!",
+      error: "Delete Failed",
     });
   };
 
