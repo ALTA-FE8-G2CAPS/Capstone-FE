@@ -153,6 +153,20 @@
     border-radius: 5px;
 }
 
+.listgroup {
+    display: flex;
+    justify-content: space-between;
+}
+.addsc {
+    background-color: #405654;
+    border: none;
+    border-radius: 50%;
+}
+.addsc:hover {
+    background-color: #B4E0DB;
+    color: #202B2A;
+}
+
 .perItem {
     display: flex;
     justify-content: space-evenly;
