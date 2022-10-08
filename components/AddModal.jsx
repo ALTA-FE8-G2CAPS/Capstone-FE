@@ -223,7 +223,12 @@ export const AddModal = ({
   );
 };
 
-export const RegisPlus = ({ show, handleClose, handleRegSubmit, handleReg }) => {
+export const RegisPlus = ({
+  show,
+  handleClose,
+  handleRegSubmit,
+  handleReg,
+}) => {
   return (
     <div>
       <Modal centered show={show} onHide={handleClose}>
@@ -240,7 +245,11 @@ export const RegisPlus = ({ show, handleClose, handleRegSubmit, handleReg }) => 
               </p>
             </div>
             <FloatingLabel controlId="floatingInput" label="Upload Picture">
-              <Form.Control onChange={(e) => handleReg(e)} type="file" placeholder="placeholder" />
+              <Form.Control
+                onChange={(e) => handleReg(e)}
+                type="file"
+                placeholder="placeholder"
+              />
             </FloatingLabel>
           </Modal.Body>
           <Modal.Footer>
@@ -373,6 +382,68 @@ export const EditField = ({ showEdit, closeEdit, inputEdit, submitEdit }) => {
           </Modal.Body>
           <Modal.Footer>
             <button className={styles.close} onClick={closeEdit}>
+              Close
+            </button>
+            <button className={styles.save} type="submit">
+              Save
+            </button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
+    </div>
+  );
+};
+
+export const AddSchedule = ({ showAdd, closeAdd, inputAdd, submitAdd }) => {
+  return (
+    <div>
+      <Modal centered show={showAdd} onHide={closeAdd}>
+        <Modal.Header closeButton className={styles.header}>
+          <Modal.Title>Add Schedule</Modal.Title>
+        </Modal.Header>
+        <Form onSubmit={(e) => submitAdd(e)}>
+          <Modal.Body>
+            <div>
+              <FloatingLabel
+                controlId="floatingInput"
+                label="Day"
+                className="mb-3"
+              >
+                <Form.Control
+                  type="text"
+                  name="day"
+                  placeholder="placeholder"
+                  onChange={(e) => inputAdd(e)}
+                />
+              </FloatingLabel>
+              <FloatingLabel
+                controlId="floatingInput"
+                label="Open (ex: 08:00, 13:00, etc)"
+                className="mb-3"
+              >
+                <Form.Control
+                  type="text"
+                  name="start_hours"
+                  placeholder="placeholder"
+                  onChange={(e) => inputAdd(e)}
+                />
+              </FloatingLabel>
+              <FloatingLabel
+                controlId="floatingInput"
+                label="Close (ex: 08:00, 13:00, etc)"
+                className="mb-3"
+              >
+                <Form.Control
+                  type="text"
+                  name="end_hours"
+                  placeholder="placeholder"
+                  onChange={(e) => inputAdd(e)}
+                />
+              </FloatingLabel>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <button className={styles.close} onClick={closeAdd}>
               Close
             </button>
             <button className={styles.save} type="submit">
