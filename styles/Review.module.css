@@ -47,10 +47,6 @@
     border-radius: 3px;
 }
 
-.star {
-    color: #F6DE05;
-}
-
 .reviewProfile {
     display: flex;
     align-items: center;

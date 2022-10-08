@@ -144,19 +144,19 @@ const Review = () => {
                     <div>
                       {[...Array(rate)].map((e,i) => {
                         return (
-                          <AiFillStar key={i} size={30} className={styles.star} />
+                          <AiFillStar color="#F6DE05" key={i} size={30}/>
                         )
                       })}
                     </div>
                     <div className={styles.reviewProfile}>
-                      {/* <div>
+                      <div>
                         <Image
                           className={styles.imageProfile}
                           src={foto_review}
                           width={40}
                           height={40}
                         />
-                      </div> */}
+                      </div>
                       <div className={styles.nameProfile}>
                         <h6>{name_user}</h6>
                       </div>
