@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 const Review = () => {
   const [show, setShow] = useState(false);
   const [showAddFoto, setShowAddFoto] = useState(false);
-  const [cookiess, setCookiess] = useState();
+  // const [cookiess, setCookiess] = useState();
   const [detail, setDetail] = useState([]);
   const [reviews, setReviews] = useState([]);
 
@@ -103,11 +103,6 @@ const Review = () => {
     });
   };
 
-  // // function for looping rate
-  // const rating = (star) => {
-  //   return star();
-  // };
-
   return (
     <Row className={styles.container}>
       <DetailLayout
@@ -147,8 +142,11 @@ const Review = () => {
                 return (
                   <Row className={styles.reviewItem} key={index}>
                     <div>
-                      <AiFillStar size={30} className={styles.star} />
-                      {rate}
+                      {[...Array(rate)].map((e,i) => {
+                        return (
+                          <AiFillStar key={i} size={30} className={styles.star} />
+                        )
+                      })}
                     </div>
                     <div className={styles.reviewProfile}>
                       {/* <div>
