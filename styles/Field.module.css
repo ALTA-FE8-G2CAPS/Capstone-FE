@@ -107,7 +107,7 @@
 
 .scheduleDay {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-top: 10px;
     margin-bottom: 10px;
     background-color: #CFF4FC;

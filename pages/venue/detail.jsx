@@ -47,6 +47,7 @@ function Detail() {
     setInputFoto(files)
   };
   const handleFoto = (e) => {
+    console.log("HEYY")
     e.preventDefault()
     const data = new FormData(e.target)
     data.append("foto_venue", inputFoto[0])

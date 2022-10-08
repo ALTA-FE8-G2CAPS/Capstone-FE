@@ -280,12 +280,7 @@ const Field = () => {
     setResult(newResult);
   }, [detail]);
 
-  // allSchedule.map((item) => {
-  //   console.log("item ini : ", item.scheduledetail)
-  // })
-
   return (
-    // console.log("jadwal", allSchedule),
     <Row className={styles.container}>
       <DetailLayout
         detail={detail.foto_venue}
@@ -303,13 +298,12 @@ const Field = () => {
             <Row>
               {/* List Schedules */}
               <Col sm="12" md="8">
-                <div className={styles.scheduleDay}>
+                <div className={`${styles.scheduleDay}`}>
                   {allSchedule?.map((obj, index) => {
-                    console.log("ini :", obj)
                     const { day, detailschedule } = obj;
                     return (
                       <div
-                        className={styles.dayActive}
+                        className={`${styles.dayActive}`}
                         key={index}
                         onClick={() => getSchedulePerHour(detailschedule)}
                       >

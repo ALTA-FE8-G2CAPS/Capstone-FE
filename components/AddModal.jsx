@@ -333,7 +333,7 @@ export const AddFotoVenue = ({ show, handleClose, handleForm, handleFoto }) => {
             </FloatingLabel>
           </Modal.Body>
           <Modal.Footer>
-            <button className={styles.close} onClick={handleClose}>
+            <button className={styles.close} >
               Close
             </button>
             <button className={styles.save} type="submit">
