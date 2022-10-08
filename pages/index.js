@@ -6,27 +6,44 @@ import { RiMoneyDollarCircleLine } from "react-icons/ri"
 import { AiOutlineSchedule, AiOutlineClose } from "react-icons/ai"
 import { BsInfoLg } from "react-icons/bs"
 import { useRouter } from "next/router"
-import styles from "../styles/Home.module.css"
 import axios from "axios"
+import { getCookie } from "cookies-next"
 // Import Component
+import styles from "../styles/Home.module.css"
 import ListCard from "../components/ListCard"
 import { useNavbarContext } from "../context/contextNavbar"
 
-const Home = () => {
+export const getServerSideProps = async (context) => {
+  const token = getCookie("token", context)
+  const response = await fetch("https://grupproject.site/venues", {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  const list = await response.json()
+  return {
+    props: {
+      list: list
+    }
+  }
+}
+
+const Home = (props) => {
   const router = useRouter()
   const [summon, setSummon] = useState(false);
   const [list, setList] = useState([])
   // active Nav
   const { setStatusNav } = useNavbarContext()
   // Get all venue
-  const getApi = () => {
-    axios.get("https://grupproject.site/venues")
-      .then(res => setList(res.data.data))
-      .catch(err => console.log(err.response.data))
-  }
+  // const getApi = () => {
+  //   axios.get("https://grupproject.site/venues")
+  //     .then(res => setList(res.data.data))
+  //     .catch(err => console.log(err.response.data))
+  // }
   useEffect(() => {
     setStatusNav("home")
-    getApi()
+    setList(props.list.data)
+    // getApi()
   }, [])
 
 
