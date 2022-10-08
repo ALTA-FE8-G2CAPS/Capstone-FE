@@ -415,18 +415,6 @@ export const AddSchedule = ({ showAdd, closeAdd, inputAdd, submitAdd, hour, inpu
                 onChange={(e) => inputAdd(e)}
                 className="mb-3"
               />
-              {/* <FloatingLabel
-                controlId="floatingInput"
-                label="Open (ex: 08:00, 13:00, etc)"
-                className="mb-3"
-              >
-                <Form.Control
-                  type="text"
-                  name="start_hours"
-                  placeholder="placeholder"
-                  onChange={(e) => inputAdd(e)}
-                />
-              </FloatingLabel> */}
               <Row>
                 <Col>
                   <Form.Label>Open hours</Form.Label>
@@ -441,19 +429,6 @@ export const AddSchedule = ({ showAdd, closeAdd, inputAdd, submitAdd, hour, inpu
                     : <></>}
                 </Col>
               </Row>
-
-              {/* <FloatingLabel
-                controlId="floatingInput"
-                label="Close (ex: 08:00, 13:00, etc)"
-                className="mb-3"
-              >
-                <Form.Control
-                  type="text"
-                  name="end_hours"
-                  placeholder="placeholder"
-                  onChange={(e) => inputAdd(e)}
-                />
-              </FloatingLabel> */}
             </div>
           </Modal.Body>
           <Modal.Footer>

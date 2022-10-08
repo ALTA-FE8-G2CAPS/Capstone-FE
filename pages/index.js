@@ -35,15 +35,9 @@ const Home = (props) => {
   // active Nav
   const { setStatusNav } = useNavbarContext()
   // Get all venue
-  // const getApi = () => {
-  //   axios.get("https://grupproject.site/venues")
-  //     .then(res => setList(res.data.data))
-  //     .catch(err => console.log(err.response.data))
-  // }
   useEffect(() => {
     setStatusNav("home")
     setList(props.list.data)
-    // getApi()
   }, [])
 
 

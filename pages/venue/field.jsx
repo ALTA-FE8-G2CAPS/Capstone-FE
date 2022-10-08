@@ -207,7 +207,9 @@ const Field = () => {
 
   const getSchedulePerHour = (detail) => {
     setPerHour(detail);
+
   };
+
 
   // Initiate state add schedule
   const [addSchedule, setAddSchedule] = useState({
@@ -233,7 +235,6 @@ const Field = () => {
           setHour({ ...hour, end: `${time}:00` })
         }
       }
-      console.log("hour : ", hour)
     }
 
 
@@ -246,7 +247,6 @@ const Field = () => {
 
   const inputReset = () => {
     setHour({ ...hour, start: 0, end: 0 })
-    console.log(hour)
   }
 
   const submitAdd = (e) => {
@@ -259,10 +259,6 @@ const Field = () => {
       start_hours: hour.start,
       end_hours: hour.end,
     };
-
-    console.log("day : ", day)
-    console.log("start : ", hour.start)
-    console.log("end : ", hour.end)
 
     const myPromise = axios
       .post("https://grupproject.site/schedules", data)
@@ -284,7 +280,12 @@ const Field = () => {
     setResult(newResult);
   }, [detail]);
 
+  // allSchedule.map((item) => {
+  //   console.log("item ini : ", item.scheduledetail)
+  // })
+
   return (
+    // console.log("jadwal", allSchedule),
     <Row className={styles.container}>
       <DetailLayout
         detail={detail.foto_venue}
@@ -304,6 +305,7 @@ const Field = () => {
               <Col sm="12" md="8">
                 <div className={styles.scheduleDay}>
                   {allSchedule?.map((obj, index) => {
+                    console.log("ini :", obj)
                     const { day, detailschedule } = obj;
                     return (
                       <div
@@ -317,18 +319,31 @@ const Field = () => {
                   })}
                 </div>
                 <div className={styles.scrollSchedule}>
+
                   <ListGroup>
-                    <ListGroup.Item
-                      action
-                      onClick={alertClicked}
-                      className={styles.scheduleItem}
-                    >
-                      <div className={styles.perItem}>
-                        <div>hahahaha</div>
-                        <div>hahahahah</div>
-                      </div>
-                    </ListGroup.Item>
+                    {allSchedule.map((item) => {
+                      const main = item.scheduledetail
+
+                      const uhuy = main?.map((isi) => {
+                        return (
+                          <ListGroup.Item
+                            action
+                            onClick={alertClicked}
+                            className={styles.scheduleItem}
+                          >
+                            <div className={styles.perItem}>
+                              <div>{isi.start_hours}</div>
+                              <div>{isi.end_hours}</div>
+                              <div>{isi.status_schedule}</div>
+                            </div>
+                          </ListGroup.Item>
+                        )
+                      })
+
+                      return uhuy
+                    })}
                   </ListGroup>
+
                 </div>
               </Col>
               <Col sm="12" md="4">
