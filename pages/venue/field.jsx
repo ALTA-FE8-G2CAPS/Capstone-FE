@@ -9,6 +9,8 @@ import {
   OverlayTrigger,
   Row,
   Tooltip,
+  Tabs,
+  Tab,
 } from "react-bootstrap";
 import { BsInfoLg } from "react-icons/bs";
 import { IoAddOutline } from "react-icons/io5";
@@ -16,7 +18,7 @@ import { AiFillEdit, AiOutlineDelete, AiOutlineClose } from "react-icons/ai";
 import toast, { Toaster } from "react-hot-toast";
 import styles from "../../styles/Field.module.css";
 import { DetailHeading, DetailLayout } from "../../components/DetailLayout";
-import { AddModal, EditField } from "../../components/AddModal";
+import { AddModal, AddSchedule, EditField } from "../../components/AddModal";
 import { getCookie } from "cookies-next";
 
 const Field = () => {
@@ -25,12 +27,15 @@ const Field = () => {
   const [show, setShow] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showAddFoto, setShowAddFoto] = useState(false);
+  const [showAddSc, setShowAddSc] = useState(false);
   const [detail, setDetail] = useState([]);
   const [fields, setFields] = useState([]);
   const [idField, setIdField] = useState();
   const [result, setResult] = useState(null);
   const [cookiess, setCookiess] = useState();
   const [id, setId] = useState();
+  const [allSchedule, setAllSchedule] = useState([]);
+  const [perHour, setPerHour] = useState([]);
 
   const alertClicked = () => {
     alert("You clicked the third ListGroupItem");
@@ -64,9 +69,24 @@ const Field = () => {
     getFields();
   }, []);
 
+  // get all schedule by id_field
+  const getSchedule = (id) => {
+    axios
+      .get(`https://grupproject.site/schedules?field_id=${id}`)
+      .then((res) => {
+        setAllSchedule(res.data.data);
+        console.log("ini all sc", allSchedule);
+      });
+  };
+
+  useEffect(() => {
+    getSchedule();
+  }, []);
+
   const handleId = (id) => {
     console.log(id);
     setIdField(id);
+    getSchedule(id);
   };
 
   // initiate state addfield
@@ -164,7 +184,7 @@ const Field = () => {
     });
   };
 
-  // delete
+  // delete field
   const handleDelete = (id) => {
     var config = {
       method: "delete",
@@ -180,12 +200,61 @@ const Field = () => {
     });
   };
 
+  // HANDLING SCHEDULE
+  const catchId = (idField) => {
+    console.log("catch id", idField);
+    setShowAddSc(true);
+  };
+
+  const getSchedulePerHour = (detail) => {
+    setPerHour(detail);
+    console.log(detail);
+  };
+
+  // Initiate state add schedule
+  const [addSchedule, setAddSchedule] = useState({
+    field_id: idField,
+    day: "",
+    start_hours: "",
+    end_hours: "",
+  });
+
+  const inputAdd = (e) => {
+    let newSc = { ...addSchedule };
+    newSc[e.target.name] = e.target.value;
+    setAddSchedule(newSc);
+  };
+
+  const submitAdd = (e) => {
+    e.preventDefault();
+    var axios = require("axios");
+    const { day, start_hours, end_hours } = addSchedule;
+    var data = {
+      field_id: idField,
+      day: day,
+      start_hours: start_hours,
+      end_hours: end_hours,
+    };
+
+    const myPromise = axios
+      .post("https://grupproject.site/schedules", data)
+      .then(() => {
+        getSchedule();
+        setShowAddSc(false);
+      });
+    toast.promise(myPromise, {
+      loading: "Saving...",
+      success: "Adding Schedule Success!",
+      error: "Adding Fail",
+    });
+  };
+
   useEffect(() => {
     const idN = parseInt(id);
     const newResult = idN === detail.user_id;
     setResult(newResult);
   }, [detail]);
-
+  console.log("ini schedule", allSchedule);
   return (
     <Row className={styles.container}>
       <DetailLayout
@@ -203,13 +272,18 @@ const Field = () => {
             <Row>
               <Col sm="12" md="8">
                 <div className={styles.scheduleDay}>
-                  <div className={styles.dayActive}>Monday</div>
-                  <div className={styles.dayOff}>Tuesday</div>
-                  <div className={styles.dayOff}>Wednesday</div>
-                  <div className={styles.dayOff}>Thursday</div>
-                  <div className={styles.dayOff}>Friday</div>
-                  <div className={styles.dayOff}>Saturday</div>
-                  <div className={styles.dayOff}>Sunday</div>
+                  {allSchedule?.map((obj, index) => {
+                    const { day, detailschedule } = obj;
+                    return (
+                      <div
+                        className={styles.dayActive}
+                        key={index}
+                        onClick={() => getSchedulePerHour(detailschedule)}
+                      >
+                        {day}
+                      </div>
+                    );
+                  })}
                 </div>
                 <div className={styles.scrollSchedule}>
                   <ListGroup>
@@ -219,98 +293,8 @@ const Field = () => {
                       className={styles.scheduleItem}
                     >
                       <div className={styles.perItem}>
-                        <div>User Y</div>
-                        <div>08.00 - 09.00</div>
-                      </div>
-                    </ListGroup.Item>
-                    <ListGroup.Item
-                      action
-                      onClick={alertClicked}
-                      className={styles.scheduleItem}
-                    >
-                      <div className={styles.perItem}>
-                        <div>User Y</div>
-                        <div>09.00 - 10.00</div>
-                      </div>
-                    </ListGroup.Item>
-                    <ListGroup.Item
-                      action
-                      onClick={alertClicked}
-                      className={styles.scheduleItem}
-                    >
-                      <div className={styles.perItem}>
-                        <div>User Y</div>
-                        <div>08.00 - 09.00</div>
-                      </div>
-                    </ListGroup.Item>
-                    <ListGroup.Item
-                      action
-                      onClick={alertClicked}
-                      className={styles.scheduleItem}
-                    >
-                      <div className={styles.perItem}>
-                        <div>User Y</div>
-                        <div>08.00 - 09.00</div>
-                      </div>
-                    </ListGroup.Item>
-                    <ListGroup.Item
-                      action
-                      onClick={alertClicked}
-                      className={styles.scheduleItem}
-                    >
-                      <div className={styles.perItem}>
-                        <div>User Y</div>
-                        <div>08.00 - 09.00</div>
-                      </div>
-                    </ListGroup.Item>
-                    <ListGroup.Item
-                      action
-                      onClick={alertClicked}
-                      className={styles.scheduleItem}
-                    >
-                      <div className={styles.perItem}>
-                        <div>User Y</div>
-                        <div>08.00 - 09.00</div>
-                      </div>
-                    </ListGroup.Item>
-                    <ListGroup.Item
-                      action
-                      onClick={alertClicked}
-                      className={styles.scheduleItem}
-                    >
-                      <div className={styles.perItem}>
-                        <div>User Y</div>
-                        <div>08.00 - 09.00</div>
-                      </div>
-                    </ListGroup.Item>
-                    <ListGroup.Item
-                      action
-                      onClick={alertClicked}
-                      className={styles.scheduleItem}
-                    >
-                      <div className={styles.perItem}>
-                        <div>User Y</div>
-                        <div>08.00 - 09.00</div>
-                      </div>
-                    </ListGroup.Item>
-                    <ListGroup.Item
-                      action
-                      onClick={alertClicked}
-                      className={styles.scheduleItem}
-                    >
-                      <div className={styles.perItem}>
-                        <div>User Y</div>
-                        <div>08.00 - 09.00</div>
-                      </div>
-                    </ListGroup.Item>
-                    <ListGroup.Item
-                      action
-                      onClick={alertClicked}
-                      className={styles.scheduleItem}
-                    >
-                      <div className={styles.perItem}>
-                        <div>User Y</div>
-                        <div>08.00 - 09.00</div>
+                        <div>hahahaha</div>
+                        <div>hahahahah</div>
                       </div>
                     </ListGroup.Item>
                   </ListGroup>
@@ -326,8 +310,27 @@ const Field = () => {
                           key={index}
                           action
                           onClick={() => handleId(id)}
+                          className={styles.listgroup}
                         >
-                          {category}
+                          <div>{category}</div>
+                          <div>
+                            <OverlayTrigger
+                              key="top"
+                              placement="top"
+                              overlay={
+                                <Tooltip id={`tooltip-top`}>
+                                  Add Schedule
+                                </Tooltip>
+                              }
+                            >
+                              <button
+                                className={styles.addsc}
+                                onClick={() => catchId(id)}
+                              >
+                                <IoAddOutline size={20} />
+                              </button>
+                            </OverlayTrigger>
+                          </div>
                         </ListGroup.Item>
                       );
                     })}
@@ -485,6 +488,14 @@ const Field = () => {
         closeEdit={() => setShowEdit(false)}
         inputEdit={inputEdit}
         submitEdit={(e) => submitEdit(e, idField)}
+      />
+
+      {/* Modal add Schedule */}
+      <AddSchedule
+        showAdd={showAddSc}
+        closeAdd={() => setShowAddSc(false)}
+        inputAdd={inputAdd}
+        submitAdd={(e) => submitAdd(e)}
       />
     </Row>
   );
