@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import {
   Button,
+  Row, Col,
   FloatingLabel,
   Form,
   Modal,
   InputGroup,
 } from "react-bootstrap";
+import TimePicker from 'react-bootstrap-time-picker';
 import styles from "../styles/Modal.module.css";
 
 export const AddModal = ({
@@ -394,7 +396,8 @@ export const EditField = ({ showEdit, closeEdit, inputEdit, submitEdit }) => {
   );
 };
 
-export const AddSchedule = ({ showAdd, closeAdd, inputAdd, submitAdd }) => {
+export const AddSchedule = ({ showAdd, closeAdd, inputAdd, submitAdd, hour, inputReset }) => {
+
   return (
     <div>
       <Modal centered show={showAdd} onHide={closeAdd}>
@@ -404,19 +407,15 @@ export const AddSchedule = ({ showAdd, closeAdd, inputAdd, submitAdd }) => {
         <Form onSubmit={(e) => submitAdd(e)}>
           <Modal.Body>
             <div>
-              <FloatingLabel
-                controlId="floatingInput"
-                label="Day"
+              <Form.Label>Day</Form.Label>
+              <Form.Control
+                type="text"
+                name="day"
+                placeholder="Your Input...."
+                onChange={(e) => inputAdd(e)}
                 className="mb-3"
-              >
-                <Form.Control
-                  type="text"
-                  name="day"
-                  placeholder="placeholder"
-                  onChange={(e) => inputAdd(e)}
-                />
-              </FloatingLabel>
-              <FloatingLabel
+              />
+              {/* <FloatingLabel
                 controlId="floatingInput"
                 label="Open (ex: 08:00, 13:00, etc)"
                 className="mb-3"
@@ -427,8 +426,23 @@ export const AddSchedule = ({ showAdd, closeAdd, inputAdd, submitAdd }) => {
                   placeholder="placeholder"
                   onChange={(e) => inputAdd(e)}
                 />
-              </FloatingLabel>
-              <FloatingLabel
+              </FloatingLabel> */}
+              <Row>
+                <Col>
+                  <Form.Label>Open hours</Form.Label>
+                  <TimePicker disabled={hour.start !== 0 && true} value={hour.start} start="00:00" end="24:00" step={60} format={24} onChange={(e) => inputAdd(e)} />
+                </Col>
+                <Col>
+                  {hour.start !== 0 ? <>
+                    <Form.Label>Close hours</Form.Label>
+                    <TimePicker value={hour.end} start="00:00" end="24:00" step={60} format={24} onChange={inputAdd} />
+                    <Row className="mt-4 text-center mx-auto border" style={{ cursor: "pointer" }} onClick={inputReset}><span>Reset Time</span></Row>
+                  </>
+                    : <></>}
+                </Col>
+              </Row>
+
+              {/* <FloatingLabel
                 controlId="floatingInput"
                 label="Close (ex: 08:00, 13:00, etc)"
                 className="mb-3"
@@ -439,7 +453,7 @@ export const AddSchedule = ({ showAdd, closeAdd, inputAdd, submitAdd }) => {
                   placeholder="placeholder"
                   onChange={(e) => inputAdd(e)}
                 />
-              </FloatingLabel>
+              </FloatingLabel> */}
             </div>
           </Modal.Body>
           <Modal.Footer>

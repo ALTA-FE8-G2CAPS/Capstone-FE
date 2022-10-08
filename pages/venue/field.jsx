@@ -2,6 +2,7 @@ import axios from "axios";
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import TimePicker from 'react-bootstrap-time-picker';
 import {
   Button,
   Col,
@@ -36,6 +37,10 @@ const Field = () => {
   const [id, setId] = useState();
   const [allSchedule, setAllSchedule] = useState([]);
   const [perHour, setPerHour] = useState([]);
+  const [hour, setHour] = useState({
+    start: 0,
+    end: 0
+  });
 
   const alertClicked = () => {
     alert("You clicked the third ListGroupItem");
@@ -75,7 +80,6 @@ const Field = () => {
       .get(`https://grupproject.site/schedules?field_id=${id}`)
       .then((res) => {
         setAllSchedule(res.data.data);
-        console.log("ini all sc", allSchedule);
       });
   };
 
@@ -84,7 +88,6 @@ const Field = () => {
   }, []);
 
   const handleId = (id) => {
-    console.log(id);
     setIdField(id);
     getSchedule(id);
   };
@@ -150,7 +153,6 @@ const Field = () => {
   const handleEdit = (id) => {
     setShowEdit(true);
     setIdField(id);
-    console.log(idField);
   };
   const [editField, setEditField] = useState();
   // Edit field
@@ -158,7 +160,6 @@ const Field = () => {
     let updateField = { ...editField };
     updateField[e.target.name] = e.target.value;
     setEditField(updateField);
-    console.log(editField);
   };
 
   const submitEdit = (e, id) => {
@@ -173,7 +174,6 @@ const Field = () => {
     const myPromise = axios
       .put(`https://grupproject.site/fields/${id}`, data2)
       .then(() => {
-        console.log(data2);
         getFields();
         setShowEdit(false);
       });
@@ -202,13 +202,11 @@ const Field = () => {
 
   // HANDLING SCHEDULE
   const catchId = (idField) => {
-    console.log("catch id", idField);
     setShowAddSc(true);
   };
 
   const getSchedulePerHour = (detail) => {
     setPerHour(detail);
-    console.log(detail);
   };
 
   // Initiate state add schedule
@@ -220,10 +218,36 @@ const Field = () => {
   });
 
   const inputAdd = (e) => {
-    let newSc = { ...addSchedule };
-    newSc[e.target.name] = e.target.value;
-    setAddSchedule(newSc);
+    if (typeof (e) === "number") {
+      const time = e / 3600
+      if (hour.start === 0) {
+        if (time < 10) {
+          setHour({ ...hour, start: `0${time}:00` })
+        } else {
+          setHour({ ...hour, start: `${time}:00` })
+        }
+      } else {
+        if (time < 10) {
+          setHour({ ...hour, end: `0${time}:00` })
+        } else {
+          setHour({ ...hour, end: `${time}:00` })
+        }
+      }
+      console.log("hour : ", hour)
+    }
+
+
+    else {
+      let newSc = { ...addSchedule };
+      newSc[e.target.name] = e.target.value;
+      setAddSchedule(newSc);
+    }
   };
+
+  const inputReset = () => {
+    setHour({ ...hour, start: 0, end: 0 })
+    console.log(hour)
+  }
 
   const submitAdd = (e) => {
     e.preventDefault();
@@ -232,15 +256,20 @@ const Field = () => {
     var data = {
       field_id: idField,
       day: day,
-      start_hours: start_hours,
-      end_hours: end_hours,
+      start_hours: hour.start,
+      end_hours: hour.end,
     };
+
+    console.log("day : ", day)
+    console.log("start : ", hour.start)
+    console.log("end : ", hour.end)
 
     const myPromise = axios
       .post("https://grupproject.site/schedules", data)
       .then(() => {
         getSchedule();
         setShowAddSc(false);
+        inputReset()
       });
     toast.promise(myPromise, {
       loading: "Saving...",
@@ -254,7 +283,7 @@ const Field = () => {
     const newResult = idN === detail.user_id;
     setResult(newResult);
   }, [detail]);
-  console.log("ini schedule", allSchedule);
+
   return (
     <Row className={styles.container}>
       <DetailLayout
@@ -268,8 +297,10 @@ const Field = () => {
       <Col md="12" lg="8">
         <div className={styles.containerRight}>
           <DetailHeading page="field" item={detail} />
+
           <div>
             <Row>
+              {/* List Schedules */}
               <Col sm="12" md="8">
                 <div className={styles.scheduleDay}>
                   {allSchedule?.map((obj, index) => {
@@ -496,6 +527,8 @@ const Field = () => {
         closeAdd={() => setShowAddSc(false)}
         inputAdd={inputAdd}
         submitAdd={(e) => submitAdd(e)}
+        hour={hour}
+        inputReset={inputReset}
       />
     </Row>
   );
