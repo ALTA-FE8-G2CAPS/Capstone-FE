@@ -6,6 +6,7 @@ import styles from "../../styles/BookingOwner.module.css";
 import { getCookie } from "cookies-next";
 import axios from "axios";
 import { useRouter } from "next/router";
+import toast from "react-hot-toast";
 
 const Index = () => {
   const [userId, setUserId] = useState();
@@ -29,6 +30,22 @@ const Index = () => {
     getBookingList();
   }, []);
 
+  // Delete booking
+  const deleteBooking = (id) => {
+    var config = {
+      method: "delete",
+      url: `https://grupproject.site/bookings/${id}`,
+    };
+    const myPromise = axios(config).then(() => {
+      getBookingList();
+    });
+    toast.promise(myPromise, {
+      loading: "Saving...",
+      success: "Delete Success!",
+      error: "Delete Failed",
+    });
+  };
+
   return (
     <Row className="mb-5">
       <Row className="ms-5 my-5">
@@ -36,7 +53,8 @@ const Index = () => {
       </Row>
 
       {allBooking?.map((obj, index) => {
-        const { name_venue, name_user, category, total_price } = obj;
+        const { name_venue, name_user, category, total_price, booking_id } =
+          obj;
         return (
           <Row
             key={index}
@@ -61,6 +79,7 @@ const Index = () => {
                 className={`${styles.icon}`}
                 color="#EE0000"
                 size={30}
+                onClick={() => deleteBooking(booking_id)}
               />
             </Col>
           </Row>
