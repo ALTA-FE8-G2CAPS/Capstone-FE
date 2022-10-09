@@ -27,7 +27,6 @@ const Myvenue = () => {
   useEffect(() => {
     setCookiess(getCookie("id"));
     setVenue({ ...venue, latitude: getCookie("lat"), longitude: getCookie("lng") })
-    console.log('test')
   }, [getCookie("lat")]);
 
   // Get all venues
@@ -51,7 +50,6 @@ const Myvenue = () => {
     let newvenue = { ...venue };
     newvenue[e.target.name] = e.target.value;
     setVenue(newvenue);
-    console.log(venue)
   };
 
   const handleSubmit = (e) => {

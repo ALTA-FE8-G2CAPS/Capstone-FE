@@ -159,7 +159,7 @@ const Login = () => {
                             <h1 className={styles.loginTitle}>Create Account</h1>
                             <Form onSubmit={(e) => handleRegister(e)}>
                                 <FloatingLabel
-                                    controlId="floatingInput"
+                                    controlId="floatingInputUser"
                                     label="Username"
                                     className="mb-3"
                                 >

@@ -10,17 +10,17 @@ import toast, { Toaster } from "react-hot-toast";
 // Import Components
 import styles from "../styles/Navbars.module.css";
 import { useNavbarContext } from "../context/contextNavbar";
+import { useFotoContext } from "../context/fotoNavbar";
 
 export const Navbars = () => {
     const router = useRouter()
     const { statusNav, handleHover, handleClick } = useNavbarContext();
+    const {fotoProfile} = useFotoContext()
     const [username, setUsername] = useState("")
-    const [foto, setFoto] = useState("")
 
     useEffect(() => {
         setUsername(getCookie("user"))
-        setFoto(getCookie("foto_user"))
-    }, [])
+    }, [getCookie("foto_user")])
 
     const handleLogout = (e) => {
         e.preventDefault()
@@ -71,7 +71,7 @@ export const Navbars = () => {
                         <Image
                             onClick={() => handleClick("profile")}
                             className={styles.profileImage}
-                            src={(foto && foto) || "/profile.jpg"}
+                            src={(fotoProfile && fotoProfile) || "/profile.jpg"}
                             width={50}
                             height={50}
                         />

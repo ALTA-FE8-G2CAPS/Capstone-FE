@@ -12,6 +12,7 @@ import { getCookie } from "cookies-next"
 import styles from "../styles/Home.module.css"
 import ListCard from "../components/ListCard"
 import { useNavbarContext } from "../context/contextNavbar"
+import { useFotoContext } from "../context/fotoNavbar";
 
 export const getServerSideProps = async (context) => {
   const token = getCookie("token", context)
@@ -31,6 +32,7 @@ export const getServerSideProps = async (context) => {
 const Home = (props) => {
   const router = useRouter()
   const [summon, setSummon] = useState(false);
+  const { setFotoProfile } = useFotoContext()
   const [list, setList] = useState([])
   // active Nav
   const { setStatusNav } = useNavbarContext()
@@ -38,6 +40,7 @@ const Home = (props) => {
   useEffect(() => {
     setStatusNav("home")
     setList(props.list.data)
+    setFotoProfile(getCookie("foto_user"))
   }, [])
 
 
@@ -47,9 +50,9 @@ const Home = (props) => {
         {summon ? (
           <Button
             onClick={() => setSummon(false)}
-            className={styles.button}
+            className={styles.buttonClose}
           >
-            <AiOutlineClose size={20} />
+            <AiOutlineClose size={20} color="#fff"/>
           </Button>
         ) : (
           <Button
@@ -119,7 +122,7 @@ const Home = (props) => {
           ""
         )}
       </div>
-      <Row className={styles.jumbotron}>
+      <Row className={`${styles.jumbotron}`}>
         <Col>
           <p className={`fs-1 fw-bold ${styles.title}`}>SEGORO</p>
           <p className={`fs-2 fw-lighter ${styles.title}`}>Searching, booking, and playing</p>

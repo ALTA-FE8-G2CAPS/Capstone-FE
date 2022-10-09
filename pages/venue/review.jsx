@@ -81,7 +81,6 @@ const Review = () => {
       newReview[e.target.name] = target.value;
       setAddReview(newReview);
     }
-    console.log(addReview);
   };
 
   const handleSubmit = (e) => {
@@ -136,45 +135,60 @@ const Review = () => {
               </OverlayTrigger>
             </div>
             <div className={styles.reviewBox}>
-              {reviews?.map((obj, index) => {
-                const { name_user, foto_user, rate, feedback, foto_review } =
-                  obj;
-                return (
-                  <Row className={styles.reviewItem} key={index}>
-                    <div>
-                      {[...Array(rate)].map((e,i) => {
-                        return (
-                          <AiFillStar color="#F6DE05" key={i} size={30}/>
-                        )
-                      })}
-                    </div>
-                    <div className={styles.reviewProfile}>
+              {reviews.length < 1 ? <>No reviews for this venue</> :
+                reviews?.map((obj, index) => {
+                  const { name_user, foto_user, rate, feedback, foto_review } =
+                    obj;
+                    if (rate > 5) {
+                      var greyStars = 0
+                    } else {
+                      var greyStars = 5-rate
+                    }
+
+                    console.log(greyStars)
+                    
+                  return (
+                    <Row className={styles.reviewItem} key={index}>
                       <div>
+                        {[...Array(rate)].map((e, i) => {
+                          return (
+                            <AiFillStar color="#F6DE05" key={i} size={30} />
+                          )
+                        })}
+                        {[...Array(greyStars)].map((e, i) => {
+                          return (
+                            <AiFillStar key={i} color="grey" size={30} />
+                          )
+                        })}
+                      </div>
+                      <div className={styles.reviewProfile}>
+                        <div>
+                          <Image
+                            className={styles.imageProfile}
+                            src={foto_user ? foto_user : "/profile.jpg"}
+                            width={40}
+                            height={40}
+                          />
+                        </div>
+                        <div className={styles.nameProfile}>
+                          <h6>{name_user}</h6>
+                        </div>
+                      </div>
+                      <div>
+                        <p>{feedback}</p>
+                      </div>
+                      <div className={styles.imageBox}>
                         <Image
-                          className={styles.imageProfile}
-                          src={foto_user}
-                          width={40}
-                          height={40}
+                          className={styles.imageReview}
+                          src={foto_review}
+                          width={80}
+                          height={50}
                         />
                       </div>
-                      <div className={styles.nameProfile}>
-                        <h6>{name_user}</h6>
-                      </div>
-                    </div>
-                    <div>
-                      <p>{feedback}</p>
-                    </div>
-                    <div className={styles.imageBox}>
-                      <Image
-                        className={styles.imageReview}
-                        src={foto_review}
-                        width={80}
-                        height={50}
-                      />
-                    </div>
-                  </Row>
-                );
-              })}
+                    </Row>
+                  );
+                })
+              }
             </div>
           </div>
         </div>

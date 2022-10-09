@@ -72,6 +72,36 @@
     z-index: 99 !important;
 }
 
+.buttonClose {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    background-color: #ff4040;
+}
+
+.buttonClose:hover {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    background-color: #e09999 !important;
+}
+
+.buttonClose:focus {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    background-color: #ff4040 !important;
+}
+
 .button {
     width: 60px;
     height: 60px;
@@ -192,6 +222,10 @@
 @media (min-width : 0) and (max-width : 767.98px) {
     .popBox {
         margin: 8vh auto 0rem !important
+    }
+
+    .title {
+        width: 100%;
     }
 }
 

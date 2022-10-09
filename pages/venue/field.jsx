@@ -340,18 +340,20 @@ const Field = () => {
               {/* List Schedules */}
               <Col sm="12" md="8">
                 <div className={`${styles.scheduleDay}`}>
-                  {allSchedule?.map((obj, index) => {
-                    const { day } = obj;
-                    return (
-                      <div
-                        className={`${styles.dayActive}`}
-                        key={index}
-                        onClick={() => getSchedulePerHour(obj.schedule_id)}
-                      >
-                        {day}
-                      </div>
-                    );
-                  })}
+                  {allSchedule.length > 7 ? <>Schedule Not Available</> :
+                    allSchedule?.map((obj, index) => {
+                      const { day } = obj;
+                      return (
+                        <div
+                          className={`${styles.dayActive}`}
+                          key={index}
+                          onClick={() => getSchedulePerHour(obj.schedule_id)}
+                        >
+                          {day}
+                        </div>
+                      );
+                    })
+                  }
                 </div>
                 <div className={styles.scrollSchedule}>
                   <ListGroup>
@@ -377,39 +379,41 @@ const Field = () => {
               <Col sm="12" md="4">
                 <div>
                   <ListGroup variant="flush">
-                    {fields?.map((obj, index) => {
-                      const { venue_id, category, price, id } = obj;
-                      return (
-                        <ListGroup.Item
-                          key={index}
-                          action
-                          onClick={() => handleId(id)}
-                          className={styles.listgroup}
-                        >
-                          <div>{category}</div>
-                          {result && (
-                            <div>
-                              <OverlayTrigger
-                                key="top"
-                                placement="top"
-                                overlay={
-                                  <Tooltip id={`tooltip-top`}>
-                                    Add Schedule
-                                  </Tooltip>
-                                }
-                              >
-                                <button
-                                  className={styles.addsc}
-                                  onClick={() => catchId(id)}
+                    {fields.length < 1 ? <>Fields Not Available</> :
+                      fields?.map((obj, index) => {
+                        const { venue_id, category, price, id } = obj;
+                        return (
+                          <ListGroup.Item
+                            key={index}
+                            action
+                            onClick={() => handleId(id)}
+                            className={styles.listgroup}
+                          >
+                            <div>{category}</div>
+                            {result && (
+                              <div>
+                                <OverlayTrigger
+                                  key="top"
+                                  placement="top"
+                                  overlay={
+                                    <Tooltip id={`tooltip-top`}>
+                                      Add Schedule
+                                    </Tooltip>
+                                  }
                                 >
-                                  <IoAddOutline size={20} />
-                                </button>
-                              </OverlayTrigger>
-                            </div>
-                          )}
-                        </ListGroup.Item>
-                      );
-                    })}
+                                  <button
+                                    className={styles.addsc}
+                                    onClick={() => catchId(id)}
+                                  >
+                                    <IoAddOutline size={20} />
+                                  </button>
+                                </OverlayTrigger>
+                              </div>
+                            )}
+                          </ListGroup.Item>
+                        );
+                      })
+                    }
                   </ListGroup>
                 </div>
                 {result ? (

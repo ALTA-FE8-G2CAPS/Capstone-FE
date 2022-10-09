@@ -134,6 +134,8 @@ export const AddModal = ({
                     className="mb-3"
                   >
                     <Form.Control
+                      max={5}
+                      min={1}
                       type="number"
                       name="rate"
                       placeholder="placeholder"
@@ -212,7 +214,7 @@ export const AddModal = ({
           </Modal.Body>
 
           <Modal.Footer>
-            <button onClick={handleClose} className={styles.close}>
+            <button type="button" onClick={handleClose} className={styles.close}>
               Close
             </button>
             <button type="submit" className={styles.save}>
@@ -255,7 +257,7 @@ export const RegisPlus = ({
             </FloatingLabel>
           </Modal.Body>
           <Modal.Footer>
-            <button onClick={handleClose} className={styles.close}>
+            <button type="button" onClick={handleClose} className={styles.close}>
               Close
             </button>
             <button className={styles.save} type="submit">
@@ -410,13 +412,13 @@ export const AddSchedule = ({ showAdd, closeAdd, inputAdd, submitAdd, hour, inpu
               <Form.Label>Day (cannot be the same)</Form.Label>
               <Form.Select name="day" onChange={(e) => inputAdd(e)}>
                 <option>Select Day</option>
-                <option value="Senin">Senin</option>
-                <option value="Selasa">Selasa</option>
-                <option value="Rabu">Rabu</option>
-                <option value="Kamis">Kamis</option>
-                <option value="Jumat">Jumat</option>
-                <option value="Sabtu">Sabtu</option>
-                <option value="Minggu">Minggu</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Wednesday">Wednesday</option>
               </Form.Select>
               <Row>
                 <Col>

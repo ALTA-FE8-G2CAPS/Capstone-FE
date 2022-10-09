@@ -47,7 +47,6 @@ function Detail() {
     setInputFoto(files)
   };
   const handleFoto = (e) => {
-    console.log("HEYY")
     e.preventDefault()
     const data = new FormData(e.target)
     data.append("foto_venue", inputFoto[0])
@@ -123,6 +122,7 @@ function Detail() {
         handleShow={() => setShowAddFoto(true)}
         showAddFoto={showAddFoto}
         handleClose={() => setShowAddFoto(false)}
+        getDetail={getDetail}
       />
       <Col md="12" lg="8" className={styles.containerRight}>
         <DetailHeading page="detail" item={detail} />

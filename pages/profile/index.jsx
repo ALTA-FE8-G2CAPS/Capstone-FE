@@ -17,6 +17,7 @@ import { BsFillCameraFill } from "react-icons/bs";
 import { useNavbarContext } from "../../context/contextNavbar";
 import { AddModal, RegisPlus } from "../../components/AddModal";
 import styles from "../../styles/Profile.module.css";
+import { useFotoContext } from "../../context/fotoNavbar";
 
 const Index = () => {
   // active nav
@@ -26,6 +27,7 @@ const Index = () => {
   }, []);
 
   const router = useRouter();
+  const {fotoProfile,setFotoProfile} = useFotoContext()
   const [show, setShow] = useState(false);
   const [add, setAdd] = useState("profile");
   const [show2, setShow2] = useState(false);
@@ -95,7 +97,6 @@ const Index = () => {
   };
 
   const handleSubmit = (e) => {
-    console.log(update);
     e.preventDefault();
     const data = new FormData();
     for (var i in update) {
@@ -106,7 +107,6 @@ const Index = () => {
     const myPromise = axios
       .put("https://grupproject.site/users", data)
       .then((res) => {
-        console.log(res);
         setShow(false);
         getProfile();
       })
@@ -132,8 +132,8 @@ const Index = () => {
       .catch(() => swal("Register Failed", "Please try again later", "error"))
   }
 
+  setFotoProfile(profile?.foto_user)
   return (
-    setCookie("foto_user", profile?.foto_user),
     <div>
       <div>
         <Toaster />
@@ -168,7 +168,7 @@ const Index = () => {
                   </div>
                   <div className={styles.itemLabel}>My Schedule</div>
                 </div>
-                {status.role === "admin" || status.owner ?
+                {status.role === "user" || status.owner ?
                   <>
                     <h5 className="mt-2 mb-0">Owner</h5>
                     <div
@@ -273,7 +273,7 @@ const Index = () => {
                     </tr>
                     <tr>
                       <td>Role</td>
-                      <td>{profile?.role}</td>
+                      <td>{profile?.role}{(status.owner && "+")}</td>
                     </tr>
                     <tr>
                       <td>Address</td>
