@@ -288,25 +288,29 @@ const Field = () => {
 
   // ADD TO CART
 
-  const addCart = (e, idScDetail) => {
+  const addCart = (e, item) => {
     e.preventDefault();
-    var axios = require("axios");
-    var data = {
-      field_id: idField,
-      schedule_detail_id: idScDetail,
-      venue_id: idVenue,
-    };
+    if (item.status_schedule !== "Available") {
+      toast.error("Already Booked")
+    } else {
+      var axios = require("axios");
+      var data = {
+        field_id: idField,
+        schedule_detail_id: item.schedule_detail_id,
+        venue_id: idVenue,
+      };
 
-    const myPromise = axios
-      .post("https://grupproject.site/bookings/addtocart", data)
-      .then(() => {
-        router.push("/order");
+      const myPromise = axios
+        .post("https://grupproject.site/bookings/addtocart", data)
+        .then(() => {
+          router.push("/order");
+        });
+      toast.promise(myPromise, {
+        loading: "Saving...",
+        success: "Adding Success!",
+        error: "Adding Fail",
       });
-    toast.promise(myPromise, {
-      loading: "Saving...",
-      success: "Adding Success!",
-      error: "Adding Fail",
-    });
+    }
   };
 
   useEffect(() => {
@@ -334,20 +338,23 @@ const Field = () => {
               {/* List Schedules */}
               <Col sm="12" md="8">
                 <div className={`${styles.scheduleDay}`}>
-                  {allSchedule?.map((obj, index) => {
-                    const { day } = obj;
-                    return (
-                      <div
-                        className={`${styles.dayActive}`}
-                        key={index}
-                        onClick={() =>
-                          getSchedulePerHour(obj.schedule_id, obj.venue_id)
-                        }
-                      >
-                        {day}
-                      </div>
-                    );
-                  })}
+                  {allSchedule?.length > 7 ? <>Schedule Not Available</> :
+                    !allSchedule?.length ? <>Schedule Not Available</> :
+                      allSchedule?.map((obj, index) => {
+                        const { day } = obj;
+                        return (
+                          <div
+                            className={`${styles.dayActive}`}
+                            key={index}
+                            onClick={() =>
+                              getSchedulePerHour(obj.schedule_id, obj.venue_id)
+                            }
+                          >
+                            {day}
+                          </div>
+                        );
+                      })
+                  }
                 </div>
                 <div className={styles.scrollSchedule}>
                   <ListGroup>
@@ -355,8 +362,11 @@ const Field = () => {
                       return (
                         <ListGroup.Item
                           key={index}
+                          variant={(item.status_schedule === "Available" && "light") ||
+                            (item.status_schedule === "booked" && "warning")
+                          }
                           action
-                          onClick={(e) => addCart(e, item.schedule_detail_id)}
+                          onClick={(e) => addCart(e, item)}
                           className={styles.scheduleItem}
                         >
                           <div className={styles.perItem}>
@@ -500,7 +510,7 @@ const Field = () => {
                     </Col>
                     <Col xs="9">
                       <div className="d-flex justify-content-start py-2">
-                        <div className={styles.titleIndex}>Empty</div>
+                        <div className={styles.titleIndex}>Available</div>
                       </div>
                     </Col>
                   </Row>

@@ -147,7 +147,6 @@
 }
 
 .scheduleItem {
-    background-color: #F8D7DA;
     box-shadow: 5px 3px 8px #8888;
     margin-bottom: 5px;
     border-radius: 5px;
@@ -173,7 +172,7 @@
     align-items: center;
     padding-top: 5px;
     padding-bottom: 5px;
-    color: #932029;
+    /* color: #932029; */
     font-weight: bolder;
     margin-top: 5px;
 }
