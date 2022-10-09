@@ -2,7 +2,7 @@ import axios from "axios";
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import TimePicker from 'react-bootstrap-time-picker';
+import TimePicker from "react-bootstrap-time-picker";
 import {
   Button,
   Col,
@@ -37,12 +37,12 @@ const Field = () => {
   const [id, setId] = useState();
   const [allSchedule, setAllSchedule] = useState([]);
   const [perHour, setPerHour] = useState([]);
-  const [userId, setUserId] = useState(false)
-  const [user_id, setID] = useState(0)
-  const [idd, setIdd] = useState("")
+  const [userId, setUserId] = useState(false);
+  const [user_id, setID] = useState(0);
+  const [idd, setIdd] = useState("");
   const [hour, setHour] = useState({
     start: 0,
-    end: 0
+    end: 0,
   });
 
   const alertClicked = () => {
@@ -96,11 +96,11 @@ const Field = () => {
 
   useEffect(() => {
     getSchedule();
-    getID()
-    setIdd(getCookie("user_id"))
-    const ids = parseInt(idd)
-    const result = ids === user_id
-    setUserId(result)
+    getID();
+    setIdd(getCookie("user_id"));
+    const ids = parseInt(idd);
+    const result = ids === user_id;
+    setUserId(result);
   }, [user_id]);
 
   const handleId = (id) => {
@@ -230,25 +230,22 @@ const Field = () => {
   });
 
   const inputAdd = (e) => {
-    if (typeof (e) === "number") {
-      const time = e / 3600
+    if (typeof e === "number") {
+      const time = e / 3600;
       if (hour.start === 0) {
         if (time < 10) {
-          setHour({ ...hour, start: `0${time}:00` })
+          setHour({ ...hour, start: `0${time}:00` });
         } else {
-          setHour({ ...hour, start: `${time}:00` })
+          setHour({ ...hour, start: `${time}:00` });
         }
       } else {
         if (time < 10) {
-          setHour({ ...hour, end: `0${time}:00` })
+          setHour({ ...hour, end: `0${time}:00` });
         } else {
-          setHour({ ...hour, end: `${time}:00` })
+          setHour({ ...hour, end: `${time}:00` });
         }
       }
-    }
-
-
-    else {
+    } else {
       let newSc = { ...addSchedule };
       newSc[e.target.name] = e.target.value;
       setAddSchedule(newSc);
@@ -256,8 +253,8 @@ const Field = () => {
   };
 
   const inputReset = () => {
-    setHour({ ...hour, start: 0, end: 0 })
-  }
+    setHour({ ...hour, start: 0, end: 0 });
+  };
 
   const submitAdd = (e) => {
     e.preventDefault();
@@ -284,9 +281,38 @@ const Field = () => {
     });
   };
 
+  // get schedule per hour
   const getSchedulePerHour = (id) => {
-    axios.get(`https://grupproject.site/schedules/${id}`)
-      .then((res) => setPerHour(res.data.data.schedule_detail))
+    axios
+      .get(`https://grupproject.site/schedules/${id}`)
+      .then((res) => setPerHour(res.data.data.schedule_detail));
+  };
+
+  // ADD TO CART
+  const [idScDetail, setIdScDetail] = useState();
+  const getIdScDetail = (id) => {
+    setIdScDetail(id);
+    addCart();
+  };
+
+  const addCart = () => {
+    // e.preventdefault();
+    var axios = require("axios");
+    var data = {
+      field_id: idField,
+      schedule_detail_id: idScDetail,
+    };
+
+    const myPromise = axios
+      .post("https://grupproject.site/bookings/addtocart", data)
+      .then(() => {
+        router.push("/order");
+      });
+    toast.promise(myPromise, {
+      loading: "Saving...",
+      success: "Adding Success!",
+      error: "Adding Fail",
+    });
   };
 
   useEffect(() => {
@@ -328,14 +354,13 @@ const Field = () => {
                   })}
                 </div>
                 <div className={styles.scrollSchedule}>
-
                   <ListGroup>
-                    {perHour.map((item, index) => {
+                    {perHour?.map((item, index) => {
                       return (
                         <ListGroup.Item
                           key={index}
                           action
-                          onClick={alertClicked}
+                          onClick={() => getIdScDetail(item.schedule_detail_id)}
                           className={styles.scheduleItem}
                         >
                           <div className={styles.perItem}>
@@ -344,10 +369,9 @@ const Field = () => {
                             <div>{item.status_schedule}</div>
                           </div>
                         </ListGroup.Item>
-                      )
+                      );
                     })}
                   </ListGroup>
-
                 </div>
               </Col>
               <Col sm="12" md="4">
@@ -363,24 +387,26 @@ const Field = () => {
                           className={styles.listgroup}
                         >
                           <div>{category}</div>
-                          {result && <div>
-                            <OverlayTrigger
-                              key="top"
-                              placement="top"
-                              overlay={
-                                <Tooltip id={`tooltip-top`}>
-                                  Add Schedule
-                                </Tooltip>
-                              }
-                            >
-                              <button
-                                className={styles.addsc}
-                                onClick={() => catchId(id)}
+                          {result && (
+                            <div>
+                              <OverlayTrigger
+                                key="top"
+                                placement="top"
+                                overlay={
+                                  <Tooltip id={`tooltip-top`}>
+                                    Add Schedule
+                                  </Tooltip>
+                                }
                               >
-                                <IoAddOutline size={20} />
-                              </button>
-                            </OverlayTrigger>
-                          </div>}
+                                <button
+                                  className={styles.addsc}
+                                  onClick={() => catchId(id)}
+                                >
+                                  <IoAddOutline size={20} />
+                                </button>
+                              </OverlayTrigger>
+                            </div>
+                          )}
                         </ListGroup.Item>
                       );
                     })}
