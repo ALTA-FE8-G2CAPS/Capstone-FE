@@ -1,8 +1,30 @@
-import React from "react";
+import axios from "axios";
+import { getCookie } from "cookies-next";
+import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import styles from "../../styles/BookingOwner.module.css";
 
 const Bookinglist = () => {
+  // const [userId, setUserId] = useState();
+  // const [allBooking, setAllBooking] = useState([]);
+
+  // useEffect(() => {
+  //   setUserId(getCookie("user_id"));
+  // });
+
+  // // get all booking list
+  // const getBookingList = () => {
+  //   axios
+  //     .get(`https://grupproject.site/bookings?UserID=${userId}`)
+  //     .then((res) => {
+  //       setAllBooking(res.data.data);
+  //     });
+  // };
+
+  // useEffect(() => {
+  //   getBookingList();
+  // }, []);
+
   return (
     <div className={`${styles.container} container`}>
       <div className={styles.title}>
@@ -21,22 +43,29 @@ const Bookinglist = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Lapangan Tennis A</td>
-              <td>Si Abdul</td>
-              <td>Jumat 09.00-11.00</td>
-              <td>Rp120.000</td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>Lapangan Tennis A</td>
-              <td>Si Abdul</td>
-              <td>Jumat 09.00-11.00</td>
-              <td>Rp120.000</td>
-              <td></td>
-              <td></td>
-            </tr>
+            {allBooking?.map((obj, index) => {
+              const {
+                user_nama,
+                category_field,
+                start_hours,
+                end_hours,
+                total_price,
+                status,
+                transaction_time,
+              } = obj;
+              return (
+                <tr key={index}>
+                  <td>{category_field}</td>
+                  <td>{user_nama}</td>
+                  <td>
+                    {start_hours} - {end_hours}
+                  </td>
+                  <td>{total_price}</td>
+                  <td>{status}</td>
+                  <td>{transaction_time}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </Table>
       </div>
