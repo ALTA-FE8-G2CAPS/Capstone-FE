@@ -37,9 +37,9 @@ const Field = () => {
   const [id, setId] = useState();
   const [allSchedule, setAllSchedule] = useState([]);
   const [perHour, setPerHour] = useState([]);
-  const [userId, setUserId] = useState(false)
-  const [user_id, setID] = useState(0)
-  const [idd, setIdd] = useState("")
+  const [userId, setUserId] = useState(false);
+  const [user_id, setID] = useState(0);
+  const [idd, setIdd] = useState("");
   const [hour, setHour] = useState({
     start: 0,
     end: 0,
@@ -96,11 +96,11 @@ const Field = () => {
 
   useEffect(() => {
     getSchedule();
-    getID()
-    setIdd(getCookie("user_id"))
-    const ids = parseInt(idd)
-    const result = ids === user_id
-    setUserId(result)
+    getID();
+    setIdd(getCookie("user_id"));
+    const ids = parseInt(idd);
+    const result = ids === user_id;
+    setUserId(result);
   }, [user_id]);
 
   const handleId = (id) => {
@@ -289,12 +289,29 @@ const Field = () => {
   };
 
   // ADD TO CART
+  const [idScDetail, setIdScDetail] = useState();
   const getIdScDetail = (id) => {
-    router.push({
-      pathname: "/order",
-      query: {
-        id: id,
-      },
+    setIdScDetail(id);
+    addCart();
+  };
+
+  const addCart = () => {
+    // e.preventdefault();
+    var axios = require("axios");
+    var data = {
+      field_id: idField,
+      schedule_detail_id: idScDetail,
+    };
+
+    const myPromise = axios
+      .post("https://grupproject.site/bookings/addtocart", data)
+      .then(() => {
+        router.push("/order");
+      });
+    toast.promise(myPromise, {
+      loading: "Saving...",
+      success: "Adding Success!",
+      error: "Adding Fail",
     });
   };
 
@@ -370,24 +387,26 @@ const Field = () => {
                           className={styles.listgroup}
                         >
                           <div>{category}</div>
-                          {result && <div>
-                            <OverlayTrigger
-                              key="top"
-                              placement="top"
-                              overlay={
-                                <Tooltip id={`tooltip-top`}>
-                                  Add Schedule
-                                </Tooltip>
-                              }
-                            >
-                              <button
-                                className={styles.addsc}
-                                onClick={() => catchId(id)}
+                          {result && (
+                            <div>
+                              <OverlayTrigger
+                                key="top"
+                                placement="top"
+                                overlay={
+                                  <Tooltip id={`tooltip-top`}>
+                                    Add Schedule
+                                  </Tooltip>
+                                }
                               >
-                                <IoAddOutline size={20} />
-                              </button>
-                            </OverlayTrigger>
-                          </div>}
+                                <button
+                                  className={styles.addsc}
+                                  onClick={() => catchId(id)}
+                                >
+                                  <IoAddOutline size={20} />
+                                </button>
+                              </OverlayTrigger>
+                            </div>
+                          )}
                         </ListGroup.Item>
                       );
                     })}
