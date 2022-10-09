@@ -37,7 +37,9 @@ const Field = () => {
   const [id, setId] = useState();
   const [allSchedule, setAllSchedule] = useState([]);
   const [perHour, setPerHour] = useState([]);
-  const [detailSchedule, setDetailSchedule] = useState({});
+  const [userId, setUserId] = useState(false)
+  const [user_id, setID] = useState(0)
+  const [idd, setIdd] = useState("")
   const [hour, setHour] = useState({
     start: 0,
     end: 0,
@@ -84,9 +86,22 @@ const Field = () => {
       });
   };
 
+  const getID = () => {
+    axios
+      .get(`https://grupproject.site/venues/${getCookie("id")}`)
+      .then((res) => {
+        setID(res.data.data.user_id);
+      });
+  };
+
   useEffect(() => {
     getSchedule();
-  }, []);
+    getID()
+    setIdd(getCookie("user_id"))
+    const ids = parseInt(idd)
+    const result = ids === user_id
+    setUserId(result)
+  }, [user_id]);
 
   const handleId = (id) => {
     setIdField(id);
@@ -355,7 +370,7 @@ const Field = () => {
                           className={styles.listgroup}
                         >
                           <div>{category}</div>
-                          <div>
+                          {result && <div>
                             <OverlayTrigger
                               key="top"
                               placement="top"
@@ -372,7 +387,7 @@ const Field = () => {
                                 <IoAddOutline size={20} />
                               </button>
                             </OverlayTrigger>
-                          </div>
+                          </div>}
                         </ListGroup.Item>
                       );
                     })}

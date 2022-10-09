@@ -57,7 +57,7 @@ const Index = () => {
               lg={4}
               className="d-flex justify-content-center align-items-center"
             >
-              <Button className={`${styles.button}`}>{total_price}</Button>
+              <Button className={`${styles.button}`}>Rp {total_price}</Button>
               <AiOutlineDelete
                 className={`${styles.icon}`}
                 color="#EE0000"
