@@ -407,14 +407,17 @@ export const AddSchedule = ({ showAdd, closeAdd, inputAdd, submitAdd, hour, inpu
         <Form onSubmit={(e) => submitAdd(e)}>
           <Modal.Body>
             <div>
-              <Form.Label>Day</Form.Label>
-              <Form.Control
-                type="text"
-                name="day"
-                placeholder="Your Input...."
-                onChange={(e) => inputAdd(e)}
-                className="mb-3"
-              />
+              <Form.Label>Day (cannot be the same)</Form.Label>
+              <Form.Select name="day" onChange={(e) => inputAdd(e)}>
+                <option>Select Day</option>
+                <option value="Senin">Senin</option>
+                <option value="Selasa">Selasa</option>
+                <option value="Rabu">Rabu</option>
+                <option value="Kamis">Kamis</option>
+                <option value="Jumat">Jumat</option>
+                <option value="Sabtu">Sabtu</option>
+                <option value="Minggu">Minggu</option>
+              </Form.Select>
               <Row>
                 <Col>
                   <Form.Label>Open hours</Form.Label>
@@ -432,7 +435,7 @@ export const AddSchedule = ({ showAdd, closeAdd, inputAdd, submitAdd, hour, inpu
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <button className={styles.close} onClick={closeAdd}>
+            <button type="button" className={styles.close} onClick={closeAdd}>
               Close
             </button>
             <button className={styles.save} type="submit">

@@ -39,7 +39,7 @@ const ListCard = ({ item, handleDelete }) => {
                   {item.name_venue}
                 </Card.Title>
                 <Card.Text className={`${styles.fontLato} fs-5 fw-bold`}>
-                  Rp 150.000
+                  {!item.min_price ? <span>Available Soon</span> : <span>Rp {item.min_price} - Rp {item.max_price}</span>}
                 </Card.Text>
                 {(getCookie("role") === "user" && <div>{item.name_user}</div>) ||
                   <button

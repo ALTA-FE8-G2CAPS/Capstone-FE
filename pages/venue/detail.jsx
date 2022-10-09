@@ -6,7 +6,7 @@ import { Button, Col, Form, OverlayTrigger, Row, Tooltip } from "react-bootstrap
 import { AiFillEdit } from "react-icons/ai";
 import { getCookie } from "cookies-next";
 import dynamic from 'next/dynamic'
-import { Toaster,toast } from "react-hot-toast"
+import { Toaster, toast } from "react-hot-toast"
 // Import Component
 import styles from "../../styles/Detail.module.css";
 import { AddModal } from "../../components/AddModal";
