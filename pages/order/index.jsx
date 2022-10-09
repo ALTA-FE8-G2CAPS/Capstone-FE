@@ -11,7 +11,6 @@ const Index = () => {
   const [userId, setUserId] = useState();
   const [allBooking, setAllBooking] = useState([]);
   const router = useRouter();
-  const idScDetail = useState(router.query.id);
 
   useEffect(() => {
     setUserId(getCookie("user_id"));
