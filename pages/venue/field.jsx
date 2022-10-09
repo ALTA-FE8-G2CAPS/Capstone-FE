@@ -37,6 +37,7 @@ const Field = () => {
   const [id, setId] = useState();
   const [allSchedule, setAllSchedule] = useState([]);
   const [perHour, setPerHour] = useState([]);
+  const [idVenue, setIdVenue] = useState([]);
   const [userId, setUserId] = useState(false);
   const [user_id, setID] = useState(0);
   const [idd, setIdd] = useState("");
@@ -44,10 +45,6 @@ const Field = () => {
     start: 0,
     end: 0,
   });
-
-  const alertClicked = () => {
-    alert("You clicked the third ListGroupItem");
-  };
 
   useEffect(() => {
     setCookiess(getCookie("id"));
@@ -282,25 +279,22 @@ const Field = () => {
   };
 
   // get schedule per hour
-  const getSchedulePerHour = (id) => {
-    axios
-      .get(`https://grupproject.site/schedules/${id}`)
-      .then((res) => setPerHour(res.data.data.schedule_detail));
+  const getSchedulePerHour = (id, idVenue) => {
+    axios.get(`https://grupproject.site/schedules/${id}`).then((res) => {
+      setPerHour(res.data.data.schedule_detail);
+      setIdVenue(idVenue);
+    });
   };
 
   // ADD TO CART
-  const [idScDetail, setIdScDetail] = useState();
-  const getIdScDetail = (id) => {
-    setIdScDetail(id);
-    addCart();
-  };
 
-  const addCart = () => {
-    // e.preventdefault();
+  const addCart = (e, idScDetail) => {
+    e.preventDefault();
     var axios = require("axios");
     var data = {
       field_id: idField,
       schedule_detail_id: idScDetail,
+      venue_id: idVenue,
     };
 
     const myPromise = axios
@@ -346,7 +340,9 @@ const Field = () => {
                       <div
                         className={`${styles.dayActive}`}
                         key={index}
-                        onClick={() => getSchedulePerHour(obj.schedule_id)}
+                        onClick={() =>
+                          getSchedulePerHour(obj.schedule_id, obj.venue_id)
+                        }
                       >
                         {day}
                       </div>
@@ -359,7 +355,7 @@ const Field = () => {
                       return (
                         <ListGroup.Item
                           action
-                          onClick={() => getIdScDetail(item.schedule_detail_id)}
+                          onClick={(e) => addCart(e, item.schedule_detail_id)}
                           className={styles.scheduleItem}
                           key={index}
                         >
