@@ -137,7 +137,7 @@ const Review = () => {
             </div>
             <div className={styles.reviewBox}>
               {reviews?.map((obj, index) => {
-                const { name_user, nama_venue, rate, feedback, foto_review } =
+                const { name_user, foto_user, rate, feedback, foto_review } =
                   obj;
                 return (
                   <Row className={styles.reviewItem} key={index}>
@@ -152,7 +152,7 @@ const Review = () => {
                       <div>
                         <Image
                           className={styles.imageProfile}
-                          src={foto_review}
+                          src={foto_user}
                           width={40}
                           height={40}
                         />

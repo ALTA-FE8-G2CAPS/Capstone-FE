@@ -37,6 +37,7 @@ const Field = () => {
   const [id, setId] = useState();
   const [allSchedule, setAllSchedule] = useState([]);
   const [perHour, setPerHour] = useState([]);
+  const [detailSchedule, setDetailSchedule] = useState({})
   const [hour, setHour] = useState({
     start: 0,
     end: 0
@@ -205,12 +206,6 @@ const Field = () => {
     setShowAddSc(true);
   };
 
-  const getSchedulePerHour = (detail) => {
-    setPerHour(detail);
-
-  };
-
-
   // Initiate state add schedule
   const [addSchedule, setAddSchedule] = useState({
     field_id: idField,
@@ -274,6 +269,11 @@ const Field = () => {
     });
   };
 
+  const getSchedulePerHour = (id) => {
+    axios.get(`https://grupproject.site/schedules/${id}`)
+      .then((res) => setPerHour(res.data.data.schedule_detail))
+  };
+
   useEffect(() => {
     const idN = parseInt(id);
     const newResult = idN === detail.user_id;
@@ -305,7 +305,7 @@ const Field = () => {
                       <div
                         className={`${styles.dayActive}`}
                         key={index}
-                        onClick={() => getSchedulePerHour(detailschedule)}
+                        onClick={() => getSchedulePerHour(obj.schedule_id)}
                       >
                         {day}
                       </div>
@@ -315,26 +315,20 @@ const Field = () => {
                 <div className={styles.scrollSchedule}>
 
                   <ListGroup>
-                    {allSchedule.map((item) => {
-                      const main = item.scheduledetail
-
-                      const uhuy = main?.map((isi) => {
-                        return (
-                          <ListGroup.Item
-                            action
-                            onClick={alertClicked}
-                            className={styles.scheduleItem}
-                          >
-                            <div className={styles.perItem}>
-                              <div>{isi.start_hours}</div>
-                              <div>{isi.end_hours}</div>
-                              <div>{isi.status_schedule}</div>
-                            </div>
-                          </ListGroup.Item>
-                        )
-                      })
-
-                      return uhuy
+                    {perHour.map((item, index) => {
+                      return (
+                        <ListGroup.Item
+                          action
+                          onClick={alertClicked}
+                          className={styles.scheduleItem}
+                        >
+                          <div className={styles.perItem}>
+                            <div>{item.start_hours}</div>
+                            <div>{item.end_hours}</div>
+                            <div>{item.status_schedule}</div>
+                          </div>
+                        </ListGroup.Item>
+                      )
                     })}
                   </ListGroup>
 
