@@ -2,7 +2,7 @@ import axios from "axios";
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import TimePicker from 'react-bootstrap-time-picker';
+import TimePicker from "react-bootstrap-time-picker";
 import {
   Button,
   Col,
@@ -42,7 +42,7 @@ const Field = () => {
   const [idd, setIdd] = useState("")
   const [hour, setHour] = useState({
     start: 0,
-    end: 0
+    end: 0,
   });
 
   const alertClicked = () => {
@@ -230,25 +230,22 @@ const Field = () => {
   });
 
   const inputAdd = (e) => {
-    if (typeof (e) === "number") {
-      const time = e / 3600
+    if (typeof e === "number") {
+      const time = e / 3600;
       if (hour.start === 0) {
         if (time < 10) {
-          setHour({ ...hour, start: `0${time}:00` })
+          setHour({ ...hour, start: `0${time}:00` });
         } else {
-          setHour({ ...hour, start: `${time}:00` })
+          setHour({ ...hour, start: `${time}:00` });
         }
       } else {
         if (time < 10) {
-          setHour({ ...hour, end: `0${time}:00` })
+          setHour({ ...hour, end: `0${time}:00` });
         } else {
-          setHour({ ...hour, end: `${time}:00` })
+          setHour({ ...hour, end: `${time}:00` });
         }
       }
-    }
-
-
-    else {
+    } else {
       let newSc = { ...addSchedule };
       newSc[e.target.name] = e.target.value;
       setAddSchedule(newSc);
@@ -256,8 +253,8 @@ const Field = () => {
   };
 
   const inputReset = () => {
-    setHour({ ...hour, start: 0, end: 0 })
-  }
+    setHour({ ...hour, start: 0, end: 0 });
+  };
 
   const submitAdd = (e) => {
     e.preventDefault();
@@ -275,7 +272,7 @@ const Field = () => {
       .then(() => {
         getSchedule();
         setShowAddSc(false);
-        inputReset()
+        inputReset();
       });
     toast.promise(myPromise, {
       loading: "Saving...",
@@ -284,9 +281,21 @@ const Field = () => {
     });
   };
 
+  // get schedule per hour
   const getSchedulePerHour = (id) => {
-    axios.get(`https://grupproject.site/schedules/${id}`)
-      .then((res) => setPerHour(res.data.data.schedule_detail))
+    axios
+      .get(`https://grupproject.site/schedules/${id}`)
+      .then((res) => setPerHour(res.data.data.schedule_detail));
+  };
+
+  // ADD TO CART
+  const getIdScDetail = (id) => {
+    router.push({
+      pathname: "/order",
+      query: {
+        id: id,
+      },
+    });
   };
 
   useEffect(() => {
@@ -328,14 +337,14 @@ const Field = () => {
                   })}
                 </div>
                 <div className={styles.scrollSchedule}>
-
                   <ListGroup>
-                    {perHour.map((item, index) => {
+                    {perHour?.map((item, index) => {
                       return (
                         <ListGroup.Item
                           action
-                          onClick={alertClicked}
+                          onClick={() => getIdScDetail(item.schedule_detail_id)}
                           className={styles.scheduleItem}
+                          key={index}
                         >
                           <div className={styles.perItem}>
                             <div>{item.start_hours}</div>
@@ -343,10 +352,9 @@ const Field = () => {
                             <div>{item.status_schedule}</div>
                           </div>
                         </ListGroup.Item>
-                      )
+                      );
                     })}
                   </ListGroup>
-
                 </div>
               </Col>
               <Col sm="12" md="4">

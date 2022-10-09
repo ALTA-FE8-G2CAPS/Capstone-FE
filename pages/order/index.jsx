@@ -5,10 +5,13 @@ import { Button, Col, Row } from "react-bootstrap";
 import styles from "../../styles/BookingOwner.module.css";
 import { getCookie } from "cookies-next";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const Index = () => {
   const [userId, setUserId] = useState();
   const [allBooking, setAllBooking] = useState([]);
+  const router = useRouter();
+  const idScDetail = useState(router.query.id);
 
   useEffect(() => {
     setUserId(getCookie("user_id"));
