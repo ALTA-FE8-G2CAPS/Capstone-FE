@@ -11,6 +11,7 @@
     border-radius: 40px;
     background-color: #f94d63;
     border: none;
+    transition : 0.5s
 }
 .delete:hover{
     color: red;

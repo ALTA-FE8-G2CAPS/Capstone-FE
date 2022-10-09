@@ -276,7 +276,7 @@ const Field = () => {
         getSchedule();
         setShowAddSc(false);
         inputReset()
-      });
+      })
     toast.promise(myPromise, {
       loading: "Saving...",
       success: "Adding Schedule Success!",
@@ -315,7 +315,7 @@ const Field = () => {
               <Col sm="12" md="8">
                 <div className={`${styles.scheduleDay}`}>
                   {allSchedule?.map((obj, index) => {
-                    const { day, detailschedule } = obj;
+                    const { day } = obj;
                     return (
                       <div
                         className={`${styles.dayActive}`}
@@ -333,6 +333,7 @@ const Field = () => {
                     {perHour.map((item, index) => {
                       return (
                         <ListGroup.Item
+                          key={index}
                           action
                           onClick={alertClicked}
                           className={styles.scheduleItem}

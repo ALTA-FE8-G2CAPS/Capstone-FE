@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import ListCard from "../../components/ListCard";
 import { Button, Col, Row } from "react-bootstrap";
 import { IoAddOutline } from "react-icons/io5";
-import styles from "../../styles/MyVenue.module.css";
 import { useRouter } from "next/router";
-import { AddModal } from "../../components/AddModal";
 import axios from "axios";
 import { deleteCookie, getCookie } from "cookies-next";
+import toast, { Toaster } from "react-hot-toast";
+// Import Components
+import { AddModal } from "../../components/AddModal";
+import styles from "../../styles/MyVenue.module.css";
+import MyCard from "../../components/MyCard";
 
 const Myvenue = () => {
   const router = useRouter();
@@ -86,15 +88,29 @@ const Myvenue = () => {
 
   // delete venue
   const handleDelete = (id) => {
-    axios.delete(`https://grupproject.site/venues/${id}`).then(() => {
-      alert("venue deleted");
-      getVenues();
-    });
+    swal("Delete Venue", "Are you sure?", "warning", {
+      dangerMode: true,
+      buttons: true,
+    })
+      .then((res) => {
+        if (res) {
+          const myPromise = axios.delete(`https://grupproject.site/venues/${id}`)
+            .then(() => {
+              getVenues();
+            });
+          toast.promise(myPromise, {
+            loading: "Waiting...",
+            success: "Delete Successfully",
+            error: "Delete Failed",
+          });
+        }
+      })
   };
 
 
   return (
     <div>
+      <Toaster />
       <div className={`${styles.container} container`}>
         <h2 className={styles.title}>My Venue</h2>
         <Row className={styles.boxBody}>
@@ -114,10 +130,10 @@ const Myvenue = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <ListCard item={allVenue} handleDelete={(id) => handleDelete(id)} />
-        </Row>
       </div>
+      <Row>
+        <MyCard item={allVenue} handleDelete={(id) => handleDelete(id)} />
+      </Row>
 
       {/* Modal */}
       <AddModal
