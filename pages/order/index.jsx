@@ -1,17 +1,37 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
-import { Button, Col, Row } from "react-bootstrap";
-import styles from "../../styles/BookingOwner.module.css";
+import {
+  Badge,
+  Button,
+  Col,
+  Form,
+  ListGroup,
+  Modal,
+  Row,
+} from "react-bootstrap";
 import { getCookie } from "cookies-next";
 import axios from "axios";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
+import bca from "../../public/bca.png";
+import styles from "../../styles/BookingOwner.module.css";
 
 const Index = () => {
   const [userId, setUserId] = useState();
   const [allBooking, setAllBooking] = useState([]);
+  const [show, setShow] = useState(false);
+  const [showVa, setShowVa] = useState(false);
+  const [isHover, setIsHover] = useState(false);
+  const [va, setVa] = useState("");
   const router = useRouter();
+
+  const payButtonEnter = () => {
+    setIsHover(true);
+  };
+  const payButtonLeave = () => {
+    setIsHover(false);
+  };
 
   useEffect(() => {
     setUserId(getCookie("user_id"));
@@ -20,7 +40,7 @@ const Index = () => {
   // get all booking list
   const getBookingList = () => {
     axios
-      .get(`https://grupproject.site/bookings?UserID=${userId}`)
+      .get(`https://grupproject.site/bookings?user_id=${userId}`)
       .then((res) => {
         setAllBooking(res.data.data);
       });
@@ -29,6 +49,39 @@ const Index = () => {
   useEffect(() => {
     getBookingList();
   }, []);
+
+  // get payment method
+  const [paymentMethod, setPaymentMethod] = useState({
+    payment_method: "",
+  });
+  const inputPayment = (e) => {
+    let newPaymentMethod = { ...paymentMethod };
+    newPaymentMethod[e.target.name] = e.target.id;
+    setPaymentMethod(newPaymentMethod);
+  };
+  const getPaymentMethod = (e, id, va) => {
+    e.preventDefault();
+    const { payment_method } = paymentMethod;
+    const data = { payment_method: payment_method };
+    const myPromise = axios
+      .post(`https://grupproject.site/bookings/${id}/addpayment`, data)
+      .then(() => {
+        getBookingList();
+        setVa(va);
+        // setShowVa(true);
+      });
+    toast.promise(myPromise, {
+      loading: "Saving...",
+      success: "Success get virtual account!",
+      error: "Fail get virtual account",
+    });
+  };
+
+  // Confirm payment
+  const confirmPayment = () => {
+    setShowVa(false);
+    getBookingList;
+  };
 
   // Delete booking
   const deleteBooking = (id) => {
@@ -53,8 +106,18 @@ const Index = () => {
       </Row>
 
       {allBooking?.map((obj, index) => {
-        const { name_venue, name_user, category, total_price, booking_id } =
-          obj;
+        const {
+          name_venue,
+          name_user,
+          category,
+          total_price,
+          booking_id,
+          start_hours,
+          end_hours,
+          status_payment,
+          transaction_exp,
+          virtual_account,
+        } = obj;
         return (
           <Row
             key={index}
@@ -68,13 +131,23 @@ const Index = () => {
               <p className="fs-5 fw-bold my-2 lh-sm">
                 {name_venue} - {category}
               </p>
-              <p>Jumat 10:00-12.00</p>
+              <p>
+                {start_hours} - {end_hours}
+              </p>
             </Col>
             <Col
               lg={4}
               className="d-flex justify-content-center align-items-center"
             >
-              <Button className={`${styles.button}`}>Rp {total_price}</Button>
+              <Badge pill bg="primary">
+                {status_payment}
+              </Badge>
+              <Button
+                className={`${styles.button}`}
+                onClick={() => setShow(true)}
+              >
+                Rp {total_price}
+              </Button>
               <AiOutlineDelete
                 className={`${styles.icon}`}
                 color="#EE0000"
@@ -82,6 +155,110 @@ const Index = () => {
                 onClick={() => deleteBooking(booking_id)}
               />
             </Col>
+            {/* Modal Payment Method */}
+            <Modal centered show={show} onHide={() => setShow(false)}>
+              <Modal.Header closeButton style={{ backgroundColor: "#D9EFED" }}>
+                <Modal.Title>Payment Method</Modal.Title>
+              </Modal.Header>
+              <Form
+                onSubmit={(e) =>
+                  getPaymentMethod(e, booking_id, virtual_account)
+                }
+              >
+                <Modal.Body>
+                  <ListGroup onChange={(e) => inputPayment(e)}>
+                    <Form.Check
+                      type="radio"
+                      id="BCA"
+                      className="d-flex flex-row-reverse justify-content-between mb-2"
+                    >
+                      <Form.Check.Input type="radio" name="payment_method" />
+                      <Form.Check.Label className={styles.boxbank}>
+                        <div>
+                          <Image src="/bca.png" width={30} height={30} />
+                        </div>
+                        <div>Bank BCA</div>
+                      </Form.Check.Label>
+                    </Form.Check>
+                    <Form.Check
+                      type="radio"
+                      id="BNI"
+                      className="d-flex flex-row-reverse justify-content-between mb-2"
+                    >
+                      <Form.Check.Input type="radio" name="payment_method" />
+                      <Form.Check.Label className={styles.boxbank}>
+                        <div>
+                          <Image src="/bni.png" width={30} height={30} />
+                        </div>
+                        <div>Bank BNI</div>
+                      </Form.Check.Label>
+                    </Form.Check>
+                    <Form.Check
+                      type="radio"
+                      id="BRI"
+                      className="d-flex flex-row-reverse justify-content-between"
+                    >
+                      <Form.Check.Input type="radio" name="payment_method" />
+                      <Form.Check.Label className={styles.boxbank}>
+                        <div>
+                          <Image src="/bri.png" width={30} height={30} />
+                        </div>
+                        <div>Bank BRI</div>
+                      </Form.Check.Label>
+                    </Form.Check>
+                  </ListGroup>
+                </Modal.Body>
+                <Modal.Footer
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    backgroundColor: "#D9EFED",
+                  }}
+                >
+                  <div>
+                    <div>Total Cost</div>
+                    <h5>{total_price}</h5>
+                  </div>
+                  <div>
+                    <button
+                      style={{
+                        background: "#405654",
+                        color: "#ECF7F6",
+                        paddingTop: "5px",
+                        paddingBottom: "5px",
+                        paddingRight: "20px",
+                        paddingLeft: "20px",
+                        borderRadius: "10px",
+                        border: "none",
+                      }}
+                      onMouseEnter={payButtonEnter}
+                    >
+                      Pay
+                    </button>
+                  </div>
+                </Modal.Footer>
+              </Form>
+            </Modal>
+
+            {/* Modal for deliver virtual account */}
+            <Modal centered show={showVa} onHide={() => setShowVa(false)}>
+              <Modal.Body>
+                <div>
+                  This is your virtual account payment. Please pay the bill
+                  before {transaction_exp}. We have sent your invoice to email.
+                </div>
+                <div>
+                  <h5>Virtual Account</h5>
+                  <h3>{virtual_account}</h3>
+                </div>
+                <div>
+                  <p>Please confirm your payment</p>
+                </div>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={confirmPayment}>Confirm Payment</Button>
+              </Modal.Footer>
+            </Modal>
           </Row>
         );
       })}
