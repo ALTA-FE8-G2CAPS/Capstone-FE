@@ -27,7 +27,7 @@ const Index = () => {
   }, []);
 
   const router = useRouter();
-  const {fotoProfile,setFotoProfile} = useFotoContext()
+  const { fotoProfile, setFotoProfile } = useFotoContext()
   const [show, setShow] = useState(false);
   const [add, setAdd] = useState("profile");
   const [show2, setShow2] = useState(false);
@@ -168,7 +168,7 @@ const Index = () => {
                   </div>
                   <div className={styles.itemLabel}>My Schedule</div>
                 </div>
-                {status.role === "user" || status.owner ?
+                {(status.owner &&
                   <>
                     <h5 className="mt-2 mb-0">Owner</h5>
                     <div
@@ -189,7 +189,8 @@ const Index = () => {
                       </div>
                       <div className={styles.itemLabel}>My Booking List</div>
                     </div>
-                  </> : <></>
+                  </>)
+
                 }
 
                 {status.role === "admin" &&
