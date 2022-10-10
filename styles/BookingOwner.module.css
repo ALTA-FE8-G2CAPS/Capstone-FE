@@ -50,3 +50,15 @@
 .icon:hover {
     color: pink !important;
 }
+
+.buttonPay {
+    padding: 10px;
+}
+
+.boxbank {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    font-size: larger;
+    font-weight: bolder;
+}
