@@ -167,7 +167,7 @@ export const DetailHeading = ({ page, item }) => {
         <div className={styles.title}>
           <h1 className={styles.fontOpen}>{item?.name_venue}</h1>
           <p className={styles.fontLato}>{item?.address_venue}</p>
-          <p className={styles.price}> {!item.min_price ? <span>Available Soon</span> : <span>Rp {item.min_price} - Rp {item.max_price}</span>}</p>
+          <p className={styles.price}> {item.min_price === 0? <span>Available Soon</span> : <span>Rp {item?.min_price} - Rp {item?.max_price}</span>} </p>
         </div>
       </Row>
       <Row className={styles.heading}>
