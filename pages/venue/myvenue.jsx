@@ -113,7 +113,7 @@ const Myvenue = () => {
         <h2 className={styles.title}>My Venue</h2>
         <Row className={styles.boxBody}>
           <Col className={styles.boxAmount}>
-            <span className={styles.amount}>{allVenue.length}</span>
+            <span className={styles.amount}>{allVenue?.length}</span>
             <span> Venues</span>
           </Col>
           <Col className={styles.rightCol}>
