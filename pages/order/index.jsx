@@ -71,7 +71,7 @@ const Index = () => {
         getBookingList();
         setVa(va);
         setShow(false);
-        deleteBooking(id);
+        // deleteBooking(id);
         router.push("/order/history");
       });
     toast.promise(myPromise, {
@@ -103,7 +103,7 @@ const Index = () => {
     });
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => { };
 
   return (
     <Row className="mb-5">
@@ -112,7 +112,8 @@ const Index = () => {
       </Row>
 
       {allBooking?.length < 1 ? (
-        <p className="fs-5 text-center">List Order is Empty</p>
+        // <p className="fs-5 text-center">List Order is Empty</p>
+        <></>
       ) : (
         allBooking?.map((obj, index) => {
           const {
@@ -128,7 +129,8 @@ const Index = () => {
             virtual_account,
           } = obj;
           return (
-            <Row
+            <>
+            {status_payment === "pending" && <Row
               key={index}
               className="w-75 mx-auto d-flex border-bottom border-5 shadow-sm pb-4"
             >
@@ -272,7 +274,8 @@ const Index = () => {
                   <Button onClick={confirmPayment}>Confirm Payment</Button>
                 </Modal.Footer>
               </Modal>
-            </Row>
+            </Row>}
+            </>
           );
         })
       )}
