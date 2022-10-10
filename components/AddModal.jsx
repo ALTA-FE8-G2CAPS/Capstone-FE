@@ -418,7 +418,7 @@ export const AddSchedule = ({ showAdd, closeAdd, inputAdd, submitAdd, hour, inpu
                 <option value="Thursday">Thursday</option>
                 <option value="Friday">Friday</option>
                 <option value="Saturday">Saturday</option>
-                <option value="Wednesday">Wednesday</option>
+                <option value="Sunday">Sunday</option>
               </Form.Select>
               <Row>
                 <Col>
