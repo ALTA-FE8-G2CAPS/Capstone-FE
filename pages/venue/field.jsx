@@ -66,6 +66,7 @@ const Field = () => {
       .get(`https://grupproject.site/fields?venue_id=${getCookie("id")}`)
       .then((res) => {
         setFields(res.data.data);
+        console.log(res.data.data);
       });
   };
 
@@ -103,6 +104,14 @@ const Field = () => {
   const handleId = (id) => {
     setIdField(id);
     getSchedule(id);
+    getPrice(id);
+  };
+
+  const [price, setPrice] = useState(0);
+  const getPrice = (id) => {
+    axios.get(`https://grupproject.site/fields/${id}`).then((res) => {
+      setPrice(res.data.data.price);
+    });
   };
 
   // initiate state addfield
@@ -269,8 +278,8 @@ const Field = () => {
       .then(() => {
         getSchedule();
         setShowAddSc(false);
-        inputReset()
-      })
+        inputReset();
+      });
     toast.promise(myPromise, {
       loading: "Saving...",
       success: "Adding Schedule Success!",
@@ -291,7 +300,7 @@ const Field = () => {
   const addCart = (e, item) => {
     e.preventDefault();
     if (item.status_schedule !== "Available") {
-      toast.error("Already Booked")
+      toast.error("Already Booked");
     } else {
       var axios = require("axios");
       var data = {
@@ -331,30 +340,33 @@ const Field = () => {
       />
       <Col md="12" lg="8">
         <div className={styles.containerRight}>
-          <DetailHeading page="field" item={detail} />
+          <DetailHeading page="field" item={detail} price={price} />
 
           <div>
             <Row>
               {/* List Schedules */}
               <Col sm="12" md="8">
                 <div className={`${styles.scheduleDay}`}>
-                  {allSchedule?.length > 7 ? <>Schedule Not Available</> :
-                    !allSchedule?.length ? <>Schedule Not Available</> :
-                      allSchedule?.map((obj, index) => {
-                        const { day } = obj;
-                        return (
-                          <div
-                            className={`${styles.dayActive}`}
-                            key={index}
-                            onClick={() =>
-                              getSchedulePerHour(obj.schedule_id, obj.venue_id)
-                            }
-                          >
-                            {day}
-                          </div>
-                        );
-                      })
-                  }
+                  {allSchedule?.length > 7 ? (
+                    <>Schedule Not Available</>
+                  ) : !allSchedule?.length ? (
+                    <>Schedule Not Available</>
+                  ) : (
+                    allSchedule?.map((obj, index) => {
+                      const { day } = obj;
+                      return (
+                        <div
+                          className={`${styles.dayActive}`}
+                          key={index}
+                          onClick={() =>
+                            getSchedulePerHour(obj.schedule_id, obj.venue_id)
+                          }
+                        >
+                          {day}
+                        </div>
+                      );
+                    })
+                  )}
                 </div>
                 <div className={styles.scrollSchedule}>
                   <ListGroup>
@@ -362,7 +374,8 @@ const Field = () => {
                       return (
                         <ListGroup.Item
                           key={index}
-                          variant={(item.status_schedule === "Available" && "light") ||
+                          variant={
+                            (item.status_schedule === "Available" && "light") ||
                             (item.status_schedule === "booked" && "warning")
                           }
                           action
@@ -383,7 +396,9 @@ const Field = () => {
               <Col sm="12" md="4">
                 <div>
                   <ListGroup variant="flush">
-                    {fields.length < 1 ? <>Fields Not Available</> :
+                    {fields.length < 1 ? (
+                      <>Fields Not Available</>
+                    ) : (
                       fields?.map((obj, index) => {
                         const { venue_id, category, price, id } = obj;
                         return (
@@ -417,7 +432,7 @@ const Field = () => {
                           </ListGroup.Item>
                         );
                       })
-                    }
+                    )}
                   </ListGroup>
                 </div>
                 {result ? (
