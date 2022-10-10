@@ -135,7 +135,7 @@ const Review = () => {
               </OverlayTrigger>
             </div>
             <div className={styles.reviewBox}>
-              {reviews.length < 1 ? <>No reviews for this venue</> :
+              {reviews?.length < 1 ? <>No reviews for this venue</> :
                 reviews?.map((obj, index) => {
                   const { name_user, foto_user, rate, feedback, foto_review } =
                     obj;
