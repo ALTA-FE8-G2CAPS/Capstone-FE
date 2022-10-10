@@ -94,7 +94,7 @@ const Home = (props) => {
               >
                 <Button
                   className={`${styles.infoButton} ${styles.editButton}`}
-                  onClick={() => router.push("/order")}
+                  onClick={() => window.location.href = "/order"}
                 >
                   <RiMoneyDollarCircleLine size={20} />
                 </Button>
