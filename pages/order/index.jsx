@@ -34,8 +34,8 @@ const Index = () => {
   };
 
   const handleShow = () => {
-    setShow(prev => !prev)
-  }
+    setShow((prev) => !prev);
+  };
 
   // get all booking list
   const getBookingList = async () => {
@@ -49,7 +49,7 @@ const Index = () => {
   useEffect(() => {
     setTimeout(() => {
       getBookingList();
-    }, 1000)
+    }, 1000);
   }, []);
 
   // get payment method
@@ -70,7 +70,9 @@ const Index = () => {
       .then(() => {
         getBookingList();
         setVa(va);
-        // setShowVa(true);
+        setShow(false);
+        deleteBooking(id);
+        router.push("/order/history");
       });
     toast.promise(myPromise, {
       loading: "Saving...",
@@ -101,9 +103,7 @@ const Index = () => {
     });
   };
 
-  const handleSubmit = () => {
-
-  }
+  const handleSubmit = () => {};
 
   return (
     <Row className="mb-5">
@@ -111,7 +111,9 @@ const Index = () => {
         <h2>Pay Venue</h2>
       </Row>
 
-      {allBooking?.length < 1 ? <p className="fs-5 text-center">List Order is Empty</p> :
+      {allBooking?.length < 1 ? (
+        <p className="fs-5 text-center">List Order is Empty</p>
+      ) : (
         allBooking?.map((obj, index) => {
           const {
             name_venue,
@@ -164,7 +166,10 @@ const Index = () => {
               </Col>
               {/* Modal Payment Method */}
               <Modal centered show={show} onHide={() => setShow(false)}>
-                <Modal.Header closeButton style={{ backgroundColor: "#D9EFED" }}>
+                <Modal.Header
+                  closeButton
+                  style={{ backgroundColor: "#D9EFED" }}
+                >
                   <Modal.Title>Payment Method</Modal.Title>
                 </Modal.Header>
                 <Form
@@ -252,7 +257,8 @@ const Index = () => {
                 <Modal.Body>
                   <div>
                     This is your virtual account payment. Please pay the bill
-                    before {transaction_exp}. We have sent your invoice to email.
+                    before {transaction_exp}. We have sent your invoice to
+                    email.
                   </div>
                   <div>
                     <h5>Virtual Account</h5>
@@ -269,7 +275,7 @@ const Index = () => {
             </Row>
           );
         })
-      }
+      )}
     </Row>
   );
 };
