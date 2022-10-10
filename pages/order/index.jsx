@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import styles from "../../styles/BookingOwner.module.css";
 import { getCookie } from "cookies-next";
 import axios from "axios";
@@ -11,11 +11,16 @@ import toast from "react-hot-toast";
 const Index = () => {
   const [userId, setUserId] = useState();
   const [allBooking, setAllBooking] = useState([]);
+  const [show, setShow] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     setUserId(getCookie("user_id"));
   });
+
+  const handleShow = () => {
+    setShow(prev => !prev)
+  }
 
   // get all booking list
   const getBookingList = () => {
@@ -45,6 +50,10 @@ const Index = () => {
       error: "Delete Failed",
     });
   };
+
+  const handleSubmit =() => {
+    
+  }
 
   return (
     <Row className="mb-5">
@@ -85,6 +94,40 @@ const Index = () => {
           </Row>
         );
       })}
+
+      <Modal show={show} onHide={handleShow}>
+        <Form>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="name@example.com"
+                autoFocus
+              />
+            </Form.Group>
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>Example textarea</Form.Label>
+              <Form.Control as="textarea" rows={3} />
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button type="button" variant="secondary" onClick={handleShow}>
+              Close
+            </Button>
+            <Button type="submit" onSubmit={handleSubmit} variant="primary" onClick={handleShow}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
+
     </Row>
   );
 };
