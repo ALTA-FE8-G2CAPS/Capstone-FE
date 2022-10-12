@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import  Layout  from '../components/Layout'
+import  Layout  from './Layout'
 import '../styles/globals.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'mdb-react-ui-kit/dist/css/mdb.min.css'
