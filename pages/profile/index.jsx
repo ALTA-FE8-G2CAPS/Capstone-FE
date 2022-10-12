@@ -73,7 +73,7 @@ const Index = () => {
   useEffect(() => {
     getProfile()
     setStatus({ ...status, role: getCookie("role"), owner: getCookie("user_owner") })
-  }, [status])
+  }, [])
 
   const handleImage = () => {
     setShow(true);
