@@ -86,7 +86,7 @@ export const Navbars = () => {
                     </Col>
                 </Col>
 
-                {/* Bottom Navbar */}
+                {/* Bottom Navbar ss*/}
                 <Col className={`d-flex d-md-none text-center `}>
                     <Row className={styles.container}>
                         <Col onMouseLeave={() => handleHover("kosong")} onMouseEnter={() => handleHover("home")} onClick={() => handleClick("home")}>
