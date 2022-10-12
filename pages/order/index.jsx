@@ -136,7 +136,7 @@ const Index = () => {
             >
               <Row className="ms-0 my-2 fs-4 fw-bold">{name_user}</Row>
               <Col lg={2} className="d-flex align-items-center">
-                <Image src="/basket.jpg" width={300} height={240} />
+                <Image alt="" src="/basket.jpg" width={300} height={240} />
               </Col>
               <Col lg={6} className="py-2">
                 <p className="fs-5 fw-bold my-2 lh-sm">
@@ -189,7 +189,7 @@ const Index = () => {
                         <Form.Check.Input type="radio" name="payment_method" />
                         <Form.Check.Label className={styles.boxbank}>
                           <div>
-                            <Image src="/bca.png" width={40} height={40} />
+                            <Image alt="" src="/bca.png" width={40} height={40} />
                           </div>
                           <div>Bank BCA</div>
                         </Form.Check.Label>
@@ -202,7 +202,7 @@ const Index = () => {
                         <Form.Check.Input type="radio" name="payment_method" />
                         <Form.Check.Label className={styles.boxbank}>
                           <div>
-                            <Image src="/bni.png" width={40} height={40} />
+                            <Image alt="" src="/bni.png" width={40} height={40} />
                           </div>
                           <div>Bank BNI</div>
                         </Form.Check.Label>
@@ -215,7 +215,7 @@ const Index = () => {
                         <Form.Check.Input type="radio" name="payment_method" />
                         <Form.Check.Label className={styles.boxbank}>
                           <div>
-                            <Image src="/bri.png" width={40} height={40} />
+                            <Image alt="" src="/bri.png" width={40} height={40} />
                           </div>
                           <div>Bank BRI</div>
                         </Form.Check.Label>

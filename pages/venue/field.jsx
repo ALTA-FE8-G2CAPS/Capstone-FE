@@ -99,7 +99,7 @@ const Field = () => {
     const ids = parseInt(idd);
     const result = ids === user_id;
     setUserId(result);
-  }, [user_id]);
+  }, [user_id,idd]);
 
   const handleId = (id) => {
     setIdField(id);
@@ -326,7 +326,7 @@ const Field = () => {
     const idN = parseInt(id);
     const newResult = idN === detail.user_id;
     setResult(newResult);
-  }, [detail]);
+  }, [detail,id]);
 
   return (
     <Row className={styles.container}>

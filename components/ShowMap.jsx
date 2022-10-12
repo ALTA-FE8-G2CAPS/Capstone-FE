@@ -35,7 +35,7 @@ const ShowMap = ({ marker }) => {
     })
     useEffect(() => {
         setCenter({ ...center, lat: marker.latitude, lng: marker.longitude })
-    }, [])
+    }, [center, marker.latitude, marker.longitude])
 
     return (
         <>

@@ -34,7 +34,7 @@ const Index = () => {
   useEffect(() => {
     setStatusNav("venue");
     getVenues();
-  }, []);
+  }, [setStatusNav]);
 
   return (
     <Row>

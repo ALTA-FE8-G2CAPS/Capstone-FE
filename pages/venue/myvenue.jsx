@@ -27,7 +27,7 @@ const Myvenue = () => {
   useEffect(() => {
     setCookiess(getCookie("id"));
     setVenue({ ...venue, latitude: getCookie("lat"), longitude: getCookie("lng") })
-  }, [getCookie("lat")]);
+  }, [venue]);
 
   // Get all venues
   const getVenues = () => {

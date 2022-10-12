@@ -31,7 +31,6 @@ const UserPlus = () => {
   }
   useEffect(() => {
     getUser()
-    console.log(list)
   }, [])
 
   const handleShows = (breakpoint) => {
@@ -66,6 +65,7 @@ const UserPlus = () => {
                 <tr key={index}>
                   <td>
                     <Image style={{ cursor: "zoom-in" }} 
+                    alt=""
                     width={50} 
                     height={50} 
                     onClick={() => handleImage(user.foto_user)} 
@@ -114,6 +114,7 @@ const UserPlus = () => {
             className={`d-flex `}
           />
           <Image
+          alt=""
             src={image}
             layout="fill"
           />

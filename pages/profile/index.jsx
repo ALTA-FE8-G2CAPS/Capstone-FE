@@ -24,7 +24,7 @@ const Index = () => {
   const { setStatusNav } = useNavbarContext();
   useEffect(() => {
     setStatusNav("profile");
-  }, []);
+  }, [setStatusNav]);
 
   const router = useRouter();
   const { fotoProfile, setFotoProfile } = useFotoContext()
@@ -73,7 +73,7 @@ const Index = () => {
   useEffect(() => {
     getProfile()
     setStatus({ ...status, role: getCookie("role"), owner: getCookie("user_owner") })
-  }, [])
+  }, [getProfile,status])
 
   const handleImage = () => {
     setShow(true);

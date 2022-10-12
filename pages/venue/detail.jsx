@@ -107,7 +107,7 @@ function Detail() {
     const idN = parseInt(id)
     const newResult = idN === detail.user_id
     setResult(newResult)
-  }, [detail])
+  }, [detail,id])
 
   return (
     <Row className={`${styles.container}`}>

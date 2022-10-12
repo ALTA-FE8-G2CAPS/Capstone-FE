@@ -41,7 +41,7 @@ const Home = (props) => {
     setStatusNav("home")
     setList(props.list.data)
     setFotoProfile(getCookie("foto_user"))
-  }, [])
+  }, [props.list.data,setFotoProfile,setStatusNav])
 
 
   return (
@@ -143,6 +143,7 @@ const Home = (props) => {
           </Row>
           <Row className={`${styles.wave}`}>
             <Image
+            alt=""
               style={{ borderRadius: "0px 0px 10px 10px" }}
               src="/wave.png"
               layout="fill"

@@ -23,7 +23,6 @@ const UserReg = () => {
   }
   useEffect(() => {
     getUser()
-    console.log(list)
   }, [])
 
   const acceptUser = (id) => {
@@ -72,7 +71,7 @@ const UserReg = () => {
                   <td>{user.email}</td>
                   <td>{user.address_user}</td>
                   <td>
-                    <Image style={{ cursor: "zoom-in" }} onClick={() => handleImage(user.foto_user)} src={user.foto_user} width={50} height={50} />
+                    <Image alt="" style={{ cursor: "zoom-in" }} onClick={() => handleImage(user.foto_user)} src={user.foto_user} width={50} height={50} />
                   </td>
                   <td><Button onClick={() => acceptUser(user.id)} className={`${styles.accept}`}>Accept</Button></td>
                 </tr>
@@ -110,6 +109,7 @@ const UserReg = () => {
             className={`d-flex `}
           />
           <Image
+            alt=""
             src={image}
             layout="fill"
           />

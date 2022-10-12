@@ -48,7 +48,7 @@ export const DetailLayout = ({
     const ids = parseInt(id);
     const result = ids === user_id;
     setUserId(result);
-  }, [detail]);
+  }, [detail,id,user_id]);
 
   const handleShows = (breakpoint) => {
     setFullscreen(breakpoint);
@@ -101,6 +101,7 @@ export const DetailLayout = ({
           >
             <div className={userId ? styles.colorBox : styles.colorBoxs}>
               <Image
+              alt=""
                 src={image}
                 width={500}
                 height={500}
@@ -122,6 +123,7 @@ export const DetailLayout = ({
               return (
                 <div key={index} className={`${styles.imageItem}`}>
                   <Image
+                  alt=""
                     onClick={() => handleSend(item)}
                     src={item.foto_venue}
                     width={165}
@@ -134,6 +136,7 @@ export const DetailLayout = ({
             })}
             {userId ? (
               <Image
+              alt=""
                 onClick={handleShow}
                 src="/add.png"
                 width={165}
@@ -158,7 +161,7 @@ export const DetailLayout = ({
           <Modal.Title>Image</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Image src={image} layout="fill" />
+          <Image alt="" src={image} layout="fill" />
         </Modal.Body>
       </Modal>
       <ModalEdit

@@ -91,6 +91,7 @@ const Login = () => {
             <Row className={styles.container}>
                 <Row className={styles.imageBox}>
                     <Image
+                        alt=""
                         priority="true"
                         src="/heroLogin.png"
                         width={751}
@@ -106,6 +107,7 @@ const Login = () => {
                 <Col className={styles.containerForm} lg={6} xl={7}>
                     <Row className={styles.logoBox}>
                         <Image
+                            alt=""
                             src="/segoro.png"
                             width={230}
                             height={150}

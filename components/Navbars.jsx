@@ -15,12 +15,12 @@ import { useFotoContext } from "../context/fotoNavbar";
 export const Navbars = () => {
     const router = useRouter()
     const { statusNav, handleHover, handleClick } = useNavbarContext();
-    const {fotoProfile} = useFotoContext()
+    const { fotoProfile } = useFotoContext()
     const [username, setUsername] = useState("")
 
     useEffect(() => {
         setUsername(getCookie("user"))
-    }, [getCookie("foto_user")])
+    }, [])
 
     const handleLogout = (e) => {
         e.preventDefault()
@@ -51,6 +51,7 @@ export const Navbars = () => {
                 <Col md={2} className="d-none d-md-flex">
                     <a className="navbar-brand">
                         <Image
+                            alt=""
                             src="/segoroSM.png"
                             width={195}
                             height={60}
@@ -69,6 +70,7 @@ export const Navbars = () => {
                     </Col>
                     <Col md={5} className={`${styles.profileBox} d-none d-md-flex`}>
                         <Image
+                            alt=""
                             onClick={() => handleClick("profile")}
                             className={styles.profileImage}
                             src={(fotoProfile && fotoProfile) || "/profile.jpg"}

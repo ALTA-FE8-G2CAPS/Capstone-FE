@@ -54,7 +54,7 @@ const Index = () => {
                             {item.name_user}
                           </Row>
                           <Col lg={2} className="d-flex align-items-center">
-                            <Image src="/futsal.jpg" width={300} height={240} />
+                            <Image alt="" src="/futsal.jpg" width={300} height={240} />
                           </Col>
                           <Col lg={6} className="py-2">
                             <p className="fs-5 fw-bold my-2 lh-sm">

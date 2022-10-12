@@ -139,14 +139,14 @@ const Review = () => {
                 reviews?.map((obj, index) => {
                   const { name_user, foto_user, rate, feedback, foto_review } =
                     obj;
-                    if (rate > 5) {
-                      var greyStars = 0
-                    } else {
-                      var greyStars = 5-rate
-                    }
+                  if (rate > 5) {
+                    var greyStars = 0
+                  } else {
+                    var greyStars = 5 - rate
+                  }
 
-                    console.log(greyStars)
-                    
+                  console.log(greyStars)
+
                   return (
                     <Row className={styles.reviewItem} key={index}>
                       <div>
@@ -164,6 +164,7 @@ const Review = () => {
                       <div className={styles.reviewProfile}>
                         <div>
                           <Image
+                            alt=""
                             className={styles.imageProfile}
                             src={foto_user ? foto_user : "/profile.jpg"}
                             width={40}
@@ -179,6 +180,7 @@ const Review = () => {
                       </div>
                       <div className={styles.imageBox}>
                         <Image
+                          alt=""
                           className={styles.imageReview}
                           src={foto_review}
                           width={80}
