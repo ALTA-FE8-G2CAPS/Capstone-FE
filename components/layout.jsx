@@ -1,6 +1,6 @@
 import {Navbars} from "../components/Navbars"
 
-export const Layout = ({ children }) => {
+const Layout = ({ children }) => {
     return (
         <>
             <Navbars />
@@ -8,3 +8,5 @@ export const Layout = ({ children }) => {
         </>
     )
 }
+
+export default Layout
