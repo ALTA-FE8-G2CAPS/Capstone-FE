@@ -5,25 +5,25 @@ import { Table } from "react-bootstrap";
 import styles from "../../styles/BookingOwner.module.css";
 
 const Bookinglist = () => {
-  // const [userId, setUserId] = useState();
-  // const [allBooking, setAllBooking] = useState([]);
+  const [userId, setUserId] = useState();
+  const [allBooking, setAllBooking] = useState([]);
 
-  // useEffect(() => {
-  //   setUserId(getCookie("user_id"));
-  // });
+  useEffect(() => {
+    setUserId(getCookie("user_id"));
+  });
 
-  // // get all booking list
-  // const getBookingList = () => {
-  //   axios
-  //     .get(`https://grupproject.site/bookings?UserID=${userId}`)
-  //     .then((res) => {
-  //       setAllBooking(res.data.data);
-  //     });
-  // };
+  // get all booking list
+  const getBookingList = () => {
+    axios
+      .get(`https://grupproject.site/bookings?UserID=${userId}`)
+      .then((res) => {
+        setAllBooking(res.data.data);
+      });
+  };
 
-  // useEffect(() => {
-  //   getBookingList();
-  // }, []);
+  useEffect(() => {
+    getBookingList();
+  }, []);
 
   return (
     <div className={`${styles.container} container`}>
