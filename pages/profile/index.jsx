@@ -73,7 +73,7 @@ const Index = () => {
   useEffect(() => {
     getProfile()
     setStatus({ ...status, role: getCookie("role"), owner: getCookie("user_owner") })
-  }, [getProfile,status])
+  }, [status])
 
   const handleImage = () => {
     setShow(true);
@@ -239,6 +239,7 @@ const Index = () => {
               <div className={styles.imageBox}>
                 <div className={styles.colorBox} onClick={handleImage}>
                   <Image
+                    alt=""
                     src={
                       profile?.foto_user ? profile?.foto_user : "/profile.jpg"
                     }

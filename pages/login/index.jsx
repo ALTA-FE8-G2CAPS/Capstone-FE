@@ -152,7 +152,7 @@ const Login = () => {
                                 className={loading ? styles.loading : styles.loginButton}>
                                 {loading ? <ReactLoading type="spin" width={40} height={40} /> : "Login"}
                             </MDBBtn>
-                            <p className={styles.validateText}>Don't have account ?
+                            <p className={styles.validateText}>Don&apos;t have account ?
                                 <span className={styles.span} onClick={() => setTest(prev => !prev)}>Register Now</span>
                             </p>
                         </Form>
